@@ -1,6 +1,8 @@
 # backend
 REST-API.
 
+[![Build, Test](https://github.com/team3dat3/backend/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/team3dat3/backend/actions/workflows/build_and_test.yml)
+
 ## API documentation
 Find the documentation at our [wiki](https://github.com/team3dat3/backend/wiki)
 
