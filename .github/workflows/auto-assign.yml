@@ -1,7 +1,7 @@
 name: Auto Assign
 on:
   issues:
-    types: [opened]
+    types: [opened, edited]
 
 jobs:
   auto-assign:
@@ -10,5 +10,5 @@ jobs:
       - name: Auto assign
         uses: wow-actions/auto-assign@v1
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           issue-assignees: "niiicolai, mads94i5, ThomasSA-Git"
