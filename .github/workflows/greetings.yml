@@ -1,0 +1,16 @@
+name: Greetings
+
+on: [pull_request_target, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: "Hey there, it seems like you are creating your very first issue! That's great news! If you plan on whipping up some code to tackle this problem, don't forget to give it some flavor by naming the branch issue/<id> (for instance, issue/10). This will help keep everything organized and make you look like a pro! Keep up the fantastic work!"
+        pr-message: "Great job on your first pull-request! Don't forget to add a dash of awesomeness by including closes <issue-id> (for example, closes #10) in your message. This will magically close the related issue when you merge, making you look like a coding wizard! Thank you again for your contribution!"
