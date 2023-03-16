@@ -10,7 +10,7 @@ ARG JDBC_PASSWORD
 ENV JDBC_DATABASE_URL $JDBC_DATABASE_URL
 ENV JDBC_USERNAME $JDBC_USERNAME
 ENV JDBC_PASSWORD $JDBC_PASSWORD
- 
+
 # Install OpenJDK 17 slim
 RUN apt-get update && \
     apt-get install -y openjdk-17-jdk-headless && \
