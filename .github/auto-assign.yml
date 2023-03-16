@@ -21,7 +21,7 @@ assignees:
 # A number of assignees to add to the PRs
 # Set to 0 to add all of the assignees.
 # Uses numberOfReviewers if unset.
-numberOfAssignees: 1
+numberOfAssignees: 0
 
 # A list of keywords to be skipped the process if PR's title include it
 skipKeywords:
