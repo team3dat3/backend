@@ -4,6 +4,9 @@ on:
   push:
     branches-ignore:
       - main
+  pull_request:
+    branches-ignore:
+      - main
 env:
   JDBC_DATABASE_URL: ${{ secrets.JDBC_DATABASE_URL }}
   JDBC_USERNAME: ${{ secrets.JDBC_USERNAME }}
