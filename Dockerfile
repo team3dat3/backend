@@ -1,5 +1,5 @@
 # Base image
-FROM ubuntu:22.04 
+FROM ubuntu:22.04
 
 # Define arguments
 ARG JDBC_DATABASE_URL
