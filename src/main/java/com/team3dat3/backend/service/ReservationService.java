@@ -21,30 +21,38 @@ public class ReservationService {
     }
 
     public List<ReservationResponse> findAll() {
-        return reservationRepository.findAll()
+        return reservationRepository
+            .findAll()
             .stream()
             .map(r->new ReservationResponse(r))
             .collect(Collectors.toList());
     }
 
     public ReservationResponse find(int id) {
-        return new ReservationResponse(reservationRepository.findById(id)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+        Reservation reservation = reservationRepository
+            .findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return new ReservationResponse(reservation);
     }
 
     public ReservationResponse create(ReservationRequest reservationRequest) {
-        return new ReservationResponse(reservationRepository.save(reservationRequest.toReservation()));
+        Reservation reservation = reservationRepository.save(
+            reservationRequest.toReservation()
+        );
+        return new ReservationResponse(reservation);
     }
 
     public ReservationResponse update(ReservationRequest reservationRequest) {
-        Reservation reservation = reservationRepository.findById(reservationRequest.getId())
+        Reservation reservation = reservationRepository
+            .findById(reservationRequest.getId())
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         reservationRequest.copyTo(reservation);
         return new ReservationResponse(reservationRepository.save(reservation));
     }
 
     public void delete(ReservationRequest reservationRequest) {
-        Reservation reservation = reservationRepository.findById(reservationRequest.getId())
+        Reservation reservation = reservationRepository
+            .findById(reservationRequest.getId())
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         reservationRepository.delete(reservation);
     }
