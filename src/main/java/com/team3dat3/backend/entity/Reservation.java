@@ -12,4 +12,8 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    // Used to check if the user has checked in or not
+    private boolean checkedIn = false;
+
 }

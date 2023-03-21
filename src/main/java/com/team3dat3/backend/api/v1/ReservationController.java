@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import com.team3dat3.backend.dto.reservation.*;
 import com.team3dat3.backend.service.ReservationService;
 
-@RequestMapping("/reservations")
+@RequestMapping("/v1/reservations")
 @RestController
 public class ReservationController {
     
@@ -23,7 +23,7 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}")
-    public ReservationResponse find(@RequestParam int id) {
+    public ReservationResponse find(@PathVariable("id") int id) {
         return reservationService.find(id);
     }
 

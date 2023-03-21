@@ -11,7 +11,10 @@ import lombok.*;
 public class ReservationResponse {
     private int id;
 
+    private boolean checkedIn;
+
     public ReservationResponse(Reservation reservation) {
         id = reservation.getId();
+        checkedIn = reservation.isCheckedIn();
     }
 }
