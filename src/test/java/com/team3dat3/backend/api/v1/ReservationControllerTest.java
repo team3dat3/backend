@@ -9,11 +9,7 @@ package com.team3dat3.backend.api.v1;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-// Import size method
 import static org.hamcrest.Matchers.*;
-
-// Import print method
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
