@@ -51,3 +51,20 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9211AF447C2E44978A2BE4D3C734B33E }}
           package: '*.jar'
+      
+      - name: Login via Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9211AF447C2E44978A2BE4D3C734B33E }}
+    
+      - name: Set environment variables
+        run: |
+          az webapp config appsettings --settings JDBC_DATABASE_URL=${{ secrets.JDBC_DATABASE_URL }} JDBC_USERNAME=${{ secrets.JDBC_USERNAME }} JDBC_PASSWORD=${{ secrets.JDBC_PASSWORD }} TWILIO_ACCOUNT_SID=${{ secrets.TWILIO_ACCOUNT_SID }} TWILIO_AUTH_TOKEN=${{ secrets.TWILIO_AUTH_TOKEN }} TWILIO_PHONE_NUMBER=${{ secrets.TWILIO_PHONE_NUMBER }} --output json
+        env:
+          JDBC_DATABASE_URL: ${{ secrets.JDBC_DATABASE_URL }}
+          JDBC_USERNAME: ${{ secrets.JDBC_USERNAME }}
+          JDBC_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          TWILIO_PHONE_NUMBER: ${{ secrets.TWILIO_PHONE_NUMBER }}
+
