@@ -25,6 +25,6 @@ public class Movie {
   private String genre;
   private String runtime;
 
-  @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+  @OneToMany
   private List<Show> shows;
 }
