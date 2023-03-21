@@ -33,4 +33,18 @@ public class UserRequest {
                 .build();
     }
 
+    public void copyTo(User user){
+        user.setId(id);
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setAchievements(achievements);
+        user.setReservations(reservations);
+        user.setCoupons(coupons);
+    }
+
+    public User toUser(){
+        return new User(id, username, email, phoneNumber, reservations, achievements, coupons);
+    }
+
 }
