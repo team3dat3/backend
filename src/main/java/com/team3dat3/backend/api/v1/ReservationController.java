@@ -1,5 +1,11 @@
 package com.team3dat3.backend.api.v1;
 
+/*
+ * Author: Nicolai Berg Andersen
+ * Date: 2023-03-21
+ * Description: Reservation controller
+ */
+
 import java.util.List;
 
 import org.springframework.web.bind.annotation.*;

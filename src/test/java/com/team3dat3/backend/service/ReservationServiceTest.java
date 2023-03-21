@@ -1,5 +1,11 @@
 package com.team3dat3.backend.service;
 
+/*
+ * Author: Nicolai Berg Andersen
+ * Date: 2023-03-21
+ * Description: Reservation service test
+ */
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

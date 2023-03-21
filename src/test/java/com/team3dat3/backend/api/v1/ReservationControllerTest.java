@@ -1,5 +1,11 @@
 package com.team3dat3.backend.api.v1;
 
+/*
+ * Author: Nicolai Berg Andersen
+ * Date: 2023-03-21
+ * Description: Reservation controller test
+ */
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 

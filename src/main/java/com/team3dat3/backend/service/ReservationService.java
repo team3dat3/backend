@@ -1,5 +1,11 @@
 package com.team3dat3.backend.service;
 
+/*
+ * Author: Nicolai Berg Andersen
+ * Date: 2023-03-21
+ * Description: Reservation service
+ */
+
 import java.util.List;
 import java.util.stream.Collectors;
 
