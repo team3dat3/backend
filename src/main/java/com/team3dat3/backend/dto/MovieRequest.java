@@ -1,6 +1,7 @@
 package com.team3dat3.backend.dto;
 
 import com.team3dat3.backend.entity.Movie;
+import com.team3dat3.backend.entity.Reservation;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,6 +32,17 @@ return Movie.builder().title(m.getTitle())
     .build();
 
 }
+
+  public void copyTo(Movie movie) {
+    movie.setTitle(title);
+    movie.setDirector(director);
+    movie.setActors(actors);
+    movie.setProdYear(prodYear);
+    movie.setAgeLimit(ageLimit);
+    movie.setDescription(description);
+    movie.setGenre(genre);
+    movie.setRuntime(runtime);
+  }
 
   public MovieRequest(Movie m) {
     this.title = m.getTitle();

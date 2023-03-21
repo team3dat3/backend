@@ -20,6 +20,5 @@ public class Show {
   private int showId;
 
   @ManyToOne
-  @JoinColumn(name="Movie_title")
   private Movie movie;
 }

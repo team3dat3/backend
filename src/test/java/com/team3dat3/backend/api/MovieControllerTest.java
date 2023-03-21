@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DataJpaTest
@@ -70,6 +71,14 @@ class MovieControllerTest {
   }
 
   @Test
+  void getMoviesByGenre() throws Exception{
+    mockMvc.perform(get("/api/movies/genre/" + movie1.getGenre()))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$", hasSize(1)));
+  }
+
+  @Test
   void getMovieByTitle() throws Exception{
     mockMvc.perform(get("/api/movies/" + movie1.getTitle()))
         .andExpect(status().isOk())
@@ -99,7 +108,8 @@ class MovieControllerTest {
 
   @Test
   void editMovie() throws Exception{
-    Movie movie3 = Movie.builder().title("3")
+    Movie movie3 = Movie.builder()
+        .title("2")
         .director("3")
         .actors("3")
         .prodYear(1903)
@@ -114,14 +124,16 @@ class MovieControllerTest {
             .content(new ObjectMapper().writeValueAsString(movieRequest)))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.title", is(movie3.getTitle())));
+        .andExpect(jsonPath("$.title", is("2")));
   }
 
-  @Test
-  void editDescription() {
-  }
 
   @Test
-  void deleteMovieByTitle() {
+  void deleteMovieByTitle() throws Exception{
+    MovieRequest movieRequest = new MovieRequest(movie2);
+    mockMvc.perform(delete("/api/movies")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(new ObjectMapper().writeValueAsString(movieRequest)))
+        .andExpect(status().isOk());
   }
 }

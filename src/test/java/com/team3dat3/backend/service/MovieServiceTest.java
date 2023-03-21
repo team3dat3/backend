@@ -89,7 +89,7 @@ class MovieServiceTest {
         .build();
     MovieRequest movieRequest = new MovieRequest(movie4);
     movieService.addMovie(movieRequest);
-    movieService.deleteMovie("4");
+    movieService.deleteMovie(movieRequest);
     assertThrows(ResponseStatusException.class, () -> {
       movieService.findMovieByTitle("4");});
   }
@@ -119,17 +119,9 @@ class MovieServiceTest {
         .build();
 
     MovieRequest movieRequest = new MovieRequest(movieToUpdate);
-    movieService.updateMovie(movieRequest, movieToUpdate.getTitle());
+    movieService.update(movieRequest);
     MovieResponse movieResponse = movieService.findMovieByTitle("1");
     assertEquals(movieResponse.getDirector(), movieToUpdate.getDirector());
   }
 
-  @Test
-  void updateDescription() {
-    String updatedDesc = "updated";
-    movieService.updateDescription(movie2.getTitle(), updatedDesc);
-    MovieResponse movieResponse = movieService.findMovieByTitle(movie2.getTitle());
-    assertEquals(updatedDesc, movieResponse.getDescription());
-
-  }
 }
