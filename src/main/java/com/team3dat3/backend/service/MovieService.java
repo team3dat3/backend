@@ -73,7 +73,7 @@ public class MovieService {
     Optional.ofNullable(body.getTitle()).ifPresent(movieToEdit::setTitle);
     Optional.ofNullable(body.getDirector()).ifPresent(movieToEdit::setDirector);
     Optional.ofNullable(body.getActors()).ifPresent(movieToEdit::setActors);
-    Optional.ofNullable(body.getYear()).ifPresent(movieToEdit::setYear);
+    Optional.ofNullable(body.getProdYear()).ifPresent(movieToEdit::setProdYear);
     Optional.ofNullable(body.getAgeLimit()).ifPresent(movieToEdit::setAgeLimit);
     Optional.ofNullable(body.getDescription()).ifPresent(movieToEdit::setDescription);
     Optional.ofNullable(body.getGenre()).ifPresent(movieToEdit::setGenre);

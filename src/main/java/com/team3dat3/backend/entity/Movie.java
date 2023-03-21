@@ -1,8 +1,6 @@
 package com.team3dat3.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -19,12 +17,12 @@ public class Movie {
   private String title;
   private String director;
   private String actors;
-  private int year;
+  private int prodYear;
   private int ageLimit;
   private String description;
   private String genre;
   private String runtime;
 
-  @OneToMany
+  @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
   private List<Show> shows;
 }
