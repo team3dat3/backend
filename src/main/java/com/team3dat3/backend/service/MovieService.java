@@ -68,6 +68,8 @@ public class MovieService {
   public ResponseEntity<Boolean> updateMovie(MovieRequest body, String title){
     Movie movieToEdit = movieRepository.findById(title)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Movie with this title isn't shown in this cinema"));
+
+    //Only sets new attributes that are added to the requestBody to the movie
     Optional.ofNullable(body.getTitle()).ifPresent(movieToEdit::setTitle);
     Optional.ofNullable(body.getDirector()).ifPresent(movieToEdit::setDirector);
     Optional.ofNullable(body.getActors()).ifPresent(movieToEdit::setActors);
@@ -76,7 +78,9 @@ public class MovieService {
     Optional.ofNullable(body.getDescription()).ifPresent(movieToEdit::setDescription);
     Optional.ofNullable(body.getGenre()).ifPresent(movieToEdit::setGenre);
     Optional.ofNullable(body.getRuntime()).ifPresent(movieToEdit::setRuntime);
+
     movieRepository.save(movieToEdit);
+
     return ResponseEntity.ok(true);
   }
 
