@@ -55,7 +55,7 @@ jobs:
       - name: Login via Azure CLI
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9211AF447C2E44978A2BE4D3C734B33E }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
     
       - name: Set environment variables
         run: |
