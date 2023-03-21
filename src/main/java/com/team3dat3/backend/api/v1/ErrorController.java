@@ -1,7 +1,12 @@
 package com.team3dat3.backend.api.v1;
 
+/*
+ * Author: Nicolai Berg Andersen
+ * Date: 2023-03-21
+ * Description: Reservation response
+ */
+
 import org.apache.http.HttpStatus;
-//import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
