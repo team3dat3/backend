@@ -22,9 +22,11 @@ public class User {
     @Column(name = "phoneNumber", length = 50, nullable = false)
     private String phoneNumber;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Reservation> reservationList;
+    private List<Reservation> reservations;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Achievement> achievementList;
+    private List<Achievement> achievements;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Achievement> couponList;
+    private List<Coupon> coupons;
 }

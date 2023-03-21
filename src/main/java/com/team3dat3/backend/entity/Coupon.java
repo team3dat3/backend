@@ -5,8 +5,8 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Setter
+@Builder
 @Getter
 @Entity
 public class Coupon {
@@ -17,4 +17,6 @@ public class Coupon {
     private String name;
     @Column(name = "discount", length = 50, nullable = false)
     private double discount;
+    @ManyToOne
+    private User user;
 }
