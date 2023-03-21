@@ -29,7 +29,6 @@ public class ShortMessageRepositoryTest {
     private ShortMessage shortMessageCreatedToday;
     private ShortMessage shortMessageCreatedYesterday;
 
-    private LocalDateTime now = LocalDateTime.now();
     private LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
 
     @BeforeEach

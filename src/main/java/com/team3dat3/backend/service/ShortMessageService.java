@@ -1,13 +1,13 @@
 package com.team3dat3.backend.service;
 
-import com.team3dat3.backend.dto.shortMessage.ShortMessageRequest;
-import com.team3dat3.backend.repository.ShortMessageRepository;
-
 /*
  * Author: Nicolai Berg Andersen
  * Date: 2023-03-21
  * Description: Short message service
  */
+
+import com.team3dat3.backend.dto.shortMessage.ShortMessageRequest;
+import com.team3dat3.backend.repository.ShortMessageRepository;
 
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
