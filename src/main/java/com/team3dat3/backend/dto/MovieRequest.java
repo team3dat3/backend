@@ -24,7 +24,18 @@ public class MovieRequest {
   private String genre;
   private String runtime;
 
+public static Movie getMovieEntity(MovieRequest m){
+return Movie.builder().title(m.getTitle())
+    .director(m.getDirector())
+    .actors(m.getActors())
+    .year(m.getYear())
+    .ageLimit(m.getAgeLimit())
+    .description(m.getDescription())
+    .genre(m.getGenre())
+    .runtime(m.getRuntime())
+    .build();
 
+}
 
   public MovieRequest(Movie m) {
     this.title = m.getTitle();
