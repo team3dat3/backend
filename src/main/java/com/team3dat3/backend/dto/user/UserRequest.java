@@ -47,4 +47,9 @@ public class UserRequest {
         return new User(id, username, email, phoneNumber, reservations, achievements, coupons);
     }
 
+    public UserRequest(String username, String email, String phoneNumber){
+        this.username = username;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
 }
