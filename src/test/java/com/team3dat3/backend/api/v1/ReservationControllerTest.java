@@ -55,7 +55,6 @@ public class ReservationControllerTest {
     @Test
     void testFindAll() throws Exception {
         mockMvc.perform(get("/v1/reservations"))
-            .andDo(print())
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$", hasSize(2)));
