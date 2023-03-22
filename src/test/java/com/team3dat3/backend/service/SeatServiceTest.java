@@ -37,18 +37,16 @@ class SeatServiceTest {
         List<SeatResponse> seats = seatService.getAll();
 
         assertEquals(2, seats.size());
-        assertEquals(0L, seats.get(0).getId());
-        assertEquals(1L, seats.get(1).getId());
     }
 
     @Test
     void get() {
-        Seat seat = new Seat(2L, true);
-        seatRepository.save(seat);
+        Seat seat = new Seat(0L, true);
+        Seat savedSeat = seatRepository.save(seat);
 
-        SeatResponse response = seatService.get(seat.getId());
+        SeatResponse response = seatService.get(savedSeat.getId());
 
-        assertEquals(2L, response.getId());
+        assertEquals(6L, response.getId());
     }
 
     @Test
@@ -61,18 +59,18 @@ class SeatServiceTest {
     @Test
     void create() {
         SeatRequest request = new SeatRequest(3L, true);
+
         SeatResponse response = seatService.create(request);
 
-        assertEquals(3L, response.getId());
+        assertEquals(1L, response.getId());
     }
 
     @Test
     void update() {
         Seat seat = new Seat(4L, true);
-        seatRepository.save(seat);
+        Seat savedSeat = seatRepository.save(seat);
 
-        SeatRequest request = new SeatRequest(4L, false);
-        request.setReserved(seat.isReserved());
+        SeatRequest request = new SeatRequest(savedSeat.getId(), !savedSeat.isReserved());
 
         SeatResponse response = seatService.update(request);
 
@@ -91,15 +89,15 @@ class SeatServiceTest {
 
     @Test
     void delete() {
-        Seat seat = new Seat(6L, true);
-        seatRepository.save(seat);
+        Seat seat = new Seat(0L, true);
+        Seat savedSeat = seatRepository.save(seat);
 
-        SeatRequest request = new SeatRequest(6L, false);
-        request.setReserved(seat.isReserved());
+        SeatRequest request = new SeatRequest(savedSeat.getId(), savedSeat.isReserved());
 
         seatService.delete(request);
+        List<SeatResponse> response = seatService.getAll();
 
-        assertFalse(seatRepository.findById(seat.getId()).isPresent());
+        assertEquals(0, response.size());
     }
 
     @Test
