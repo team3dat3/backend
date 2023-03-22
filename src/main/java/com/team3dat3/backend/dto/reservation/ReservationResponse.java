@@ -8,6 +8,7 @@ package com.team3dat3.backend.dto.reservation;
 
 import com.team3dat3.backend.entity.Reservation;
 
+import com.team3dat3.backend.entity.Show;
 import lombok.*;
 
 @NoArgsConstructor
@@ -19,8 +20,11 @@ public class ReservationResponse {
 
     private boolean checkedIn;
 
+    private Show show;
+
     public ReservationResponse(Reservation reservation) {
         id = reservation.getId();
         checkedIn = reservation.isCheckedIn();
+        show = reservation.getShow();
     }
 }
