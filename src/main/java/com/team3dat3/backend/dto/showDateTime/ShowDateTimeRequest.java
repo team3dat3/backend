@@ -17,17 +17,20 @@ import java.util.List;
 @Setter
 public class ShowDateTimeRequest {
 
+  private int dateId;
   private DateTime showDate;
 
   private Show show;
 
   public void copyTo(ShowDateTime showDateTime) {
+    showDateTime.setDateId(dateId);
     showDateTime.setShowDate(showDate);
     showDateTime.setShow(show);
   }
 
   public static ShowDateTime getShowDateTimeEntity(ShowDateTimeRequest request) {
     return ShowDateTime.builder()
+        .dateId(request.getDateId())
         .showDate(request.getShowDate())
         .show(request.getShow())
         .build();

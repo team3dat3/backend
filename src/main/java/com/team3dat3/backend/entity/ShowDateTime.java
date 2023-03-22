@@ -1,8 +1,6 @@
 package com.team3dat3.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import org.joda.time.DateTime;
 
@@ -15,6 +13,9 @@ import org.joda.time.DateTime;
 public class ShowDateTime {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int dateId;
+
   private DateTime showDate;
 
   @ManyToOne

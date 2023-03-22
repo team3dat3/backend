@@ -16,11 +16,13 @@ import org.joda.time.DateTime;
 @Setter
 public class ShowDateTimeResponse {
 
+  private int dateId;
   private DateTime showDate;
 
   private Show show;
 
   public ShowDateTimeResponse(ShowDateTime showDateTime) {
+    this.dateId = showDateTime.getDateId();
     this.showDate = showDateTime.getShowDate();
     this.show = showDateTime.getShow();
 

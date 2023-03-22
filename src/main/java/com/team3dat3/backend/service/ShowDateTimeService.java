@@ -29,8 +29,8 @@ public class ShowDateTimeService {
   }
 
 
-  public ShowDateTimeResponse find(DateTime datetime) {
-    ShowDateTime foundShowDateTime = showDateTimeRepository.findById(datetime)
+  public ShowDateTimeResponse find(int dateId) {
+    ShowDateTime foundShowDateTime = showDateTimeRepository.findById(dateId)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Show date with this id unknown"));
     return new ShowDateTimeResponse(foundShowDateTime);
   }
@@ -42,14 +42,14 @@ public class ShowDateTimeService {
   }
 
   public ShowDateTimeResponse update(ShowDateTimeRequest request) {
-    ShowDateTime foundShowDate = showDateTimeRepository.findById(request.getShowDate())
+    ShowDateTime foundShowDate = showDateTimeRepository.findById(request.getDateId())
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Show date with this id unknown"));
     request.copyTo(foundShowDate);
     return new ShowDateTimeResponse(showDateTimeRepository.save(foundShowDate));
   }
 
   public void delete(ShowDateTimeRequest request) {
-    ShowDateTime showDateTime = showDateTimeRepository.findById(request.getShowDate())
+    ShowDateTime showDateTime = showDateTimeRepository.findById(request.getDateId())
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     showDateTimeRepository.delete(showDateTime);
   }
