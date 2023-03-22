@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -19,4 +21,10 @@ public class Show {
 
   @ManyToOne
   private Movie movie;
+
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "show", fetch = FetchType.LAZY)
+  private List<Reservation> reservations;
+
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "show", fetch = FetchType.LAZY)
+  private List<ShowDateTime> showDates;
 }

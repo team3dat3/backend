@@ -1,4 +1,4 @@
-package com.team3dat3.backend.dto;
+package com.team3dat3.backend.dto.movie;
 
 import com.team3dat3.backend.entity.Movie;
 import com.team3dat3.backend.entity.Show;

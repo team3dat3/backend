@@ -1,7 +1,7 @@
 package com.team3dat3.backend.service;
 
-import com.team3dat3.backend.dto.MovieRequest;
-import com.team3dat3.backend.dto.MovieResponse;
+import com.team3dat3.backend.dto.movie.MovieRequest;
+import com.team3dat3.backend.dto.movie.MovieResponse;
 import com.team3dat3.backend.entity.Movie;
 import com.team3dat3.backend.repository.MovieRepository;
 import org.springframework.http.HttpStatus;
