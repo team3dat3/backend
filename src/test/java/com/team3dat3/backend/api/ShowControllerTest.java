@@ -54,6 +54,7 @@ class ShowControllerTest {
 
     showRepository.save(show1);
     showRepository.save(show2);
+    showRepository.flush();
   }
   @Test
   void getShows() throws Exception{
@@ -86,16 +87,22 @@ class ShowControllerTest {
 
   @Test
   void update() throws Exception{
+    Show show3 = Show.builder()
+        .price(100)
+        .build();
+
+    showRepository.save(show3);
     ShowRequest show4 = ShowRequest.builder()
-        .showId(2)
+        .showId(show3.getShowId())
         .price(20)
         .build();
+
     mockMvc.perform(patch("/api/shows")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(show4)))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.showId", is(2)))
+        .andExpect(jsonPath("$.showId", is(show3.getShowId())))
         .andExpect(jsonPath("$.price", is(20.0)));
   }
 
