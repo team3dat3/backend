@@ -1,8 +1,7 @@
 package com.team3dat3.backend.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.team3dat3.backend.dto.MovieRequest;
-import com.team3dat3.backend.dto.reservation.ReservationRequest;
+import com.team3dat3.backend.dto.movie.MovieRequest;
 import com.team3dat3.backend.entity.Movie;
 import com.team3dat3.backend.repository.MovieRepository;
 import com.team3dat3.backend.service.MovieService;
@@ -16,7 +15,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DataJpaTest
