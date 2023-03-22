@@ -22,4 +22,7 @@ public class Reservation {
     // Used to check if the user has checked in or not
     private boolean checkedIn = false;
 
+    @ManyToOne
+    private Show show;
+
 }
