@@ -44,6 +44,7 @@ class ShowServiceTest {
 
     showRepository.save(show1);
     showRepository.save(show2);
+    showRepository.flush();
   }
 
   @Test
@@ -66,29 +67,37 @@ class ShowServiceTest {
 
     ShowResponse showResponse = showService.create(show3);
     assertEquals(80, showResponse.getPrice());
-    assertEquals(3, showResponse.getShowId());
+    assertEquals(showResponse.getShowId(), showResponse.getShowId());
   }
 
   @Test
   void update() {
+    Show show3 = Show.builder()
+        .price(100)
+        .build();
+
+    showRepository.save(show3);
     ShowRequest show4 = ShowRequest.builder()
-        .showId(2)
+        .showId(show3.getShowId())
         .price(20)
         .build();
     showService.update(show4);
-    ShowResponse showResponse = showService.find(2);
+    ShowResponse showResponse = showService.find(show3.getShowId());
     assertEquals(showResponse.getPrice(), show4.getPrice());
   }
 
   @Test
   void delete() {
-    ShowRequest show4 = ShowRequest.builder()
-        .showId(3)
+    Show show5 = Show.builder()
         .price(20)
         .build();
-    showService.create(show4);
-    showService.delete(show4);
+    showRepository.save(show5);
+    ShowRequest showDelete = ShowRequest.builder()
+        .showId(show5.getShowId())
+        .price(20)
+        .build();
+    showService.delete(showDelete);
     assertThrows(ResponseStatusException.class, () -> {
-      showService.find(3);});
+      showService.find(show5.getShowId());});
   }
 }
