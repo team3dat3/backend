@@ -24,11 +24,18 @@ public class ShowRequest {
   private List<Reservation> reservations;
 
   private List<ShowDateTime> showDates;
+
+  private double price;
+
+  //private Theater theater;
+
   public void copyTo(Show show) {
     show.setShowId(showId);
     show.setMovie(movie);
     show.setReservations(reservations);
     show.setShowDates(showDates);
+    show.setPrice(price);
+    //show.setTheater(theater);
   }
 
   public static Show getShowEntity(ShowRequest request) {
@@ -37,6 +44,8 @@ public class ShowRequest {
         .movie(request.getMovie())
         .reservations(request.getReservations())
         .showDates(request.getShowDates())
+        .price(request.getPrice())
+        //.theater(request.getTheater())
         .build();
   }
 }

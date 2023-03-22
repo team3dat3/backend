@@ -25,4 +25,9 @@ public class Show {
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "show", fetch = FetchType.LAZY)
   private List<ShowDateTime> showDates;
+
+  private double price;
+
+  //@Many to one
+  //private Theater theater;
 }

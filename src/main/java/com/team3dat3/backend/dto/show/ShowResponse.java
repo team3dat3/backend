@@ -25,10 +25,16 @@ public class ShowResponse {
 
   private List<ShowDateTime> showDates;
 
+  private double price;
+
+  //private Theater theater;
+
   public ShowResponse(Show show) {
     this.showId = show.getShowId();
     this.movie = show.getMovie();
     this.reservations = show.getReservations();
     this.showDates = show.getShowDates();
+    this.price = show.getPrice();
+    //this.theater = show.getTheater();
   }
 }
