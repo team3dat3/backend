@@ -1,10 +1,7 @@
 package com.team3dat3.backend.dto.theater;
 
 import com.team3dat3.backend.entity.Seat;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /*
  * Author: Mads Kristian Pedersen
@@ -13,8 +10,7 @@ import lombok.Setter;
  */
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Getter @Setter
 public class SeatResponse {
     private Long id;
     private boolean isReserved;
