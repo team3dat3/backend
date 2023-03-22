@@ -30,7 +30,7 @@ public class ShowController {
   ShowResponse update(@RequestBody ShowRequest body){return showService.update(body);}
 
   @DeleteMapping()
-  void delete(@RequestBody ShowRequest body) {
+  void deleteShow(@RequestBody ShowRequest body) {
     showService.delete(body);
   }
 }
