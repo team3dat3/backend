@@ -1,5 +1,6 @@
 package com.team3dat3.backend.dto.showDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.team3dat3.backend.entity.Show;
 import com.team3dat3.backend.entity.ShowDateTime;
 import jakarta.persistence.Id;
@@ -10,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.joda.time.DateTime;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -17,7 +20,8 @@ import org.joda.time.DateTime;
 public class ShowDateTimeResponse {
 
   private int dateId;
-  private DateTime showDate;
+  @JsonFormat(pattern = "dd-mm-yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
+  private LocalDateTime showDate;
 
   private Show show;
 

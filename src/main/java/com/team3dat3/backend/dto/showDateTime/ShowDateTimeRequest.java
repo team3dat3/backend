@@ -1,24 +1,26 @@
 package com.team3dat3.backend.dto.showDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.team3dat3.backend.dto.show.ShowRequest;
 import com.team3dat3.backend.entity.Show;
 import com.team3dat3.backend.entity.ShowDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.joda.time.DateTime;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class ShowDateTimeRequest {
 
   private int dateId;
-  private DateTime showDate;
+
+  @JsonFormat(pattern = "dd-mm-yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
+  private LocalDateTime showDate;
 
   private Show show;
 

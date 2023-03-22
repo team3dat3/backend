@@ -1,8 +1,12 @@
 package com.team3dat3.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import org.joda.time.DateTime;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -16,7 +20,7 @@ public class ShowDateTime {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int dateId;
 
-  private DateTime showDate;
+  private LocalDateTime showDate;
 
   @ManyToOne
   private Show show;
