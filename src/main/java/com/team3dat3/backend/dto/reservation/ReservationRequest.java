@@ -17,7 +17,6 @@ import lombok.*;
 @Setter
 public class ReservationRequest {
     private int id;
-
     private boolean checkedIn;
 
     private Show show;
