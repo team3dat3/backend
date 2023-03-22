@@ -3,7 +3,6 @@ package com.team3dat3.backend.api;
 import com.team3dat3.backend.dto.movie.MovieRequest;
 import com.team3dat3.backend.dto.movie.MovieResponse;
 import com.team3dat3.backend.service.MovieService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
