@@ -1,8 +1,12 @@
 package com.team3dat3.backend.dto.theater;
 
+import com.team3dat3.backend.entity.Reservation;
 import com.team3dat3.backend.entity.Seat;
 import com.team3dat3.backend.entity.SeatRow;
 import lombok.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /*
  * Author: Mads Kristian Pedersen
@@ -14,12 +18,19 @@ import lombok.*;
 @Getter @Setter
 public class SeatRequest {
     private Long id;
-    private boolean isReserved;
+    private List<Integer> reservationIds;
     private Long seatRowId;
 
     public void copy(Seat seat) {
         seat.setId(id);
-        seat.setReserved(isReserved);
+        if (reservationIds != null) {
+            List<Reservation> reservationList = reservationIds.stream().map(reservationId -> {
+                Reservation reservation = new Reservation();
+                reservation.setId(reservationId);
+                return reservation;
+            }).collect(Collectors.toList());
+            seat.setReservations(reservationList);
+        }
         if (seatRowId != null) {
             SeatRow seatRow = new SeatRow();
             seatRow.setId(seatRowId);
@@ -28,7 +39,15 @@ public class SeatRequest {
     }
 
     public Seat toSeat() {
-        Seat seat = new Seat(id, isReserved, null); 
+        Seat seat = new Seat(id, null, null);
+        if (reservationIds != null) {
+            List<Reservation> reservationList = reservationIds.stream().map(reservationId -> {
+                Reservation reservation = new Reservation();
+                reservation.setId(reservationId);
+                return reservation;
+            }).collect(Collectors.toList());
+            seat.setReservations(reservationList);
+        }
         if (seatRowId != null) {
             SeatRow seatRow = new SeatRow();
             seatRow.setId(seatRowId);
