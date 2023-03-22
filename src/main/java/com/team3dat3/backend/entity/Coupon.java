@@ -19,4 +19,12 @@ public class Coupon {
     private double discount;
     @ManyToOne
     private User user;
+    @Column(name = "cost", length = 50, nullable = false)
+    private double cost;
+
+    public Coupon(String name, double discount, double cost){
+        this.name = name;
+        this.discount = discount;
+        this.cost = cost;
+    }
 }
