@@ -1,9 +1,6 @@
 package com.team3dat3.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,4 +16,7 @@ public class Show {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int showId;
+
+  @ManyToOne
+  private Movie movie;
 }

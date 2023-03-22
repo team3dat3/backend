@@ -16,7 +16,7 @@ public class MovieResponse {
   private String title;
   private String director;
   private String actors;
-  private int year;
+  private int prodYear;
   private int ageLimit;
   private String description;
   private String genre;
@@ -27,7 +27,7 @@ public class MovieResponse {
     this.title = m.getTitle();
     this.director = m.getDirector();
     this.actors = m.getActors();
-    this.year = m.getYear();
+    this.prodYear = m.getProdYear();
     this.ageLimit = m.getAgeLimit();
     this.description = m.getDescription();
     this.genre = m.getGenre();

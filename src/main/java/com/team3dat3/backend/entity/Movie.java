@@ -17,12 +17,12 @@ public class Movie {
   private String title;
   private String director;
   private String actors;
-  private int year;
+  private int prodYear;
   private int ageLimit;
   private String description;
   private String genre;
   private String runtime;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", fetch = FetchType.LAZY)
   private List<Show> shows;
 }
