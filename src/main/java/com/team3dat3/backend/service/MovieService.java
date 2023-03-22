@@ -1,7 +1,7 @@
 package com.team3dat3.backend.service;
 
-import com.team3dat3.backend.dto.movie.MovieRequest;
-import com.team3dat3.backend.dto.movie.MovieResponse;
+import com.team3dat3.backend.dto.MovieRequest;
+import com.team3dat3.backend.dto.MovieResponse;
 import com.team3dat3.backend.entity.Movie;
 import com.team3dat3.backend.repository.MovieRepository;
 import org.springframework.http.HttpStatus;
@@ -40,11 +40,10 @@ public class MovieService {
     return new MovieResponse(newMovie);
   }
 
-  public ResponseEntity<Boolean> deleteMovie(String title){
-    Movie movieToDelete = movieRepository.findById(title).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Movie with this title isn't shown in this cinema"));
+  public void deleteMovie(MovieRequest movieRequest){
+    Movie movieToDelete = movieRepository.findById(movieRequest.getTitle()).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Movie with this title isn't shown in this cinema"));
     try{
       movieRepository.delete(movieToDelete);
-      return ResponseEntity.ok(true);
     }
     catch (Exception e){
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not delete movie. It might be booked in a future show.");
@@ -65,31 +64,11 @@ public class MovieService {
     return moviesByGenreList;
   }
 
-  public ResponseEntity<Boolean> updateMovie(MovieRequest body, String title){
-    Movie movieToEdit = movieRepository.findById(title)
+  public MovieResponse update(MovieRequest movieRequest){
+    Movie movieToEdit = movieRepository.findById(movieRequest.getTitle())
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Movie with this title isn't shown in this cinema"));
-
-    //Only sets new attributes that are added to the requestBody to the movie
-    Optional.ofNullable(body.getTitle()).ifPresent(movieToEdit::setTitle);
-    Optional.ofNullable(body.getDirector()).ifPresent(movieToEdit::setDirector);
-    Optional.ofNullable(body.getActors()).ifPresent(movieToEdit::setActors);
-    Optional.ofNullable(body.getProdYear()).ifPresent(movieToEdit::setProdYear);
-    Optional.ofNullable(body.getAgeLimit()).ifPresent(movieToEdit::setAgeLimit);
-    Optional.ofNullable(body.getDescription()).ifPresent(movieToEdit::setDescription);
-    Optional.ofNullable(body.getGenre()).ifPresent(movieToEdit::setGenre);
-    Optional.ofNullable(body.getRuntime()).ifPresent(movieToEdit::setRuntime);
-
-    movieRepository.save(movieToEdit);
-
-    return ResponseEntity.ok(true);
-  }
-
-  public ResponseEntity<Boolean> updateDescription(String title, String newDescription){
-    Movie movieToUpdate = movieRepository.findById(title)
-        .orElseThrow(() -> new  ResponseStatusException(HttpStatus.NOT_FOUND, "Movie with this title isn't shown in this cinema"));
-    movieToUpdate.setDescription(newDescription);
-    movieRepository.save(movieToUpdate);
-    return ResponseEntity.ok(true);
+movieRequest.copyTo(movieToEdit);
+    return new MovieResponse(movieRepository.save(movieToEdit));
   }
 
 

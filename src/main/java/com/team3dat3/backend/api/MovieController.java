@@ -21,20 +21,20 @@ public class MovieController {
   @GetMapping
   List<MovieResponse> getMovies(){return movieService.getMovies();}
 
+  @GetMapping("genre/{genre}")
+  List<MovieResponse> getMoviesByGenre(@PathVariable String genre){return movieService.moviesByGenre(genre);}
+
   @GetMapping("/{title}")
   MovieResponse getMovieByTitle(@PathVariable String title){return movieService.findMovieByTitle(title);}
 
   @PostMapping()
   MovieResponse addMovie(@RequestBody MovieRequest body){return movieService.addMovie(body);}
 
-  @PutMapping("/{title}")
-  ResponseEntity<Boolean> editMovie(@RequestBody MovieRequest body, String title){return movieService.updateMovie(body, title);}
+  @PatchMapping()
+  MovieResponse editMovie(@RequestBody MovieRequest body){return movieService.update(body);}
 
-  @PatchMapping("/")
-  ResponseEntity<Boolean> editDescription(@PathVariable String description, @PathVariable String title){return movieService.updateDescription(title, description);}
-
-  @DeleteMapping("/{id}")
-  ResponseEntity<Boolean> deleteMovieByTitle(@PathVariable String title) {
-    return movieService.deleteMovie(title);
+  @DeleteMapping()
+  void delete(@RequestBody MovieRequest body) {
+    movieService.deleteMovie(body);
   }
 }
