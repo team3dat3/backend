@@ -22,7 +22,7 @@ public class ShowDateTimeController {
   List<ShowDateTimeResponse> getShowsDates(){return showDateTimeService.findAll();}
 
   @GetMapping("/{id}")
-  ShowDateTimeResponse getShowDatesById(@PathVariable int dateId){return showDateTimeService.find(dateId);}
+  ShowDateTimeResponse getShowDatesById(@PathVariable int id){return showDateTimeService.find(id);}
 
   @PostMapping()
   ShowDateTimeResponse create(@RequestBody ShowDateTimeRequest body){return showDateTimeService.create(body);}

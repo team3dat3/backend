@@ -1,19 +1,14 @@
 package com.team3dat3.backend.service;
 
 
-import com.team3dat3.backend.dto.show.ShowRequest;
-import com.team3dat3.backend.dto.show.ShowResponse;
 import com.team3dat3.backend.dto.showDateTime.ShowDateTimeRequest;
 import com.team3dat3.backend.dto.showDateTime.ShowDateTimeResponse;
-import com.team3dat3.backend.entity.Show;
 import com.team3dat3.backend.entity.ShowDateTime;
 import com.team3dat3.backend.repository.ShowDateTimeRepository;
-import org.joda.time.DateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
