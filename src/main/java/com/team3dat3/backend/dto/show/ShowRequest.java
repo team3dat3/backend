@@ -1,14 +1,15 @@
 package com.team3dat3.backend.dto.show;
 
-import com.team3dat3.backend.entity.Movie;
-import com.team3dat3.backend.entity.Reservation;
-import com.team3dat3.backend.entity.Show;
-import com.team3dat3.backend.entity.ShowDateTime;
+import com.team3dat3.backend.entity.*;
 import lombok.*;
 
 import java.util.List;
 
-
+/*
+ * Author: Thomas S. Andersen
+ * Date: 22/03/2023
+ * Description: ShowRequest
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -27,7 +28,7 @@ public class ShowRequest {
 
   private double price;
 
-  //private Theater theater;
+  private Theater theater;
 
   public void copyTo(Show show) {
     show.setShowId(showId);
@@ -35,7 +36,7 @@ public class ShowRequest {
     show.setReservations(reservations);
     show.setShowDates(showDates);
     show.setPrice(price);
-    //show.setTheater(theater);
+    show.setTheater(theater);
   }
 
   public static Show getShowEntity(ShowRequest request) {
@@ -45,7 +46,7 @@ public class ShowRequest {
         .reservations(request.getReservations())
         .showDates(request.getShowDates())
         .price(request.getPrice())
-        //.theater(request.getTheater())
+        .theater(request.getTheater())
         .build();
   }
 }

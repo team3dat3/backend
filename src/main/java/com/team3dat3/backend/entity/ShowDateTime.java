@@ -1,15 +1,28 @@
 package com.team3dat3.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import org.joda.time.DateTime;
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.LocalDateTime;
+
+/*
+ * Author: Thomas S. Andersen
+ * Date: 22/03/2023
+ * Description: ShowDateTime entity
+ */
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ShowDateTime {
 
   @Id
-  private DateTime showDate;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int dateId;
+
+  private LocalDateTime showDate;
 
   @ManyToOne
   private Show show;

@@ -7,6 +7,12 @@ import lombok.Setter;
 
 import java.util.List;
 
+/*
+ * Author: Thomas S. Andersen
+ * Date: 21/03/2023
+ * Description: MovieRequest
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor
