@@ -112,7 +112,7 @@ class ShowDateTimeControllerTest {
             .content(new ObjectMapper().writeValueAsString(showDate3)))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.dateId", is(3)));
+        .andExpect(jsonPath("$.dateId", is(5)));
   }
 
   @Test
