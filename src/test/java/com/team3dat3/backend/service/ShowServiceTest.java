@@ -67,7 +67,6 @@ class ShowServiceTest {
 
     ShowResponse showResponse = showService.create(show3);
     assertEquals(80, showResponse.getPrice());
-    assertEquals(showResponse.getShowId(), showResponse.getShowId());
   }
 
   @Test
