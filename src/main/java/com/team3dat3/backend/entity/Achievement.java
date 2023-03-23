@@ -15,6 +15,10 @@ public class Achievement {
     private int id;
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-    @Column(name = "unlocked", nullable = false)
+    @Column(name = "name")
+    private String name;
+    @Column(name = "description")
+    private String description;
+    @Column(name = "unlocked")
     private boolean unlocked = false;
 }
