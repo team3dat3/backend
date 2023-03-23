@@ -56,11 +56,11 @@ class TheaterServiceTest {
 
         assertEquals(theater1.getId(), theaterResponse.getId());
     }
-/* commented for show to be added
+
     @Test
     void create() {
         TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(),
-                List.of(theater2.getSeatRows().stream().map(SeatRow::getId).toArray(Long[]::new)));
+                theater2.getSeatRows(), theater2.getShows());
 
         TheaterResponse theaterResponse = theaterService.create(theaterRequest);
 
@@ -70,7 +70,7 @@ class TheaterServiceTest {
     @Test
     void update() {
         TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(),
-                List.of(theater2.getSeatRows().stream().map(SeatRow::getId).toArray(Long[]::new)));
+                theater2.getSeatRows(), theater2.getShows());
 
         TheaterResponse theaterResponse = theaterService.update(theaterRequest);
 
@@ -79,11 +79,11 @@ class TheaterServiceTest {
 
     @Test
     void delete() {
-        TheaterRequest theaterRequest = new TheaterRequest(theater1.getId(),
-                List.of(theater1.getSeatRows().stream().map(SeatRow::getId).toArray(Long[]::new)));
+        TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(),
+                theater2.getSeatRows(), theater2.getShows());
 
         theaterService.delete(theaterRequest);
 
         assertEquals(1, theaterRepository.findAll().size());
-    }*/
+    }
 }
