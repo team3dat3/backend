@@ -71,7 +71,7 @@ class ShowControllerTest {
     mockMvc.perform(get("/api/shows/" + show1.getId()))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.showId", is(Matchers.not(0))));
+        .andExpect(jsonPath("$.id", is(Matchers.not(0))));
   }
 
   @Test
@@ -84,7 +84,7 @@ class ShowControllerTest {
             .content(new ObjectMapper().writeValueAsString(show3)))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.showId", is(Matchers.not(0))));
+        .andExpect(jsonPath("$.id", is(Matchers.not(0))));
   }
 
   @Test
@@ -104,7 +104,7 @@ class ShowControllerTest {
             .content(new ObjectMapper().writeValueAsString(show4)))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.showId", is(show3.getId())))
+        .andExpect(jsonPath("$.id", is(show3.getId())))
         .andExpect(jsonPath("$.price", is(20.0)));
   }
 
