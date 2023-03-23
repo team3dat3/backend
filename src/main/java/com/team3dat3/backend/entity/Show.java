@@ -5,6 +5,12 @@ import lombok.*;
 
 import java.util.List;
 
+/*
+ * Author: Thomas S. Andersen
+ * Date: 23/03/2023
+ * Description: Show entity
+ */
+
 @Entity
 @Getter
 @Setter

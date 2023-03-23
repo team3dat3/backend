@@ -1,13 +1,10 @@
 package com.team3dat3.backend.service;
 
-import com.team3dat3.backend.dto.movie.MovieRequest;
-import com.team3dat3.backend.dto.movie.MovieResponse;
+
 import com.team3dat3.backend.dto.show.ShowRequest;
 import com.team3dat3.backend.dto.show.ShowResponse;
-import com.team3dat3.backend.entity.Movie;
 import com.team3dat3.backend.entity.Show;
 import com.team3dat3.backend.repository.ShowRepository;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +14,12 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+/*
+ * Author: Thomas S. Andersen
+ * Date: 22/03/2023
+ * Description: ShowServiceTest
+ */
 
 @DataJpaTest
 class ShowServiceTest {

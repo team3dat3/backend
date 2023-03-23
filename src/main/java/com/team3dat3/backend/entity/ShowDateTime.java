@@ -1,12 +1,14 @@
 package com.team3dat3.backend.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
-import org.joda.time.DateTime;
-import org.springframework.cglib.core.Local;
-
 import java.time.LocalDateTime;
+
+/*
+ * Author: Thomas S. Andersen
+ * Date: 22/03/2023
+ * Description: ShowDateTime entity
+ */
 
 @Entity
 @Getter

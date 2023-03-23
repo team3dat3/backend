@@ -5,6 +5,12 @@ import lombok.*;
 
 import java.util.List;
 
+/*
+ * Author: Thomas S. Andersen
+ * Date: 21/03/2023
+ * Description: Movie entity
+ */
+
 @Getter
 @Setter
 @AllArgsConstructor

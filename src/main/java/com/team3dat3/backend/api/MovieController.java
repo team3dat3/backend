@@ -7,6 +7,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/*
+ * Author: Thomas S. Andersen
+ * Date: 21/03/2023
+ * Description: MovieController
+ */
+
 @RestController
 @RequestMapping("/api/movies")
 public class MovieController {

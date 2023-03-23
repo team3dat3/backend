@@ -8,6 +8,12 @@ import org.joda.time.DateTime;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+/*
+ * Author: Thomas S. Andersen
+ * Date: 22/03/2023
+ * Description: ShowDateTimeController
+ */
+
 @RestController
 @RequestMapping("/api/showdates")
 public class ShowDateTimeController {

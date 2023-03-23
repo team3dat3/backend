@@ -25,6 +25,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/*
+ * Author: Thomas S. Andersen
+ * Date: 22/03/2023
+ * Description: ShowDateTime controller test
+ */
+
 @DataJpaTest
 class ShowDateTimeControllerTest {
 

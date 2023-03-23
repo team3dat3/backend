@@ -18,6 +18,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/*
+ * Author: Thomas S. Andersen
+ * Date: 21/03/2023
+ * Description: Movie controller test
+ */
+
 @DataJpaTest
 class MovieControllerTest {
 

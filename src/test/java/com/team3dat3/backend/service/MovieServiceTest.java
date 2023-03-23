@@ -14,6 +14,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
+ * Author: Thomas S. Andersen
+ * Date: 21/03/2023
+ * Description: MovieService test
+ */
+
 @DataJpaTest
 class MovieServiceTest {
 
