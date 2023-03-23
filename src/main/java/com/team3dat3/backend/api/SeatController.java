@@ -13,6 +13,7 @@ import java.util.List;
  * Description: Seat controller
  */
 @RestController
+@RequestMapping("/api/seats")
 public class SeatController {
     private final SeatService seatService;
     public SeatController(SeatService seatService) {
