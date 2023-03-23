@@ -1,4 +1,4 @@
-package com.team3dat3.backend.api;
+package com.team3dat3.backend.api.v1;
 
 import com.team3dat3.backend.dto.theater.SeatRequest;
 import com.team3dat3.backend.dto.theater.SeatResponse;
@@ -13,34 +13,34 @@ import java.util.List;
  * Description: Seat controller
  */
 @RestController
-@RequestMapping("/api/seats")
+@RequestMapping("/v1")
 public class SeatController {
     private final SeatService seatService;
     public SeatController(SeatService seatService) {
         this.seatService = seatService;
     }
 
-    @GetMapping
+    @GetMapping("/anonymous/seats")
     public List<SeatResponse> getAll() {
         return seatService.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/anonymous/seats/{id}")
     public SeatResponse get(@PathVariable("id") Long id) {
         return seatService.get(id);
     }
 
-    @PostMapping
+    @PostMapping("/admin/seats")
     public SeatResponse create(@RequestBody SeatRequest seatRequest) {
         return seatService.create(seatRequest);
     }
 
-    @PatchMapping
+    @PatchMapping("/admin/seats")
     public SeatResponse update(@RequestBody SeatRequest seatRequest) {
         return seatService.update(seatRequest);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/admin/seats")
     public void delete(@RequestBody SeatRequest seatRequest) {
         seatService.delete(seatRequest);
     }

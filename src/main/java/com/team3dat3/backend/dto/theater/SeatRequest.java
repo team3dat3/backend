@@ -18,41 +18,16 @@ import java.util.stream.Collectors;
 @Getter @Setter
 public class SeatRequest {
     private Long id;
-    private List<Integer> reservationIds;
-    private Long seatRowId;
+    private List<Reservation> reservations;
+    private SeatRow seatRows;
 
     public void copy(Seat seat) {
         seat.setId(id);
-        if (reservationIds != null) {
-            List<Reservation> reservationList = reservationIds.stream().map(reservationId -> {
-                Reservation reservation = new Reservation();
-                reservation.setId(reservationId);
-                return reservation;
-            }).collect(Collectors.toList());
-            seat.setReservations(reservationList);
-        }
-        if (seatRowId != null) {
-            SeatRow seatRow = new SeatRow();
-            seatRow.setId(seatRowId);
-            seat.setSeatRow(seatRow);
-        }
+        seat.setReservations(reservations);
+        seat.setSeatRow(seatRows);
     }
 
     public Seat toSeat() {
-        Seat seat = new Seat(id, null, null);
-        if (reservationIds != null) {
-            List<Reservation> reservationList = reservationIds.stream().map(reservationId -> {
-                Reservation reservation = new Reservation();
-                reservation.setId(reservationId);
-                return reservation;
-            }).collect(Collectors.toList());
-            seat.setReservations(reservationList);
-        }
-        if (seatRowId != null) {
-            SeatRow seatRow = new SeatRow();
-            seatRow.setId(seatRowId);
-            seat.setSeatRow(seatRow);
-        }
-        return seat;
+        return new Seat(id, reservations, seatRows);
     }
 }

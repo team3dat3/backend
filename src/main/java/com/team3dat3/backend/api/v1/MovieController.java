@@ -1,4 +1,4 @@
-package com.team3dat3.backend.api;
+package com.team3dat3.backend.api.v1;
 
 import com.team3dat3.backend.dto.movie.MovieRequest;
 import com.team3dat3.backend.dto.movie.MovieResponse;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/movies")
+@RequestMapping("/v1")
 public class MovieController {
 
   private MovieService movieService;
@@ -23,22 +23,22 @@ public class MovieController {
     this.movieService = movieService;
   }
 
-  @GetMapping
+  @GetMapping("/anonymous/movies")
   List<MovieResponse> getMovies(){return movieService.getMovies();}
 
-  @GetMapping("genre/{genre}")
+  @GetMapping("/anonymous/movies/genre/{genre}")
   List<MovieResponse> getMoviesByGenre(@PathVariable String genre){return movieService.moviesByGenre(genre);}
 
-  @GetMapping("/{title}")
+  @GetMapping("/anonymous/movies/{title}")
   MovieResponse getMovieByTitle(@PathVariable String title){return movieService.findMovieByTitle(title);}
 
-  @PostMapping()
+  @PostMapping("/admin/movies")
   MovieResponse addMovie(@RequestBody MovieRequest body){return movieService.addMovie(body);}
 
-  @PatchMapping()
+  @PatchMapping("/admin/movies")
   MovieResponse editMovie(@RequestBody MovieRequest body){return movieService.update(body);}
 
-  @DeleteMapping()
+  @DeleteMapping("/admin/movies")
   void delete(@RequestBody MovieRequest body) {
     movieService.deleteMovie(body);
   }

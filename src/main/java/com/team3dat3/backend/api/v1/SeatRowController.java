@@ -1,4 +1,4 @@
-package com.team3dat3.backend.api;
+package com.team3dat3.backend.api.v1;
 
 import com.team3dat3.backend.dto.theater.SeatRowRequest;
 import com.team3dat3.backend.dto.theater.SeatRowResponse;
@@ -8,34 +8,34 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/seatrows")
+@RequestMapping("/v1")
 public class SeatRowController {
     private final SeatRowService seatRowService;
     public SeatRowController(SeatRowService seatRowService) {
         this.seatRowService = seatRowService;
     }
 
-    @GetMapping
+    @GetMapping("/anonymous/seatrows")
     public List<SeatRowResponse> getAll() {
         return seatRowService.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/anonymous/seatrows/{id}")
     public SeatRowResponse get(@PathVariable("id") Long id) {
         return seatRowService.get(id);
     }
 
-    @PostMapping
+    @PostMapping("/admin/seatrows")
     public SeatRowResponse create(@RequestBody SeatRowRequest seatRowRequest) {
         return seatRowService.create(seatRowRequest);
     }
 
-    @PatchMapping
+    @PatchMapping("/admin/seatrows")
     public SeatRowResponse update(@RequestBody SeatRowRequest seatRowRequest) {
         return seatRowService.update(seatRowRequest);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/admin/seatrows")
     public void delete(@RequestBody SeatRowRequest seatRowRequest) {
         seatRowService.delete(seatRowRequest);
     }

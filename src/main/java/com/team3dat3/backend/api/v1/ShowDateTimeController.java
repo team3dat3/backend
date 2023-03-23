@@ -1,4 +1,4 @@
-package com.team3dat3.backend.api;
+package com.team3dat3.backend.api.v1;
 
 
 import com.team3dat3.backend.dto.showDateTime.ShowDateTimeRequest;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/showdates")
+@RequestMapping("/v1")
 public class ShowDateTimeController {
 
   ShowDateTimeService showDateTimeService;
@@ -24,19 +24,19 @@ public class ShowDateTimeController {
     this.showDateTimeService = showDateTimeService;
   }
 
-  @GetMapping
+  @GetMapping("/anonymous/showdates")
   List<ShowDateTimeResponse> getShowsDates(){return showDateTimeService.findAll();}
 
-  @GetMapping("/{id}")
+  @GetMapping("/anonymous/showdates/{id}")
   ShowDateTimeResponse getShowDatesById(@PathVariable int id){return showDateTimeService.find(id);}
 
-  @PostMapping()
+  @PostMapping("/admin/showdates")
   ShowDateTimeResponse create(@RequestBody ShowDateTimeRequest body){return showDateTimeService.create(body);}
 
-  @PatchMapping()
+  @PatchMapping("/admin/showdates")
   ShowDateTimeResponse update(@RequestBody ShowDateTimeRequest body){return showDateTimeService.update(body);}
 
-  @DeleteMapping()
+  @DeleteMapping("/admin/showdates")
   void deleteShow(@RequestBody ShowDateTimeRequest body) {
     showDateTimeService.delete(body);
   }

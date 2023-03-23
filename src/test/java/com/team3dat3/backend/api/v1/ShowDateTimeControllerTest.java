@@ -1,10 +1,11 @@
-package com.team3dat3.backend.api;
+package com.team3dat3.backend.api.v1;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.team3dat3.backend.api.v1.ShowDateTimeController;
 import com.team3dat3.backend.dto.showDateTime.ShowDateTimeRequest;
 import com.team3dat3.backend.entity.Show;
 import com.team3dat3.backend.entity.ShowDateTime;
@@ -23,12 +24,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
 
-import static org.assertj.core.api.filter.NotFilter.not;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /*
  * Author: Thomas S. Andersen
@@ -94,7 +91,7 @@ class ShowDateTimeControllerTest {
 
   @Test
   void getShowsDates() throws Exception{
-    mockMvc.perform(get("/api/showdates"))
+    mockMvc.perform(get("/v1/anonymous/showdates"))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$", hasSize(Matchers.not(0))));
@@ -102,7 +99,7 @@ class ShowDateTimeControllerTest {
 
   @Test
   void getShowDatesById() throws Exception{
-    mockMvc.perform(get("/api/showdates/" + showDate1.getDateId()))
+    mockMvc.perform(get("/v1/anonymous/showdates/" + showDate1.getDateId()))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.dateId", is(Matchers.not(0))));
@@ -112,7 +109,7 @@ class ShowDateTimeControllerTest {
   void create() throws Exception{
     ShowDateTimeRequest showDate3 = ShowDateTimeRequest.builder()
         .build();
-    mockMvc.perform(post("/api/showdates")
+    mockMvc.perform(post("/v1/admin/showdates")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(showDate3)))
         .andExpect(status().isOk())
@@ -133,7 +130,7 @@ class ShowDateTimeControllerTest {
         .show(show2)
         .build();
 
-    mockMvc.perform(patch("/api/showdates")
+    mockMvc.perform(patch("/v1/admin/showdates")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(showDate6)))
         .andExpect(status().isOk())
@@ -146,7 +143,7 @@ class ShowDateTimeControllerTest {
   void deleteShow() throws Exception{
     ShowDateTimeRequest deleteRequest = new ShowDateTimeRequest();
     deleteRequest.setDateId(showDate1.getDateId());
-    mockMvc.perform(delete("/api/showdates")
+    mockMvc.perform(delete("/v1/admin/showdates")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(deleteRequest)))
         .andExpect(status().isOk());

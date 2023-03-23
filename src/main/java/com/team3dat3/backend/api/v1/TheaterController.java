@@ -1,4 +1,4 @@
-package com.team3dat3.backend.api;
+package com.team3dat3.backend.api.v1;
 
 import com.team3dat3.backend.dto.theater.TheaterRequest;
 import com.team3dat3.backend.dto.theater.TheaterResponse;
@@ -13,7 +13,7 @@ import java.util.List;
  * Description: Theater controller
  */
 @RestController
-@RequestMapping("/theaters")
+@RequestMapping("/v1")
 public class TheaterController {
 
     private final TheaterService theaterService;
@@ -21,27 +21,27 @@ public class TheaterController {
         this.theaterService = theaterService;
     }
 
-    @GetMapping
+    @GetMapping("/anonymous/theaters")
     public List<TheaterResponse> getAll() {
         return theaterService.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/anonymous/theaters/{id}")
     public TheaterResponse get(@PathVariable("id") Long id) {
         return theaterService.get(id);
     }
 
-    @PostMapping
+    @PostMapping("/admin/theaters")
     public TheaterResponse create(@RequestBody TheaterRequest theaterRequest) {
         return theaterService.create(theaterRequest);
     }
 
-    @PatchMapping
+    @PatchMapping("/admin/theaters")
     public TheaterResponse update(@RequestBody TheaterRequest theaterRequest) {
         return theaterService.update(theaterRequest);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/admin/theaters")
     public void delete(@RequestBody TheaterRequest theaterRequest) {
         theaterService.delete(theaterRequest);
     }

@@ -98,7 +98,7 @@ class SeatServiceTest {
 
     @Test
     void create() {
-        SeatRequest request = new SeatRequest(3L, null, seatRow1.getId());
+        SeatRequest request = new SeatRequest(3L, null, seatRow1);
 
         SeatResponse response = seatService.create(request);
 
@@ -111,17 +111,16 @@ class SeatServiceTest {
         Seat seat = new Seat(4L, null, seatRow1);
         Seat savedSeat = seatRepository.save(seat);
 
-        SeatRequest request = new SeatRequest(savedSeat.getId(), null, 0L);
-        request.setReservationIds(Arrays.asList(reservationResponse1.getId(), reservationResponse2.getId()));
+        SeatRequest request = new SeatRequest(savedSeat.getId(), savedSeat.getReservations(), savedSeat.getSeatRow());
 
         SeatResponse response = seatService.update(request);
 
-        assertNotNull(response.getReservationsIds());
+        assertNull(response.getReservations());
     }
 
     @Test
     public void testUpdateSeatNotFound() {
-        SeatRequest request = new SeatRequest(5L, null, 0L);
+        SeatRequest request = new SeatRequest(5L, null, null);
         request.setId(123L);
 
         assertThrows(ResponseStatusException.class, () -> {
@@ -135,7 +134,7 @@ class SeatServiceTest {
         Seat seat = new Seat(6L, null, seatRow1);
         Seat savedSeat = seatRepository.save(seat);
 
-        SeatRequest request = new SeatRequest(savedSeat.getId(), null, 0L);
+        SeatRequest request = new SeatRequest(savedSeat.getId(), null, null);
 
         seatService.delete(request);
 
@@ -146,7 +145,7 @@ class SeatServiceTest {
 
     @Test
     public void testDeleteSeatNotFound() {
-        SeatRequest request = new SeatRequest(7L, null, 0L);
+        SeatRequest request = new SeatRequest(7L, null, null);
         request.setId(123L);
 
         Assertions.assertThrows(ResponseStatusException.class, () -> {
