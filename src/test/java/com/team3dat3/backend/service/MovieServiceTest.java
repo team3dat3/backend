@@ -109,8 +109,8 @@ class MovieServiceTest {
 
   @Test
   void moviesByGenre() {
-    List<MovieResponse> findMovie = movieService.moviesByGenre("Horror");
-    assertEquals("Horror", findMovie.get(0).getGenre().get(0));
+    List<MovieResponse> findMovie = movieService.moviesByGenre(movie1.getGenre().get(0));
+    assertEquals(movie1.getGenre().get(0), findMovie.get(0).getGenre().get(0));
   }
 
   @Test
