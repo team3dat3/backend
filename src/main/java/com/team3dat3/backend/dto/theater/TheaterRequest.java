@@ -2,7 +2,9 @@ package com.team3dat3.backend.dto.theater;
 
 import com.team3dat3.backend.entity.Seat;
 import com.team3dat3.backend.entity.SeatRow;
+import com.team3dat3.backend.entity.Show;
 import com.team3dat3.backend.entity.Theater;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +25,8 @@ public class TheaterRequest {
     private Long id;
     private List<Long> seatRowIds;
 
+    private List<Show> shows;
+
     public void copy(Theater theater) {
         theater.setId(id);
         List<SeatRow> seatRows = new ArrayList<>();
@@ -41,6 +45,6 @@ public class TheaterRequest {
             seatRow.setId(seatRowId);
             seatRows.add(seatRow);
         }
-        return new Theater(id, seatRows);
+        return new Theater(id, seatRows, shows);
     }
 }
