@@ -9,7 +9,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class CorsConfig implements WebMvcConfigurer{
 
-//Not done
     @Override
     public void addCorsMappings(CorsRegistry registry) {
   /*  Ville nedenstående være godt nok eller skal det være mere specifikt som det der ikke er udkommenteret
@@ -18,6 +17,7 @@ public class CorsConfig implements WebMvcConfigurer{
 
       registry.addMapping("/api/movies/**")
           .allowedOrigins("https://urchin-app-9ivwp.ondigitalocean.app/movies");
+      //.allowedMethods("GET"); måske ikke nødvendig..?
 
       registry.addMapping("/api/v1/reservations/**")
           .allowedOrigins("https://urchin-app-9ivwp.ondigitalocean.app/reservations");
