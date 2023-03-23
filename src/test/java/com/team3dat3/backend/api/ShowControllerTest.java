@@ -1,13 +1,9 @@
 package com.team3dat3.backend.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.team3dat3.backend.dto.reservation.ReservationRequest;
 import com.team3dat3.backend.dto.show.ShowRequest;
-import com.team3dat3.backend.entity.Movie;
 import com.team3dat3.backend.entity.Show;
-import com.team3dat3.backend.repository.MovieRepository;
 import com.team3dat3.backend.repository.ShowRepository;
-import com.team3dat3.backend.service.MovieService;
 import com.team3dat3.backend.service.ShowService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +16,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -73,7 +68,7 @@ class ShowControllerTest {
 
   @Test
   void getShowById() throws Exception{
-    mockMvc.perform(get("/api/shows/" + show1.getShowId()))
+    mockMvc.perform(get("/api/shows/" + show1.getId()))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.showId", is(Matchers.not(0))));
@@ -100,7 +95,7 @@ class ShowControllerTest {
 
     showRepository.save(show3);
     ShowRequest show4 = ShowRequest.builder()
-        .showId(show3.getShowId())
+        .id(show3.getId())
         .price(20)
         .build();
 
@@ -109,14 +104,14 @@ class ShowControllerTest {
             .content(new ObjectMapper().writeValueAsString(show4)))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.showId", is(show3.getShowId())))
+        .andExpect(jsonPath("$.showId", is(show3.getId())))
         .andExpect(jsonPath("$.price", is(20.0)));
   }
 
   @Test
   void deleteShow() throws Exception{
     ShowRequest deleteRequest = new ShowRequest();
-    deleteRequest.setShowId(show1.getShowId());
+    deleteRequest.setId(show1.getId());
     mockMvc.perform(delete("/api/shows")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(deleteRequest)))

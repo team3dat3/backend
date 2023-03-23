@@ -21,12 +21,12 @@ public class Show {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int showId;
+  private int id;
 
   @ManyToOne
   private Movie movie;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "show", fetch = FetchType.LAZY)
+  @OneToMany//(cascade = CascadeType.ALL, mappedBy = "show", fetch = FetchType.LAZY)
   private List<Reservation> reservations;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "show", fetch = FetchType.LAZY)
