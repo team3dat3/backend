@@ -21,4 +21,11 @@ public class Achievement {
     private String description;
     @Column(name = "unlocked", length = 50)
     private boolean unlocked = false;
+
+    public Achievement(User user, String name, String description, boolean unlocked){
+        this.user = user;
+        this.name = name;
+        this.description = description;
+        this.unlocked = unlocked;
+    }
 }

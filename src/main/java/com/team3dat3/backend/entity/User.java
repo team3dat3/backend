@@ -1,5 +1,7 @@
 package com.team3dat3.backend.entity;
 
+import com.team3dat3.backend.repository.AchievementRepository;
+import com.team3dat3.backend.service.AchievementService;
 import jakarta.persistence.*;
 import lombok.*;
 
