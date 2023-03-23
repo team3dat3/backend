@@ -103,17 +103,17 @@ class ShowDateTimeControllerTest {
         .andExpect(jsonPath("$.dateId", is(showDate1.getDateId())));
   }
 
-/*  @Test
+  @Test
   void create() throws Exception{
-    ShowDateTimeRequest showDate3 = ShowDateTimeRequest.builder()
+ /*   ShowDateTimeRequest showDate3 = ShowDateTimeRequest.builder()
         .build();
     mockMvc.perform(post("/api/showdates")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(showDate3)))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.dateId", is(5)));
-  }*/
+        .andExpect(jsonPath("$.dateId", is(5)));*/
+  }
 
   @Test
   void update() throws Exception{
