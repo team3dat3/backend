@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/v1/shows")
+@RequestMapping("/v1")
 public class ShowController {
 
   ShowService showService;
@@ -23,19 +23,19 @@ public class ShowController {
     this.showService = showService;
   }
 
-  @GetMapping
+  @GetMapping("/anonymous/shows")
   List<ShowResponse> getShows(){return showService.findAll();}
 
-  @GetMapping("/{id}")
+  @GetMapping("/anonymous/shows/{id}")
   ShowResponse getShowById(@PathVariable int id){return showService.find(id);}
 
-  @PostMapping()
+  @PostMapping("/admin/shows")
   ShowResponse create(@RequestBody ShowRequest body){return showService.create(body);}
 
-  @PatchMapping()
+  @PatchMapping("/admin/shows")
   ShowResponse update(@RequestBody ShowRequest body){return showService.update(body);}
 
-  @DeleteMapping()
+  @DeleteMapping("/admin/shows")
   void deleteShow(@RequestBody ShowRequest body) {
     showService.delete(body);
   }

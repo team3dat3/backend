@@ -58,7 +58,7 @@ class TheaterControllerTest {
 
     @Test
     void testFindAll() throws Exception {
-        mockMvc.perform(get("/api/v1/theaters"))
+        mockMvc.perform(get("/v1/anonymous/theaters"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$", hasSize(2)));
@@ -66,7 +66,7 @@ class TheaterControllerTest {
 
     @Test
     void testFind() throws Exception {
-        mockMvc.perform(get("/api/v1/theaters/" + theater1.getId()))
+        mockMvc.perform(get("/v1/anonymous/theaters/" + theater1.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id", is(theater1.getId().intValue())));
@@ -75,7 +75,7 @@ class TheaterControllerTest {
     @Test
     void testCreate() throws Exception {
         TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(), theater2.getSeatRows(), theater2.getShows());
-        mockMvc.perform(post("/api/v1/theaters")
+        mockMvc.perform(post("/v1/admin/theaters")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(theaterRequest)))
                 .andExpect(status().isOk())
@@ -86,7 +86,7 @@ class TheaterControllerTest {
     @Test
     void testUpdate() throws Exception {
         TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(), theater2.getSeatRows(), theater2.getShows());
-        mockMvc.perform(patch("/api/v1/theaters")
+        mockMvc.perform(patch("/v1/admin/theaters")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(theaterRequest)))
                 .andExpect(status().isOk())
@@ -97,7 +97,7 @@ class TheaterControllerTest {
     @Test
     void testDelete() throws Exception {
         TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(), theater2.getSeatRows(), theater2.getShows());
-        mockMvc.perform(delete("/api/v1/theaters")
+        mockMvc.perform(delete("/v1/admin/theaters")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(theaterRequest)))
                 .andExpect(status().isOk());

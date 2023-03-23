@@ -91,7 +91,7 @@ class ShowDateTimeControllerTest {
 
   @Test
   void getShowsDates() throws Exception{
-    mockMvc.perform(get("/api/v1/showdates"))
+    mockMvc.perform(get("/v1/anonymous/showdates"))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$", hasSize(Matchers.not(0))));
@@ -99,7 +99,7 @@ class ShowDateTimeControllerTest {
 
   @Test
   void getShowDatesById() throws Exception{
-    mockMvc.perform(get("/api/v1/showdates/" + showDate1.getDateId()))
+    mockMvc.perform(get("/v1/anonymous/showdates/" + showDate1.getDateId()))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.dateId", is(Matchers.not(0))));
@@ -109,7 +109,7 @@ class ShowDateTimeControllerTest {
   void create() throws Exception{
     ShowDateTimeRequest showDate3 = ShowDateTimeRequest.builder()
         .build();
-    mockMvc.perform(post("/api/v1/showdates")
+    mockMvc.perform(post("/v1/admin/showdates")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(showDate3)))
         .andExpect(status().isOk())
@@ -130,7 +130,7 @@ class ShowDateTimeControllerTest {
         .show(show2)
         .build();
 
-    mockMvc.perform(patch("/api/v1/showdates")
+    mockMvc.perform(patch("/v1/admin/showdates")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(showDate6)))
         .andExpect(status().isOk())
@@ -143,7 +143,7 @@ class ShowDateTimeControllerTest {
   void deleteShow() throws Exception{
     ShowDateTimeRequest deleteRequest = new ShowDateTimeRequest();
     deleteRequest.setDateId(showDate1.getDateId());
-    mockMvc.perform(delete("/api/v1/showdates")
+    mockMvc.perform(delete("/v1/admin/showdates")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(deleteRequest)))
         .andExpect(status().isOk());

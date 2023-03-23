@@ -45,7 +45,7 @@ public class CouponControllerTest {
 
     @Test
     void testFindAll() throws Exception {
-        mockMvc.perform(get("/api/v1/coupons"))
+        mockMvc.perform(get("/v1/authenticated/coupons"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(2)));
@@ -53,7 +53,7 @@ public class CouponControllerTest {
 
     @Test
     void testFind() throws Exception {
-        mockMvc.perform(get("/api/v1/coupons/" + coupon1.getId()))
+        mockMvc.perform(get("/v1/authenticated/coupons/" + coupon1.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id", is(coupon1.getId())));
@@ -66,7 +66,7 @@ public class CouponControllerTest {
         couponRequest.setDiscount(0);
         couponRequest.setCost(0);
 
-        mockMvc.perform(post("/api/v1/coupons")
+        mockMvc.perform(post("/v1/admin/coupons")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(couponRequest)))
                 .andExpect(status().isOk())
@@ -79,7 +79,7 @@ public class CouponControllerTest {
         CouponRequest couponRequest = new CouponRequest();
         couponRequest.setId(coupon2.getId());
         couponRequest.setName("testName");
-        mockMvc.perform(patch("/api/v1/coupons")
+        mockMvc.perform(patch("/v1/admin/coupons")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(couponRequest)))
                 .andExpect(status().isOk())
@@ -92,7 +92,7 @@ public class CouponControllerTest {
     void testDelete() throws Exception{
         CouponRequest couponRequest = new CouponRequest();
         couponRequest.setId(coupon2.getId());
-        mockMvc.perform(delete("/api/v1/coupons")
+        mockMvc.perform(delete("/v1/admin/coupons")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(couponRequest)))
                 .andExpect(status().isOk());

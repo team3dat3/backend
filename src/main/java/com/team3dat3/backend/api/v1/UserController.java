@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/api/v1/users")
+@RequestMapping("/v1")
 @RestController
 public class UserController {
     private UserService userService;
@@ -16,27 +16,27 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/anonymous/users")
     public List<UserResponse> findAll() {
         return userService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/anonymous/users/{id}")
     public UserResponse find(@PathVariable("id") int id) {
         return userService.find(id);
     }
 
-    @PostMapping
+    @PostMapping("/anonymous/users")
     public UserResponse create(@RequestBody UserRequest userRequest){
         return userService.create(userRequest);
     }
 
-    @PatchMapping
+    @PatchMapping("/admin/users")
     public UserResponse update(@RequestBody UserRequest userRequest) {
         return userService.update(userRequest);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/admin/users")
     public void delete(@RequestBody UserRequest userRequest){
         userService.delete(userRequest);
     }

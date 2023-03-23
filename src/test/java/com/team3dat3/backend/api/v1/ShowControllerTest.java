@@ -61,7 +61,7 @@ class ShowControllerTest {
   }
   @Test
   void getShows() throws Exception{
-    mockMvc.perform(get("/api/v1/shows"))
+    mockMvc.perform(get("/v1/anonymous/shows"))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$", is(Matchers.not(0))));
@@ -69,7 +69,7 @@ class ShowControllerTest {
 
   @Test
   void getShowById() throws Exception{
-    mockMvc.perform(get("/api/v1/shows/" + show1.getShowId()))
+    mockMvc.perform(get("/v1/anonymous/shows/" + show1.getShowId()))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.showId", is(Matchers.not(0))));
@@ -80,7 +80,7 @@ class ShowControllerTest {
     ShowRequest show3 = ShowRequest.builder()
         .price(80)
         .build();
-    mockMvc.perform(post("/api/v1/shows")
+    mockMvc.perform(post("/v1/admin/shows")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(show3)))
         .andExpect(status().isOk())
@@ -100,7 +100,7 @@ class ShowControllerTest {
         .price(20)
         .build();
 
-    mockMvc.perform(patch("/api/v1/shows")
+    mockMvc.perform(patch("/v1/admin/shows")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(show4)))
         .andExpect(status().isOk())
@@ -113,7 +113,7 @@ class ShowControllerTest {
   void deleteShow() throws Exception{
     ShowRequest deleteRequest = new ShowRequest();
     deleteRequest.setShowId(show1.getShowId());
-    mockMvc.perform(delete("/api/v1/shows")
+    mockMvc.perform(delete("/v1/admin/shows")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(deleteRequest)))
         .andExpect(status().isOk());

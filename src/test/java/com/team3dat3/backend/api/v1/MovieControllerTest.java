@@ -70,7 +70,7 @@ class MovieControllerTest {
   }
   @Test
   void getMovies() throws Exception{
-    mockMvc.perform(get("/api/v1/movies"))
+    mockMvc.perform(get("/v1/anonymous/movies"))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$", hasSize(2)));
@@ -78,7 +78,7 @@ class MovieControllerTest {
 
   @Test
   void getMoviesByGenre() throws Exception{
-    mockMvc.perform(get("/api/v1/movies/genre/" + movie1.getGenre()))
+    mockMvc.perform(get("/v1/anonymous/movies/genre/" + movie1.getGenre()))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$", hasSize(1)));
@@ -86,7 +86,7 @@ class MovieControllerTest {
 
   @Test
   void getMovieByTitle() throws Exception{
-    mockMvc.perform(get("/api/v1/movies/" + movie1.getTitle()))
+    mockMvc.perform(get("/v1/anonymous/movies/" + movie1.getTitle()))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.title", is(movie1.getTitle())));
@@ -104,7 +104,7 @@ class MovieControllerTest {
         .runtime("142 min")
         .build();
     MovieRequest movieRequest = new MovieRequest(movie3);
-    mockMvc.perform(post("/api/v1/movies")
+    mockMvc.perform(post("/v1/admin/movies")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(movieRequest)))
         .andExpect(status().isOk())
@@ -125,7 +125,7 @@ class MovieControllerTest {
         .runtime("142 min")
         .build();
     MovieRequest movieRequest = new MovieRequest(movie3);
-    mockMvc.perform(patch("/api/v1/movies")
+    mockMvc.perform(patch("/v1/admin/movies")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(movieRequest)))
         .andExpect(status().isOk())
@@ -137,7 +137,7 @@ class MovieControllerTest {
   @Test
   void deleteMovieByTitle() throws Exception{
     MovieRequest movieRequest = new MovieRequest(movie2);
-    mockMvc.perform(delete("/api/v1/movies")
+    mockMvc.perform(delete("/v1/admin/movies")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(movieRequest)))
         .andExpect(status().isOk());

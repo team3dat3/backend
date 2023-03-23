@@ -13,7 +13,7 @@ import java.util.List;
  * Description: Theater controller
  */
 @RestController
-@RequestMapping("/api/v1/theaters")
+@RequestMapping("/v1")
 public class TheaterController {
 
     private final TheaterService theaterService;
@@ -21,27 +21,27 @@ public class TheaterController {
         this.theaterService = theaterService;
     }
 
-    @GetMapping
+    @GetMapping("/anonymous/theaters")
     public List<TheaterResponse> getAll() {
         return theaterService.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/anonymous/theaters/{id}")
     public TheaterResponse get(@PathVariable("id") Long id) {
         return theaterService.get(id);
     }
 
-    @PostMapping
+    @PostMapping("/admin/theaters")
     public TheaterResponse create(@RequestBody TheaterRequest theaterRequest) {
         return theaterService.create(theaterRequest);
     }
 
-    @PatchMapping
+    @PatchMapping("/admin/theaters")
     public TheaterResponse update(@RequestBody TheaterRequest theaterRequest) {
         return theaterService.update(theaterRequest);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/admin/theaters")
     public void delete(@RequestBody TheaterRequest theaterRequest) {
         theaterService.delete(theaterRequest);
     }
