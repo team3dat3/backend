@@ -1,4 +1,4 @@
-package com.team3dat3.backend.api;
+package com.team3dat3.backend.api.v1;
 
 import com.team3dat3.backend.dto.theater.SeatRowRequest;
 import com.team3dat3.backend.dto.theater.SeatRowResponse;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/seatrows")
+@RequestMapping("/api/v1/seatrows")
 public class SeatRowController {
     private final SeatRowService seatRowService;
     public SeatRowController(SeatRowService seatRowService) {

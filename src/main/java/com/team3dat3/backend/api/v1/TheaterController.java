@@ -1,4 +1,4 @@
-package com.team3dat3.backend.api;
+package com.team3dat3.backend.api.v1;
 
 import com.team3dat3.backend.dto.theater.TheaterRequest;
 import com.team3dat3.backend.dto.theater.TheaterResponse;
@@ -13,7 +13,7 @@ import java.util.List;
  * Description: Theater controller
  */
 @RestController
-@RequestMapping("/theaters")
+@RequestMapping("/api/v1/theaters")
 public class TheaterController {
 
     private final TheaterService theaterService;

@@ -1,4 +1,4 @@
-package com.team3dat3.backend.api;
+package com.team3dat3.backend.api.v1;
 
 
 import com.team3dat3.backend.dto.showDateTime.ShowDateTimeRequest;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/showdates")
+@RequestMapping("/api/v1/showdates")
 public class ShowDateTimeController {
 
   ShowDateTimeService showDateTimeService;

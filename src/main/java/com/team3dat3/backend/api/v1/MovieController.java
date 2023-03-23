@@ -1,4 +1,4 @@
-package com.team3dat3.backend.api;
+package com.team3dat3.backend.api.v1;
 
 import com.team3dat3.backend.dto.movie.MovieRequest;
 import com.team3dat3.backend.dto.movie.MovieResponse;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/movies")
+@RequestMapping("/api/v1/movies")
 public class MovieController {
 
   private MovieService movieService;

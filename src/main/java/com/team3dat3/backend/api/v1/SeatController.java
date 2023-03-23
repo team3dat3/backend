@@ -1,4 +1,4 @@
-package com.team3dat3.backend.api;
+package com.team3dat3.backend.api.v1;
 
 import com.team3dat3.backend.dto.theater.SeatRequest;
 import com.team3dat3.backend.dto.theater.SeatResponse;
@@ -13,7 +13,7 @@ import java.util.List;
  * Description: Seat controller
  */
 @RestController
-@RequestMapping("/api/seats")
+@RequestMapping("/api/v1/seats")
 public class SeatController {
     private final SeatService seatService;
     public SeatController(SeatService seatService) {

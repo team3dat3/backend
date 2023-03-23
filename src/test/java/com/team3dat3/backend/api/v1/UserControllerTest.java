@@ -51,7 +51,7 @@ public class UserControllerTest {
 
     @Test
     void testFindAll() throws Exception {
-        System.out.println(mockMvc.perform(get("/v1/users"))
+        System.out.println(mockMvc.perform(get("/api/v1/users"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(2))));
@@ -60,7 +60,7 @@ public class UserControllerTest {
 
     @Test
     void testFind() throws Exception {
-        System.out.println(mockMvc.perform(get("/v1/users/" + user1.getId()))
+        System.out.println(mockMvc.perform(get("/api/v1/users/" + user1.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id", is(user1.getId()))));
@@ -74,7 +74,7 @@ public class UserControllerTest {
         userRequest.setEmail("testEmail");
         userRequest.setUsername("testUsername");
         userRequest.setPhoneNumber("testPhoneNumber");
-        mockMvc.perform(post("/v1/users")
+        mockMvc.perform(post("/api/v1/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(userRequest)))
                 .andDo(print())
@@ -88,7 +88,7 @@ public class UserControllerTest {
         UserRequest userRequest = new UserRequest();
         userRequest.setId(user2.getId());
         userRequest.setUsername("hej");
-        mockMvc.perform(patch("/v1/users")
+        mockMvc.perform(patch("/api/v1/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(userRequest)))
                 .andExpect(status().isOk())
@@ -101,7 +101,7 @@ public class UserControllerTest {
     void testDelete() throws Exception {
         UserRequest userRequest = new UserRequest();
         userRequest.setId(user2.getId());
-        mockMvc.perform(delete("/v1/users")
+        mockMvc.perform(delete("/api/v1/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(userRequest)))
                 .andExpect(status().isOk());

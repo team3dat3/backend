@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import com.team3dat3.backend.dto.reservation.*;
 import com.team3dat3.backend.service.ReservationService;
 
-@RequestMapping("/v1/reservations")
+@RequestMapping("/api/v1/reservations")
 @RestController
 public class ReservationController {
     

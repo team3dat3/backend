@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/v1/coupons")
+@RequestMapping("/api/v1/coupons")
 @RestController
 public class CouponController {
     private CouponService couponService;

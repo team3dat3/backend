@@ -1,9 +1,8 @@
-package com.team3dat3.backend.api;
+package com.team3dat3.backend.api.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.team3dat3.backend.api.v1.TheaterController;
 import com.team3dat3.backend.dto.theater.TheaterRequest;
-import com.team3dat3.backend.entity.Seat;
-import com.team3dat3.backend.entity.SeatRow;
 import com.team3dat3.backend.entity.Theater;
 import com.team3dat3.backend.repository.TheaterRepository;
 import com.team3dat3.backend.service.TheaterService;
@@ -59,7 +58,7 @@ class TheaterControllerTest {
 
     @Test
     void testFindAll() throws Exception {
-        mockMvc.perform(get("/theaters"))
+        mockMvc.perform(get("/api/v1/theaters"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$", hasSize(2)));
@@ -67,18 +66,16 @@ class TheaterControllerTest {
 
     @Test
     void testFind() throws Exception {
-        mockMvc.perform(get("/theaters/" + theater1.getId()))
+        mockMvc.perform(get("/api/v1/theaters/" + theater1.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id", is(theater1.getId().intValue())));
     }
 
-/* Commented for show to be added.
     @Test
     void testCreate() throws Exception {
-        TheaterRequest theaterRequest = new TheaterRequest(theater1.getId(),
-                List.of(theater1.getSeatRows().stream().map(SeatRow::getId).toArray(Long[]::new)));
-        mockMvc.perform(post("/theaters")
+        TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(), theater2.getSeatRows(), theater2.getShows());
+        mockMvc.perform(post("/api/v1/theaters")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(theaterRequest)))
                 .andExpect(status().isOk())
@@ -88,9 +85,8 @@ class TheaterControllerTest {
 
     @Test
     void testUpdate() throws Exception {
-        TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(),
-                List.of(theater2.getSeatRows().stream().map(SeatRow::getId).toArray(Long[]::new)));
-        mockMvc.perform(patch("/theaters")
+        TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(), theater2.getSeatRows(), theater2.getShows());
+        mockMvc.perform(patch("/api/v1/theaters")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(theaterRequest)))
                 .andExpect(status().isOk())
@@ -100,13 +96,10 @@ class TheaterControllerTest {
 
     @Test
     void testDelete() throws Exception {
-        TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(),
-                List.of(theater2.getSeatRows().stream().map(SeatRow::getId).toArray(Long[]::new)));
-        mockMvc.perform(delete("/theaters")
+        TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(), theater2.getSeatRows(), theater2.getShows());
+        mockMvc.perform(delete("/api/v1/theaters")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(theaterRequest)))
                 .andExpect(status().isOk());
     }
-*/
-
 }

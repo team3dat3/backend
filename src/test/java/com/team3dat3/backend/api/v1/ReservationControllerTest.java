@@ -50,7 +50,7 @@ public class ReservationControllerTest {
 
     @Test
     void testFindAll() throws Exception {
-        mockMvc.perform(get("/v1/reservations"))
+        mockMvc.perform(get("/api/v1/reservations"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$", hasSize(2)));
@@ -58,7 +58,7 @@ public class ReservationControllerTest {
 
     @Test
     void testFind() throws Exception {
-        mockMvc.perform(get("/v1/reservations/" + reservation1.getId()))
+        mockMvc.perform(get("/api/v1/reservations/" + reservation1.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id", is(reservation1.getId())));
@@ -67,7 +67,7 @@ public class ReservationControllerTest {
     @Test
     void testCreate() throws Exception {
         ReservationRequest reservationRequest = new ReservationRequest();
-        mockMvc.perform(post("/v1/reservations")
+        mockMvc.perform(post("/api/v1/reservations")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(reservationRequest)))
             .andExpect(status().isOk())
@@ -80,7 +80,7 @@ public class ReservationControllerTest {
         ReservationRequest reservationRequest = new ReservationRequest();
         reservationRequest.setId(reservation2.getId());
         reservationRequest.setCheckedIn(true);
-        mockMvc.perform(patch("/v1/reservations")
+        mockMvc.perform(patch("/api/v1/reservations")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(reservationRequest)))
             .andExpect(status().isOk())
@@ -93,7 +93,7 @@ public class ReservationControllerTest {
     void testDelete() throws Exception {
         ReservationRequest reservationRequest = new ReservationRequest();
         reservationRequest.setId(reservation2.getId());
-        mockMvc.perform(delete("/v1/reservations")
+        mockMvc.perform(delete("/api/v1/reservations")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(reservationRequest)))
             .andExpect(status().isOk());
