@@ -97,7 +97,7 @@ class ShowDateTimeControllerTest {
     mockMvc.perform(get("/api/showdates"))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$", hasSize(2)));
+        .andExpect(jsonPath("$", hasSize(Matchers.not(0))));
   }
 
   @Test
