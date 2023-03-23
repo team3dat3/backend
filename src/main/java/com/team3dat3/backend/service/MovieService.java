@@ -15,6 +15,7 @@ import java.util.List;
 public class MovieService {
   private MovieRepository movieRepository;
 
+
   public MovieService(MovieRepository movieRepository) {
     this.movieRepository = movieRepository;
   }
@@ -32,7 +33,6 @@ public class MovieService {
     if(movieRepository.existsByTitle(movieRequest.getTitle())){
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Movie with this title already exists");
     }
-
     Movie newMovie =  MovieRequest.getMovieEntity(movieRequest);
     movieRepository.save(newMovie);
 

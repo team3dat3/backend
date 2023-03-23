@@ -26,7 +26,8 @@ public class Movie {
   private int prodYear;
   private int ageLimit;
   private String description;
-  private String genre;
+  @ElementCollection
+  private List <String> genre;
   private String runtime;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", fetch = FetchType.LAZY)
