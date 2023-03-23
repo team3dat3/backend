@@ -22,4 +22,7 @@ public class Theater {
     private Long id;
     @OneToMany
     private List<SeatRow> seatRows;
+
+    @OneToMany
+    private List<Show> shows;
 }

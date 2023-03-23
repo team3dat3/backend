@@ -13,6 +13,24 @@ public class CorsConfig implements WebMvcConfigurer{
     @Override
     public void addCorsMappings(CorsRegistry registry) {
       registry.addMapping("/api/**")
-          .allowedOrigins("https://urchin-app-9ivwp.ondigitalocean.app/");
+          .allowedOrigins("https://urchin-app-9ivwp.ondigitalocean.app");
+
+      registry.addMapping("/api/movies/**")
+          .allowedOrigins("https://urchin-app-9ivwp.ondigitalocean.app/movies");
+
+      registry.addMapping("/api/v1/reservations/**")
+          .allowedOrigins("https://urchin-app-9ivwp.ondigitalocean.app/reservations");
+
+      registry.addMapping("/api/v1/users/**")
+          .allowedOrigins("https://urchin-app-9ivwp.ondigitalocean.app/users");
+
+      registry.addMapping("/api/v1/errors")
+          .allowedOrigins("https://urchin-app-9ivwp.ondigitalocean.app/errors");
+
+      registry.addMapping("/api/v1/coupons/**")
+          .allowedOrigins("https://urchin-app-9ivwp.ondigitalocean.app/coupons");
+
+      registry.addMapping("/api/shows/**")
+          .allowedOrigins("https://urchin-app-9ivwp.ondigitalocean.app/shows");
   }
 }

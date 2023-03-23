@@ -28,6 +28,6 @@ public class Show {
 
   private double price;
 
-  //@Many to one
-  //private Theater theater;
+  @ManyToOne
+  private Theater theater;
 }
