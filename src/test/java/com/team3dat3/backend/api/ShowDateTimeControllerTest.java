@@ -1,7 +1,11 @@
 package com.team3dat3.backend.api;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import static org.hamcrest.Matchers.*;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.team3dat3.backend.dto.show.ShowRequest;
 import com.team3dat3.backend.dto.showDateTime.ShowDateTimeRequest;
 import com.team3dat3.backend.entity.Show;
 import com.team3dat3.backend.entity.ShowDateTime;
@@ -9,6 +13,7 @@ import com.team3dat3.backend.repository.ShowDateTimeRepository;
 import com.team3dat3.backend.repository.ShowRepository;
 import com.team3dat3.backend.service.ShowDateTimeService;
 import com.team3dat3.backend.service.ShowService;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +24,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
 
+import static org.assertj.core.api.filter.NotFilter.not;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -89,10 +95,10 @@ class ShowDateTimeControllerTest {
 
   @Test
   void getShowsDates() throws Exception{
-/*    mockMvc.perform(get("/api/showdates"))
+    mockMvc.perform(get("/api/showdates"))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$", hasSize(2)));*/
+        .andExpect(jsonPath("$", hasSize(2)));
   }
 
   @Test
@@ -105,14 +111,14 @@ class ShowDateTimeControllerTest {
 
   @Test
   void create() throws Exception{
- /*   ShowDateTimeRequest showDate3 = ShowDateTimeRequest.builder()
+    ShowDateTimeRequest showDate3 = ShowDateTimeRequest.builder()
         .build();
     mockMvc.perform(post("/api/showdates")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(showDate3)))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.dateId", is(5)));*/
+        .andExpect(jsonPath("$.dateId", is(Matchers.not(0))));
   }
 
   @Test
