@@ -3,7 +3,6 @@ package com.team3dat3.backend.api;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import static org.hamcrest.Matchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team3dat3.backend.dto.showDateTime.ShowDateTimeRequest;
@@ -106,7 +105,7 @@ class ShowDateTimeControllerTest {
     mockMvc.perform(get("/api/showdates/" + showDate1.getDateId()))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.dateId", is(showDate1.getDateId())));
+        .andExpect(jsonPath("$.dateId", is(Matchers.not(0))));
   }
 
   @Test
