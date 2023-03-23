@@ -123,7 +123,7 @@ class ShowDateTimeControllerTest {
 
   @Test
   void update() throws Exception{
-/* Virker ikke pt.
+/*
  ShowDateTime showDate5 = ShowDateTime.builder()
         .show(show1)
         .build();

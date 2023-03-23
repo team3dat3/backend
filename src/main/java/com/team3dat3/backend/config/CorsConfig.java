@@ -17,8 +17,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig implements WebMvcConfigurer{
 
     private static final String[] ALLOWED_ORIGINS = new String[] {
-        "https://urchin-app-9ivwp.ondigitalocean.app/movies%22",
-        "https://www.urchin-app-9ivwp.ondigitalocean.app/movies%22",
+        "https://bergandersen.com",
+        "https://www.bergandersen.com",
         "http://localhost"
     };
 
