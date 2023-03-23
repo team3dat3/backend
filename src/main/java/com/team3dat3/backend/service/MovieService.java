@@ -56,7 +56,7 @@ public class MovieService {
   }
 
   public List<MovieResponse> moviesByGenre(String genre){
-    List<Movie> gMovies = movieRepository.findMoviesByGenre(genre);
+    List<Movie> gMovies = movieRepository.findMoviesByGenreContaining(genre);
 
     List<MovieResponse> moviesByGenreList = gMovies.stream().map(m ->new MovieResponse(m)).toList();
 

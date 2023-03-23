@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,7 +42,7 @@ class MovieServiceTest {
         .prodYear(1901)
         .ageLimit(12)
         .description("blabla")
-        .genre("Horror")
+        .genre(Arrays.asList(new String[]{"Horror"}))
         .runtime("142 min")
         .build();
 
@@ -51,7 +52,7 @@ class MovieServiceTest {
         .prodYear(1902)
         .ageLimit(12)
         .description("blablabla")
-        .genre("Scifi")
+        .genre(Arrays.asList(new String[]{"Scifi"}))
         .runtime("142 min")
         .build();
 
@@ -74,7 +75,7 @@ class MovieServiceTest {
         .prodYear(1903)
         .ageLimit(12)
         .description("blablabla")
-        .genre("Scifi")
+        .genre(Arrays.asList(new String[]{"Scifi"}))
         .runtime("142 min")
         .build();
     MovieRequest movieRequest = new MovieRequest(movie3);
@@ -90,7 +91,7 @@ class MovieServiceTest {
         .prodYear(1904)
         .ageLimit(12)
         .description("blablabla")
-        .genre("Scifi")
+        .genre(Arrays.asList(new String[]{"Scifi"}))
         .runtime("142 min")
         .build();
     MovieRequest movieRequest = new MovieRequest(movie4);
@@ -108,8 +109,8 @@ class MovieServiceTest {
 
   @Test
   void moviesByGenre() {
-    List<MovieResponse> findMovie = movieService.moviesByGenre("Scifi");
-    assertEquals("Scifi", findMovie.get(0).getGenre());
+    List<MovieResponse> findMovie = movieService.moviesByGenre("Horror");
+    assertEquals("Horror", findMovie.get(0).getGenre().get(0));
   }
 
   @Test
@@ -120,7 +121,6 @@ class MovieServiceTest {
         .prodYear(1904)
         .ageLimit(12)
         .description("blablabla")
-        .genre("Scifi")
         .runtime("142 min")
         .build();
 

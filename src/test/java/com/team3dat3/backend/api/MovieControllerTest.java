@@ -13,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.Arrays;
+
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
@@ -50,7 +52,7 @@ class MovieControllerTest {
         .prodYear(1901)
         .ageLimit(12)
         .description("blabla")
-        .genre("Horror")
+        .genre(Arrays.asList(new String[]{"Horror", "Thriller"}))
         .runtime("142 min")
         .build();
 
@@ -60,7 +62,7 @@ class MovieControllerTest {
         .prodYear(1902)
         .ageLimit(12)
         .description("blablabla")
-        .genre("Scifi")
+        .genre(Arrays.asList(new String[]{"Scifi"}))
         .runtime("142 min")
         .build();
 
@@ -77,7 +79,7 @@ class MovieControllerTest {
 
   @Test
   void getMoviesByGenre() throws Exception{
-    mockMvc.perform(get("/api/movies/genre/" + movie1.getGenre()))
+    mockMvc.perform(get("/api/movies/genre/" + movie1.getGenre().get(0)))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$", hasSize(1)));
@@ -99,7 +101,7 @@ class MovieControllerTest {
         .prodYear(1903)
         .ageLimit(12)
         .description("blablabla")
-        .genre("Scifi")
+        .genre(Arrays.asList(new String[]{"Scifi"}))
         .runtime("142 min")
         .build();
     MovieRequest movieRequest = new MovieRequest(movie3);
@@ -120,7 +122,7 @@ class MovieControllerTest {
         .prodYear(1903)
         .ageLimit(12)
         .description("blablabla")
-        .genre("Scifi")
+        .genre(Arrays.asList(new String[]{"Scifi"}))
         .runtime("142 min")
         .build();
     MovieRequest movieRequest = new MovieRequest(movie3);
