@@ -50,7 +50,7 @@ public class ReservationControllerTest {
 
     @Test
     void testFindAll() throws Exception {
-        mockMvc.perform(get("/v1/authenticated/reservations"))
+        mockMvc.perform(get("/v1/member/reservations"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$", hasSize(2)));
@@ -58,7 +58,7 @@ public class ReservationControllerTest {
 
     @Test
     void testFind() throws Exception {
-        mockMvc.perform(get("/v1/authenticated/reservations/" + reservation1.getId()))
+        mockMvc.perform(get("/v1/member/reservations/" + reservation1.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id", is(reservation1.getId())));
@@ -67,7 +67,7 @@ public class ReservationControllerTest {
     @Test
     void testCreate() throws Exception {
         ReservationRequest reservationRequest = new ReservationRequest();
-        mockMvc.perform(post("/v1/authenticated/reservations")
+        mockMvc.perform(post("/v1/member/reservations")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(reservationRequest)))
             .andExpect(status().isOk())

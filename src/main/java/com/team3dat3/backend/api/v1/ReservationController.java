@@ -23,17 +23,17 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @GetMapping("/authenticated/reservations")
+    @GetMapping("/member/reservations")
     public List<ReservationResponse> findAll() {
         return reservationService.findAll();
     }
 
-    @GetMapping("/authenticated/reservations/{id}")
+    @GetMapping("/member/reservations/{id}")
     public ReservationResponse find(@PathVariable("id") int id) {
         return reservationService.find(id);
     }
 
-    @PostMapping("/authenticated/reservations")
+    @PostMapping("/member/reservations")
     public ReservationResponse create(@RequestBody ReservationRequest reservationRequest) {
         return reservationService.create(reservationRequest);
     }

@@ -45,7 +45,7 @@ public class CouponControllerTest {
 
     @Test
     void testFindAll() throws Exception {
-        mockMvc.perform(get("/v1/authenticated/coupons"))
+        mockMvc.perform(get("/v1/member/coupons"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(2)));
@@ -53,7 +53,7 @@ public class CouponControllerTest {
 
     @Test
     void testFind() throws Exception {
-        mockMvc.perform(get("/v1/authenticated/coupons/" + coupon1.getId()))
+        mockMvc.perform(get("/v1/member/coupons/" + coupon1.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id", is(coupon1.getId())));
