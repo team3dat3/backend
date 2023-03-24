@@ -20,7 +20,7 @@ import java.util.List;
 @Setter
 public class ShowResponse {
 
-  private int showId;
+  private int id;
 
   private Movie movie;
 
@@ -33,7 +33,7 @@ public class ShowResponse {
   private Theater theater;
 
   public ShowResponse(Show show) {
-    this.showId = show.getShowId();
+    this.id = show.getId();
     this.movie = show.getMovie();
     this.reservations = show.getReservations();
     this.showDates = show.getShowDates();
