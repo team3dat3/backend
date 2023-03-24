@@ -7,7 +7,7 @@ import java.util.List;
 
 /*
  * Author: Thomas S. Andersen
- * Date: 23/03/2023
+ * Date: 21/03/2023
  * Description: Show entity
  */
 
@@ -17,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name="shows")
 public class Show {
 
   @Id
@@ -26,7 +27,7 @@ public class Show {
   @ManyToOne
   private Movie movie;
 
-  @OneToMany//(cascade = CascadeType.ALL, mappedBy = "show", fetch = FetchType.LAZY)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "show", fetch = FetchType.LAZY)
   private List<Reservation> reservations;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "show", fetch = FetchType.LAZY)
