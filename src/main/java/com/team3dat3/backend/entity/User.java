@@ -5,6 +5,7 @@ import com.team3dat3.backend.service.AchievementService;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -28,7 +29,7 @@ public class User {
     private List<Reservation> reservations;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Achievement> achievements;
+    private List<Achievement> achievements = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Coupon> coupons;

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,6 +63,7 @@ public class AchievementService {
     public void initiateAchievements(int id) {
         User user = new User();
         user.setId(id);
+        System.out.println("initiating achievements on user with username: " + user.getUsername());
         if (user.getAchievements().size() == 0) {
             user.getAchievements().add(new Achievement(user, "The Rookie", "You bought your first ticket!", false));
             user.getAchievements().add(new Achievement(user, "The Fifth Reel", "Your fifth movie!", false));
@@ -70,6 +72,7 @@ public class AchievementService {
             user.getAchievements().add(new Achievement(user, "Half-Century Club", "50 movies?!?!", false));
             user.getAchievements().add(new Achievement(user, "Ultimate Cinephile", "100 movie club", false));
         }
+        System.out.println("Achievement List: " + user.getAchievements().toString());
     }
 
     public void checkMovieStreak(User user) {
