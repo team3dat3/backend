@@ -2,9 +2,12 @@ package com.team3dat3.backend.service;
 
 import com.team3dat3.backend.dto.achievement.AchievementRequest;
 import com.team3dat3.backend.dto.achievement.AchievementResponse;
+import com.team3dat3.backend.dto.user.UserResponse;
 import com.team3dat3.backend.entity.Achievement;
 import com.team3dat3.backend.entity.User;
 import com.team3dat3.backend.repository.AchievementRepository;
+import com.team3dat3.backend.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
@@ -12,15 +15,18 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class AchievementService {
 
     AchievementRepository achievementRepository;
+    UserRepository userRepository;
 
-    public AchievementService(AchievementRepository achievementRepository) {
+    public AchievementService(AchievementRepository achievementRepository, UserRepository userRepository) {
         this.achievementRepository = achievementRepository;
+        this.userRepository = userRepository;
     }
 
     public List<AchievementResponse> findAll() {
@@ -60,11 +66,12 @@ public class AchievementService {
         achievementRepository.delete(achievement);
     }
 
-    public void initiateAchievements(int id) {
-        User user = new User();
-        user.setId(id);
+    public UserResponse initiateAchievements(int id) {
+        //User user = Optional.ofNullable(userRepository.findById(id)).orElse(new User());
+        User user = userRepository.findById(id).get();
         System.out.println("initiating achievements on user with username: " + user.getUsername());
-        if (user.getAchievements().size() == 0) {
+        if (user.getAchievements() == null) {
+            user.setAchievements(new ArrayList<>());
             user.getAchievements().add(new Achievement(user, "The Rookie", "You bought your first ticket!", false));
             user.getAchievements().add(new Achievement(user, "The Fifth Reel", "Your fifth movie!", false));
             user.getAchievements().add(new Achievement(user, "Double Digits!", "Ten movies, right on!", false));
@@ -73,6 +80,7 @@ public class AchievementService {
             user.getAchievements().add(new Achievement(user, "Ultimate Cinephile", "100 movie club", false));
         }
         System.out.println("Achievement List: " + user.getAchievements().toString());
+        return new UserResponse(userRepository.save(user), true);
     }
 
     public void checkMovieStreak(User user) {

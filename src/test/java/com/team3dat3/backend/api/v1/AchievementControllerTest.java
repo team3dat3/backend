@@ -14,6 +14,7 @@ import com.team3dat3.backend.entity.Achievement;
 import com.team3dat3.backend.entity.Coupon;
 import com.team3dat3.backend.repository.AchievementRepository;
 import com.team3dat3.backend.repository.CouponRepository;
+import com.team3dat3.backend.repository.UserRepository;
 import com.team3dat3.backend.service.AchievementService;
 import com.team3dat3.backend.service.CouponService;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,6 +33,7 @@ public class AchievementControllerTest {
     AchievementRepository achievementRepository;
     AchievementController achievementController;
     AchievementService achievementService;
+    UserRepository userRepository;
 
     private Achievement achievement1;
     private Achievement achievement2;
@@ -40,7 +42,7 @@ public class AchievementControllerTest {
 
     @BeforeEach
     void beforeEach() {
-        achievementService = new AchievementService(achievementRepository);
+        achievementService = new AchievementService(achievementRepository, userRepository);
         achievementController = new AchievementController(achievementService);
         mockMvc = MockMvcBuilders.standaloneSetup(achievementController).build();
 

@@ -25,7 +25,7 @@ public class UserCreateServiceTest {
 
     @BeforeEach
     void beforeEach() {
-        achievementService = new AchievementService(achievementRepository);
+        achievementService = new AchievementService(achievementRepository, userRepository);
         userService = new UserService(userRepository, achievementService);
         userCreateService = new UserCreateService(userService, achievementService);
 

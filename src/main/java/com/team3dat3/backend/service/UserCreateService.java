@@ -2,6 +2,7 @@ package com.team3dat3.backend.service;
 
 import com.team3dat3.backend.dto.user.UserRequest;
 import com.team3dat3.backend.dto.user.UserResponse;
+import com.team3dat3.backend.entity.User;
 
 public class UserCreateService {
     private UserService userService;
@@ -14,7 +15,7 @@ public class UserCreateService {
 
     public UserResponse createUserWithAchievements(UserRequest userRequest){
         UserResponse userResponse = userService.create(userRequest);
-        achievementService.initiateAchievements(userResponse.getId());
-        return userResponse;
+        UserResponse userResponseWithAchievements = achievementService.initiateAchievements(userResponse.getId());
+        return userResponseWithAchievements;
     }
 }

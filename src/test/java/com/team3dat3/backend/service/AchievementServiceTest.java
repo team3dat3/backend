@@ -4,6 +4,7 @@ import com.team3dat3.backend.dto.achievement.AchievementRequest;
 import com.team3dat3.backend.dto.achievement.AchievementResponse;
 import com.team3dat3.backend.entity.Achievement;
 import com.team3dat3.backend.repository.AchievementRepository;
+import com.team3dat3.backend.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,14 @@ public class AchievementServiceTest {
     @Autowired
     AchievementRepository achievementRepository;
     AchievementService achievementService;
+    UserRepository userRepository;
 
     private Achievement achievement1;
     private Achievement achievement2;
 
     @BeforeEach
     void beforeEach(){
-        achievementService = new AchievementService(achievementRepository);
+        achievementService = new AchievementService(achievementRepository, userRepository);
         achievement1 = achievementRepository.save(new Achievement());
         achievement2 = achievementRepository.save(new Achievement());
     }
