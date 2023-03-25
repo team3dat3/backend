@@ -5,6 +5,12 @@ import lombok.*;
 
 import java.util.List;
 
+/*
+ * Author: Thomas S. Andersen
+ * Date: 23/03/2023
+ * Description: Show entity
+ */
+
 @Entity
 @Getter
 @Setter
@@ -28,6 +34,6 @@ public class Show {
 
   private double price;
 
-  //@Many to one
-  //private Theater theater;
+  @ManyToOne
+  private Theater theater;
 }

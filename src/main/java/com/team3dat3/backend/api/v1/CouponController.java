@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/v1/coupons")
+@RequestMapping("/v1")
 @RestController
 public class CouponController {
     private CouponService couponService;
@@ -16,27 +16,27 @@ public class CouponController {
         this.couponService = couponService;
     }
 
-    @GetMapping
+    @GetMapping("/member/coupons")
     public List<CouponResponse> findAll() {
         return couponService.findAll();
     }
 
-    @GetMapping ("/{id}")
+    @GetMapping ("/member/coupons/{id}")
     CouponResponse find(@PathVariable("id") int id){
         return couponService.find(id);
     }
 
-    @PostMapping
+    @PostMapping("/admin/coupons")
     public CouponResponse create(@RequestBody CouponRequest couponRequest){
         return couponService.create(couponRequest);
     }
 
-    @PatchMapping
+    @PatchMapping("/admin/coupons")
     public CouponResponse update(@RequestBody CouponRequest couponRequest){
         return couponService.update(couponRequest);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/admin/coupons")
     public void delete(@RequestBody CouponRequest couponRequest){
         couponService.delete(couponRequest);
     }

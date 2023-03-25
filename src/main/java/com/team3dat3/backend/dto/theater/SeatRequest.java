@@ -1,8 +1,12 @@
 package com.team3dat3.backend.dto.theater;
 
+import com.team3dat3.backend.entity.Reservation;
 import com.team3dat3.backend.entity.Seat;
 import com.team3dat3.backend.entity.SeatRow;
 import lombok.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /*
  * Author: Mads Kristian Pedersen
@@ -14,26 +18,16 @@ import lombok.*;
 @Getter @Setter
 public class SeatRequest {
     private Long id;
-    private boolean isReserved;
-    private Long seatRowId;
+    private List<Reservation> reservations;
+    private SeatRow seatRows;
 
     public void copy(Seat seat) {
         seat.setId(id);
-        seat.setReserved(isReserved);
-        if (seatRowId != null) {
-            SeatRow seatRow = new SeatRow();
-            seatRow.setId(seatRowId);
-            seat.setSeatRow(seatRow);
-        }
+        seat.setReservations(reservations);
+        seat.setSeatRow(seatRows);
     }
 
     public Seat toSeat() {
-        Seat seat = new Seat(id, isReserved, null); // updated constructor call
-        if (seatRowId != null) {
-            SeatRow seatRow = new SeatRow();
-            seatRow.setId(seatRowId);
-            seat.setSeatRow(seatRow);
-        }
-        return seat;
+        return new Seat(id, reservations, seatRows);
     }
 }

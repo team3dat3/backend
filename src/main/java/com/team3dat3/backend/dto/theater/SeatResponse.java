@@ -1,7 +1,12 @@
 package com.team3dat3.backend.dto.theater;
 
+import com.team3dat3.backend.entity.Reservation;
 import com.team3dat3.backend.entity.Seat;
+import com.team3dat3.backend.entity.SeatRow;
 import lombok.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /*
  * Author: Mads Kristian Pedersen
@@ -13,10 +18,12 @@ import lombok.*;
 @Getter @Setter
 public class SeatResponse {
     private Long id;
-    private boolean isReserved;
+    private List<Reservation> reservations;
+    private SeatRow seatRows;
 
     public SeatResponse(Seat seat) {
         id = seat.getId();
-        isReserved = seat.isReserved();
+        reservations = seat.getReservations();
+        seatRows = seat.getSeatRow();
     }
 }

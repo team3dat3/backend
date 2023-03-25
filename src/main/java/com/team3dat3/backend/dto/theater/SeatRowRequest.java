@@ -12,28 +12,13 @@ import java.util.stream.Collectors;
 @Getter @Setter
 public class SeatRowRequest {
     private Long id;
-    private List<SeatRequest> seats;
+    private List<Seat> seats;
     public void copy(SeatRow seatRow) {
         seatRow.setId(id);
-        if (seats != null) {
-            List<Seat> seatList = seats.stream().map(seatRequest -> {
-                Seat seat = new Seat();
-                seatRequest.copy(seat);
-                return seat;
-            }).collect(Collectors.toList());
-            seatRow.setSeats(seatList);
-        }
+        seatRow.setSeats(seats);
     }
 
     public SeatRow toSeatRow() {
-        SeatRow seatRow = new SeatRow();
-        seatRow.setId(id);
-        if (seats != null) {
-            List<Seat> seatList = seats.stream()
-                    .map(SeatRequest::toSeat)
-                    .collect(Collectors.toList());
-            seatRow.setSeats(seatList);
-        }
-        return seatRow;
+        return new SeatRow(id, seats);
     }
 }
