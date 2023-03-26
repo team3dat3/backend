@@ -4,6 +4,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.Arrays;
+
 import static org.hamcrest.Matchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,20 +15,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.team3dat3.backend.entity.User;
 import com.team3dat3.backend.repository.UserRepository;
 import com.team3dat3.backend.service.UserService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import javax.print.attribute.standard.Media;
 
 @DataJpaTest
 public class UserControllerTest {
@@ -42,30 +36,28 @@ public class UserControllerTest {
 
     @BeforeEach
     void beforeEach() {
-        userService = new UserService(userRepository);
+        userService = new UserService(userRepository, new BCryptPasswordEncoder());
         userController = new UserController(userService);
         mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
-        user1 = userRepository.save(new User("user1", "email1", "phone1"));
-        user2 = userRepository.save(new User("user2", "email2", "phone2"));
+        user1 = userRepository.save(new User("user1", "pass1", "mail1@eg.com", "12345678", new String[] {"ADMIN"}));
+        user2 = userRepository.save(new User("user2", "pass2", "mail2@eg.com", "87654321", new String[] {"MEMBER"}));
     }
 
     @Test
     void testFindAll() throws Exception {
-        System.out.println(mockMvc.perform(get("/v1/anonymous/users"))
+        mockMvc.perform(get("/v1/anonymous/users"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$", hasSize(2))));
+                .andExpect(jsonPath("$", hasSize(2)));
 
     }
 
     @Test
     void testFind() throws Exception {
-        System.out.println(mockMvc.perform(get("/v1/anonymous/users/" + user1.getId()))
+        mockMvc.perform(get("/v1/anonymous/users/" + user1.getUsername()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id", is(user1.getId()))));
-
-
+                .andExpect(jsonPath("$.username", is(user1.getUsername())));
     }
 
     @Test
@@ -73,34 +65,35 @@ public class UserControllerTest {
         UserRequest userRequest = new UserRequest();
         userRequest.setEmail("testEmail");
         userRequest.setUsername("testUsername");
+        userRequest.setPassword("testPassword");
         userRequest.setPhoneNumber("testPhoneNumber");
+        userRequest.setRoles(Arrays.asList("MEMBER"));
         mockMvc.perform(post("/v1/anonymous/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(userRequest)))
-                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id", is(not(0))));
+                .andExpect(jsonPath("$.username", is(userRequest.getUsername())));
     }
 
     @Test
     void testUpdate() throws Exception {
         UserRequest userRequest = new UserRequest();
-        userRequest.setId(user2.getId());
-        userRequest.setUsername("hej");
+        userRequest.setUsername(user1.getUsername());
+        userRequest.setEmail("update@Email.com");
         mockMvc.perform(patch("/v1/admin/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(userRequest)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id", is(user2.getId())))
-                .andExpect(jsonPath("$.username", is("hej")));
+                .andExpect(jsonPath("$.username", is(user1.getUsername())))
+                .andExpect(jsonPath("$.email", is(user1.getEmail())));
     }
 
     @Test
     void testDelete() throws Exception {
         UserRequest userRequest = new UserRequest();
-        userRequest.setId(user2.getId());
+        userRequest.setUsername(user2.getUsername());
         mockMvc.perform(delete("/v1/admin/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(userRequest)))

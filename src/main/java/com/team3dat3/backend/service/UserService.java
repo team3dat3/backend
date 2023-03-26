@@ -5,6 +5,7 @@ import com.team3dat3.backend.dto.user.UserResponse;
 import com.team3dat3.backend.entity.User;
 import com.team3dat3.backend.repository.UserRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -15,8 +16,11 @@ import java.util.stream.Collectors;
 public class UserService {
     private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository){
+    private PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -28,23 +32,23 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public UserResponse find(int id) {
+    public UserResponse find(String username) {
         User user = userRepository
-                .findById(id)
+                .findById(username)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return new UserResponse(user, true);
     }
 
     public UserResponse create(UserRequest userRequest){
-        User user = userRepository.save(
-                userRequest.toUser()
-        );
+        User user = userRequest.toUser();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user = userRepository.save(user);
         return new UserResponse(user, true);
     }
 
     public UserResponse update(UserRequest userRequest){
         User user = userRepository
-                .findById(userRequest.getId())
+                .findById(userRequest.getUsername())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         userRequest.copyTo(user);
         return new UserResponse(userRepository.save(user), true);
@@ -52,7 +56,7 @@ public class UserService {
 
     public void delete(UserRequest userRequest){
         User user = userRepository
-                .findById(userRequest.getId())
+                .findById(userRequest.getUsername())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         userRepository.delete(user);
     }

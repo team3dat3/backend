@@ -12,16 +12,23 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class User extends Authenticatable {
+
+    /* Derived from Authenticatable
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     @Column(name = "username", length = 50, nullable = false)
     private String username;
+    */
+
     @Column(name = "email", length = 50, nullable = false)
     private String email;
+
     @Column(name = "phoneNumber", length = 50, nullable = false)
     private String phoneNumber;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reservation> reservations;
 
@@ -31,9 +38,8 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Coupon> coupons;
 
-
-    public User(String username, String email, String phoneNumber){
-        this.username = username;
+    public User(String username, String password, String email, String phoneNumber, String[] roles) {
+        super(username, password, roles);
         this.email = email;
         this.phoneNumber = phoneNumber;
     }

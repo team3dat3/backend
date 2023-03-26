@@ -13,8 +13,11 @@ public class Achievement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+    
     @Column(name = "unlocked", nullable = false)
+    @Builder.Default
     private boolean unlocked = false;
 }
