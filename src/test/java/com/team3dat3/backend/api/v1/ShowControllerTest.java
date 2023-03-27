@@ -1,4 +1,4 @@
-package com.team3dat3.backend.api;
+package com.team3dat3.backend.api.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team3dat3.backend.api.v1.ShowController;

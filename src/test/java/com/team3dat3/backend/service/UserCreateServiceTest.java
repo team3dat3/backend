@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
@@ -26,16 +28,17 @@ public class UserCreateServiceTest {
     @BeforeEach
     void beforeEach() {
         achievementService = new AchievementService(achievementRepository, userRepository);
-        userService = new UserService(userRepository, achievementService);
+        userService = new UserService(userRepository, new BCryptPasswordEncoder());
         userCreateService = new UserCreateService(userService, achievementService);
-
-        user = userRepository.save(new User("testUsername", "testEmail", "testPhoneNumber"));
+        user = userRepository.save(new User("user1", "pass1", "mail1@eg.com", "12345678", new String[] {"ADMIN"}));
     }
 
     @Test
     void createUserWithAchievementsTest() {
-        UserRequest userRequest = new UserRequest("testUsername", "testEmail", "testPhoneNumber");
-        userRequest.setId(user.getId());
+        UserRequest userRequest = new UserRequest(user);
+        userRequest.setUsername("newUser");
+        userRequest.setEmail("new@eg.com");
+        userRequest.setPhoneNumber("12121212");
         UserResponse userResponse = userCreateService.createUserWithAchievements(userRequest);
         assertNotNull(userResponse.getAchievements());
     }

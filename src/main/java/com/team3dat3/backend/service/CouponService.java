@@ -40,6 +40,14 @@ public class CouponService {
         return new CouponResponse(coupon);
     }
 
+    public CouponResponse use(int id) {
+        Coupon coupon = couponRepository
+                .findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        coupon.setUsed(true);
+        return new CouponResponse(couponRepository.save(coupon));
+    }
+
     public CouponResponse update(CouponRequest couponRequest){
         Coupon coupon = couponRepository
                 .findById(couponRequest.getId())

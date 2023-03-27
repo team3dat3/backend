@@ -22,6 +22,8 @@ public class Coupon {
     @Column(name = "cost", length = 50, nullable = false)
     private double cost;
 
+    private boolean used = false;
+
     public Coupon(String name, double discount, double cost){
         this.name = name;
         this.discount = discount;

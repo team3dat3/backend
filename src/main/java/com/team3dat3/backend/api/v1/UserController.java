@@ -21,9 +21,9 @@ public class UserController {
         return userService.findAll();
     }
 
-    @GetMapping("/anonymous/users/{id}")
-    public UserResponse find(@PathVariable("id") int id) {
-        return userService.find(id);
+    @GetMapping("/anonymous/users/{username}")
+    public UserResponse find(@PathVariable("username") String username) {
+        return userService.find(username);
     }
 
     @PostMapping("/anonymous/users")

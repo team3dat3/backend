@@ -29,7 +29,18 @@ public class Reservation {
 
     @ManyToMany
     private List<Seat> seats;
+
     @ManyToOne
     private Show show;
 
+    public Reservation(int id, boolean checkedIn, Show show) {
+        this.id = id;
+        this.checkedIn = checkedIn;
+        this.show = show;
+    }
+
+    public Reservation(User user, Show show) {
+        this.user = user;
+        this.show = show;
+    }
 }

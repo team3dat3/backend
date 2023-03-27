@@ -62,6 +62,13 @@ public class CouponServiceTest {
     }
 
     @Test
+    void testUse() {
+        CouponResponse couponResponse = couponService.use(coupon2.getId());
+        assertEquals(coupon2.getId(), couponResponse.getId());
+        assertEquals(true, couponResponse.isUsed());
+    }
+
+    @Test
     void testDelete() {
         CouponRequest couponRequest = new CouponRequest();
         couponRequest.setId(coupon2.getId());

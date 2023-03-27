@@ -22,7 +22,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team3dat3.backend.dto.reservation.ReservationRequest;
 import com.team3dat3.backend.entity.Reservation;
+import com.team3dat3.backend.entity.Show;
+import com.team3dat3.backend.entity.User;
 import com.team3dat3.backend.repository.ReservationRepository;
+import com.team3dat3.backend.repository.ShowRepository;
+import com.team3dat3.backend.repository.UserRepository;
 import com.team3dat3.backend.service.ReservationService;
 
 @DataJpaTest
@@ -31,26 +35,37 @@ public class ReservationControllerTest {
     @Autowired
     ReservationRepository reservationRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    ShowRepository showRepository;
+
     ReservationService reservationService;
     ReservationController reservationController;
 
     private Reservation reservation1;
     private Reservation reservation2;
 
+    private Show show1;
+    private User user1;
+
     MockMvc mockMvc;
 
     @BeforeEach
     void beforeEach() {
-        reservationService = new ReservationService(reservationRepository);
+        reservationService = new ReservationService(reservationRepository, userRepository, showRepository);
         reservationController = new ReservationController(reservationService);
         mockMvc = MockMvcBuilders.standaloneSetup(reservationController).build();
-        reservation1 = reservationRepository.save(new Reservation());
-        reservation2 = reservationRepository.save(new Reservation());
+        user1 = userRepository.save(new User("user1", "pass1", "mail1@eg.com", "87654321", new String[] {"MEMBER"}));
+        show1 = showRepository.save(new Show()); 
+        reservation1 = reservationRepository.save(new Reservation(user1, show1));
+        reservation2 = reservationRepository.save(new Reservation(user1, show1));
     }
 
     @Test
     void testFindAll() throws Exception {
-        mockMvc.perform(get("/v1/member/reservations"))
+        mockMvc.perform(get("/v1/admin/reservations"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$", hasSize(2)));
@@ -58,7 +73,7 @@ public class ReservationControllerTest {
 
     @Test
     void testFind() throws Exception {
-        mockMvc.perform(get("/v1/member/reservations/" + reservation1.getId()))
+        mockMvc.perform(get("/v1/admin/reservations/" + reservation1.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id", is(reservation1.getId())));
@@ -67,7 +82,9 @@ public class ReservationControllerTest {
     @Test
     void testCreate() throws Exception {
         ReservationRequest reservationRequest = new ReservationRequest();
-        mockMvc.perform(post("/v1/member/reservations")
+        reservationRequest.setUsername(user1.getUsername());
+        reservationRequest.setShowId(show1.getId());
+        mockMvc.perform(post("/v1/admin/reservations")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(reservationRequest)))
             .andExpect(status().isOk())

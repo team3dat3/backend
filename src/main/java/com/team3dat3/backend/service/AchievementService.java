@@ -66,9 +66,9 @@ public class AchievementService {
         achievementRepository.delete(achievement);
     }
 
-    public UserResponse initiateAchievements(int id) {
+    public UserResponse initiateAchievements(String username) {
         //User user = Optional.ofNullable(userRepository.findById(id)).orElse(new User());
-        User user = userRepository.findById(id).get();
+        User user = userRepository.findById(username).get();
         System.out.println("initiating achievements on user with username: " + user.getUsername());
         if (user.getAchievements() == null) {
             user.setAchievements(new ArrayList<>());

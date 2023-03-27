@@ -23,19 +23,17 @@ public class ReservationRequest {
     private int id;
     private boolean checkedIn;
 
-    private User user;
-
-    private List<Seat> seats;
-    private Show show;
+    private int showId;
+    private String username;
 
     public void copyTo(Reservation reservation) {
         reservation.setId(id);
         reservation.setCheckedIn(checkedIn);
-        reservation.setUser(user);
-        reservation.setShow(show);
     }
 
     public Reservation toReservation() {
-        return new Reservation(id, checkedIn, user, seats, show);
+        Reservation reservation = new Reservation();
+        copyTo(reservation);
+        return reservation;
     }
 }
