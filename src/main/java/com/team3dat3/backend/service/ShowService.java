@@ -40,14 +40,14 @@ public class ShowService {
   }
 
   public ShowResponse update(ShowRequest request) {
-    Show foundShow = showRepository.findById(request.getShowId())
+    Show foundShow = showRepository.findById(request.getId())
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Show with this id unknown"));
     request.copyTo(foundShow);
     return new ShowResponse(showRepository.save(foundShow));
   }
 
   public void delete(ShowRequest request) {
-    Show show = showRepository.findById(request.getShowId())
+    Show show = showRepository.findById(request.getId())
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     showRepository.delete(show);
   }

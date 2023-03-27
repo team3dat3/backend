@@ -18,7 +18,7 @@ import java.util.List;
 public class ShowRequest {
 
 
-  private int showId;
+  private int id;
 
   private Movie movie;
 
@@ -31,7 +31,7 @@ public class ShowRequest {
   private Theater theater;
 
   public void copyTo(Show show) {
-    show.setShowId(showId);
+    show.setId(id);
     show.setMovie(movie);
     show.setReservations(reservations);
     show.setShowDates(showDates);
@@ -41,7 +41,7 @@ public class ShowRequest {
 
   public static Show getShowEntity(ShowRequest request) {
     return Show.builder()
-        .showId(request.getShowId())
+        .id(request.getId())
         .movie(request.getMovie())
         .reservations(request.getReservations())
         .showDates(request.getShowDates())
