@@ -7,7 +7,7 @@ import java.util.List;
 
 /*
  * Author: Thomas S. Andersen
- * Date: 23/03/2023
+ * Date: 21/03/2023
  * Description: Show entity
  */
 
@@ -17,11 +17,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name="shows")
 public class Show {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int showId;
+  private int id;
 
   @ManyToOne
   private Movie movie;
