@@ -31,7 +31,6 @@ public class ReservationResponse {
     public ReservationResponse(Reservation reservation) {
         id = reservation.getId();
         checkedIn = reservation.isCheckedIn();
-        seats = reservation.getSeats();
         show = reservation.getShow();
         user = reservation.getUser();
     }
