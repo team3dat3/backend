@@ -83,8 +83,8 @@ class SeatServiceTest {
         seatRow2.setSeats(Collections.singletonList(new Seat()));
 
         // Save the SeatRow objects to the database
-        seatRowResponse1 = seatRowService.create(new SeatRowRequest(seatRow1.getId(), seatRow1.getSeats()));
-        seatRowResponse2 = seatRowService.create(new SeatRowRequest(seatRow2.getId(), seatRow2.getSeats()));
+        seatRowResponse1 = seatRowService.create(new SeatRowRequest(seatRow1.getId(), seatRow1.getSeats(), seatRow1.getTheater()));
+        seatRowResponse2 = seatRowService.create(new SeatRowRequest(seatRow2.getId(), seatRow2.getSeats(), seatRow1.getTheater()));
 
         // Create Seat objects and save them to the database
         Seat seat1 = new Seat(0L, null, seatRow1);

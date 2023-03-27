@@ -17,4 +17,7 @@ public class SeatRow {
     private Long id;
     @OneToMany
     private List<Seat> seats;
+
+    @ManyToOne
+    private Theater theater;
 }

@@ -2,7 +2,9 @@ package com.team3dat3.backend.service;
 
 import com.team3dat3.backend.dto.user.UserRequest;
 import com.team3dat3.backend.dto.user.UserResponse;
+import com.team3dat3.backend.entity.Movie;
 import com.team3dat3.backend.entity.User;
+import com.team3dat3.backend.repository.AchievementRepository;
 import com.team3dat3.backend.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,7 +17,6 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
     private UserRepository userRepository;
-
     private PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder){

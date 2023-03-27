@@ -1,4 +1,4 @@
-package com.team3dat3.backend.api.v1;
+package com.team3dat3.backend.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team3dat3.backend.api.v1.ShowController;
@@ -69,10 +69,10 @@ class ShowControllerTest {
 
   @Test
   void getShowById() throws Exception{
-    mockMvc.perform(get("/v1/anonymous/shows/" + show1.getShowId()))
+    mockMvc.perform(get("/v1/anonymous/shows/" + show1.getId()))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.showId", is(Matchers.not(0))));
+        .andExpect(jsonPath("$.id", is(Matchers.not(0))));
   }
 
   @Test
@@ -85,7 +85,7 @@ class ShowControllerTest {
             .content(new ObjectMapper().writeValueAsString(show3)))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.showId", is(Matchers.not(0))));
+        .andExpect(jsonPath("$.id", is(Matchers.not(0))));
   }
 
   @Test
@@ -96,7 +96,7 @@ class ShowControllerTest {
 
     showRepository.save(show3);
     ShowRequest show4 = ShowRequest.builder()
-        .showId(show3.getShowId())
+        .id(show3.getId())
         .price(20)
         .build();
 
@@ -105,14 +105,14 @@ class ShowControllerTest {
             .content(new ObjectMapper().writeValueAsString(show4)))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.showId", is(show3.getShowId())))
+        .andExpect(jsonPath("$.id", is(show3.getId())))
         .andExpect(jsonPath("$.price", is(20.0)));
   }
 
   @Test
   void deleteShow() throws Exception{
     ShowRequest deleteRequest = new ShowRequest();
-    deleteRequest.setShowId(show1.getShowId());
+    deleteRequest.setId(show1.getId());
     mockMvc.perform(delete("/v1/admin/shows")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(deleteRequest)))

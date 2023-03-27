@@ -25,7 +25,7 @@ public class MovieResponse {
   private int prodYear;
   private int ageLimit;
   private String description;
-  private String genre;
+  private List <String> genre;
   private String runtime;
   private List<Show> shows;
 

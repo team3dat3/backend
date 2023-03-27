@@ -23,6 +23,7 @@ public class UserServiceTest {
     @Autowired
     UserRepository userRepository;
 
+    AchievementService achievementService;
     UserService userService;
 
     private User user1;

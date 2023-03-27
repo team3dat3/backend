@@ -24,7 +24,7 @@ public class MovieRequest {
   private int prodYear;
   private int ageLimit;
   private String description;
-  private String genre;
+  private List <String> genre;
   private String runtime;
 
 public static Movie getMovieEntity(MovieRequest m){

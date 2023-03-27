@@ -8,10 +8,13 @@ package com.team3dat3.backend.dto.reservation;
 
 import com.team3dat3.backend.entity.Reservation;
 
+import com.team3dat3.backend.entity.Seat;
 import com.team3dat3.backend.entity.Show;
 import com.team3dat3.backend.entity.User;
 
 import lombok.*;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,12 +25,16 @@ public class ReservationResponse {
 
     private boolean checkedIn;
 
+    private User user;
+
+    private List<Seat> seats;
     private Show show;
     private User user;
 
     public ReservationResponse(Reservation reservation) {
         id = reservation.getId();
         checkedIn = reservation.isCheckedIn();
+        seats = reservation.getSeats();
         show = reservation.getShow();
         user = reservation.getUser();
     }

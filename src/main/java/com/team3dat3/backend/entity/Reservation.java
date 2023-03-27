@@ -9,6 +9,8 @@ package com.team3dat3.backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -22,6 +24,11 @@ public class Reservation {
     // Used to check if the user has checked in or not
     private boolean checkedIn = false;
 
+    @ManyToOne
+    private User user;
+
+    @ManyToMany
+    private List<Seat> seats;
     @ManyToOne
     private Show show;
 
