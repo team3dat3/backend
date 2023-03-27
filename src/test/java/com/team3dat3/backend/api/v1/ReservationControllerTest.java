@@ -83,7 +83,7 @@ public class ReservationControllerTest {
     void testCreate() throws Exception {
         ReservationRequest reservationRequest = new ReservationRequest();
         reservationRequest.setUsername(user1.getUsername());
-        reservationRequest.setShowId(show1.getShowId());
+        reservationRequest.setShowId(show1.getId());
         mockMvc.perform(post("/v1/admin/reservations")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(reservationRequest)))

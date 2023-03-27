@@ -10,6 +10,7 @@ import static org.hamcrest.Matchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team3dat3.backend.dto.user.UserRequest;
+import com.team3dat3.backend.service.AchievementService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import com.team3dat3.backend.service.UserService;
 public class UserControllerTest {
     @Autowired
     UserRepository userRepository;
+    AchievementService achievementService;
     UserService userService;
     UserController userController;
 

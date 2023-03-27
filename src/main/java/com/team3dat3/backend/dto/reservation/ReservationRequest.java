@@ -8,8 +8,12 @@ package com.team3dat3.backend.dto.reservation;
 
 import com.team3dat3.backend.entity.Reservation;
 
+import com.team3dat3.backend.entity.Seat;
 import com.team3dat3.backend.entity.Show;
+import com.team3dat3.backend.entity.User;
 import lombok.*;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor

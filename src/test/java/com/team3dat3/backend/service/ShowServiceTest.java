@@ -58,8 +58,8 @@ class ShowServiceTest {
 
   @Test
   void find() {
-    ShowResponse findShow = showService.find(show1.getShowId());
-    assertEquals(show1.getShowId(), findShow.getShowId());
+    ShowResponse findShow = showService.find(show1.getId());
+    assertEquals(show1.getId(), findShow.getId());
   }
 
   @Test
@@ -80,11 +80,11 @@ class ShowServiceTest {
 
     showRepository.save(show3);
     ShowRequest show4 = ShowRequest.builder()
-        .showId(show3.getShowId())
+        .id(show3.getId())
         .price(20)
         .build();
     showService.update(show4);
-    ShowResponse showResponse = showService.find(show3.getShowId());
+    ShowResponse showResponse = showService.find(show3.getId());
     assertEquals(showResponse.getPrice(), show4.getPrice());
   }
 
@@ -95,11 +95,11 @@ class ShowServiceTest {
         .build();
     showRepository.save(show5);
     ShowRequest showDelete = ShowRequest.builder()
-        .showId(show5.getShowId())
+        .id(show5.getId())
         .price(20)
         .build();
     showService.delete(showDelete);
     assertThrows(ResponseStatusException.class, () -> {
-      showService.find(show5.getShowId());});
+      showService.find(show5.getId());});
   }
 }

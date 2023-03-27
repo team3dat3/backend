@@ -9,6 +9,8 @@ package com.team3dat3.backend.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -23,10 +25,13 @@ public class Reservation {
     private boolean checkedIn = false;
 
     @ManyToOne
-    private Show show;
+    private User user;
+
+    @ManyToMany
+    private List<Seat> seats;
 
     @ManyToOne
-    private User user;
+    private Show show;
 
     public Reservation(int id, boolean checkedIn, Show show) {
         this.id = id;

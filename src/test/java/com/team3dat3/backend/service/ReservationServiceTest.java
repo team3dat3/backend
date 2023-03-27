@@ -72,7 +72,7 @@ public class ReservationServiceTest {
     void testCreate() {
         ReservationRequest reservationRequest = new ReservationRequest();        
         reservationRequest.setUsername(user1.getUsername());
-        reservationRequest.setShowId(show1.getShowId());
+        reservationRequest.setShowId(show1.getId());
         ReservationResponse reservationResponse = reservationService.create(reservationRequest);
         assertNotEquals(0, reservationResponse.getId());
         assertEquals(user1, reservationResponse.getUser());
