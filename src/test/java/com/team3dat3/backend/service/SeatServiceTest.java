@@ -8,9 +8,14 @@ import com.team3dat3.backend.dto.theater.SeatRowRequest;
 import com.team3dat3.backend.dto.theater.SeatRowResponse;
 import com.team3dat3.backend.entity.Seat;
 import com.team3dat3.backend.entity.SeatRow;
+import com.team3dat3.backend.entity.Show;
+import com.team3dat3.backend.entity.User;
 import com.team3dat3.backend.repository.ReservationRepository;
 import com.team3dat3.backend.repository.SeatRepository;
 import com.team3dat3.backend.repository.SeatRowRepository;
+import com.team3dat3.backend.repository.ShowRepository;
+import com.team3dat3.backend.repository.UserRepository;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,6 +42,16 @@ class SeatServiceTest {
     @Autowired
     private ReservationRepository reservationRepository;
     private ReservationService reservationService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    ShowRepository showRepository;
+
+    private Show show1;
+    private User user1;
+
     SeatRow seatRow1;
     SeatRow seatRow2;
     SeatRowResponse seatRowResponse1;
@@ -48,13 +63,20 @@ class SeatServiceTest {
     void setUp() {
         seatService = new SeatService(seatRepository);
         seatRowService = new SeatRowService(seatRowRepository);
-        reservationService = new ReservationService(reservationRepository);
+        reservationService = new ReservationService(reservationRepository, userRepository, showRepository);
         seatRow1 = new SeatRow();
         seatRow2 = new SeatRow();
 
+        user1 = userRepository.save(new User("user1", "pass1", "mail1@eg.com", "87654321", new String[] {"MEMBER"}));
+        show1 = showRepository.save(new Show());  
+
+        ReservationRequest reservationRequest1 = new ReservationRequest();
+        reservationRequest1.setShowId(show1.getShowId());
+        reservationRequest1.setUsername(user1.getUsername());
+
         // Save some reservations to the database
-        reservationResponse1 = reservationService.create(new ReservationRequest());
-        reservationResponse2 = reservationService.create(new ReservationRequest());
+        reservationResponse1 = reservationService.create(reservationRequest1);
+        reservationResponse2 = reservationService.create(reservationRequest1);
 
         // Set some seats on the SeatRow objects
         seatRow1.setSeats(Arrays.asList(new Seat(), new Seat()));

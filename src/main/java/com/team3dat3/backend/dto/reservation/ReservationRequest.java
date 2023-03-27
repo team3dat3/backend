@@ -19,7 +19,8 @@ public class ReservationRequest {
     private int id;
     private boolean checkedIn;
 
-    private Show show;
+    private int showId;
+    private String username;
 
     public void copyTo(Reservation reservation) {
         reservation.setId(id);
@@ -27,6 +28,8 @@ public class ReservationRequest {
     }
 
     public Reservation toReservation() {
-        return new Reservation(id, checkedIn, show);
+        Reservation reservation = new Reservation();
+        copyTo(reservation);
+        return reservation;
     }
 }
