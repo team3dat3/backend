@@ -15,6 +15,7 @@ public class CouponRequest {
     private double discount;
     private User user;
     private double cost;
+    private boolean used;
 
     public static Coupon getFromCouponRequest(CouponRequest cr){
         return Coupon.builder()
@@ -34,7 +35,7 @@ public class CouponRequest {
     }
 
     public Coupon toCoupon(){
-        return new Coupon(id, name, discount, user, cost);
+        return new Coupon(id, name, discount, user, cost, used);
     }
 
     public CouponRequest(String name, double discount, double cost){

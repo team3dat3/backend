@@ -16,14 +16,19 @@ public class CouponController {
         this.couponService = couponService;
     }
 
-    @GetMapping("/member/coupons")
+    @GetMapping("/admin/coupons")
     public List<CouponResponse> findAll() {
         return couponService.findAll();
     }
 
-    @GetMapping ("/member/coupons/{id}")
+    @GetMapping ("/admin/coupons/{id}")
     CouponResponse find(@PathVariable("id") int id){
         return couponService.find(id);
+    }
+
+    @GetMapping("/admin/coupons/{id}/use")
+    public CouponResponse scan(@PathVariable("id") int id) {
+        return couponService.use(id);
     }
 
     @PostMapping("/admin/coupons")

@@ -15,6 +15,7 @@ public class CouponResponse {
     private double discount;
     private User user;
     private double cost;
+    private boolean used;
 
     public CouponResponse(Coupon coupon){
         this.id = coupon.getId();
@@ -22,5 +23,6 @@ public class CouponResponse {
         this.discount = coupon.getDiscount();
         this.user = coupon.getUser();
         this.cost = coupon.getCost();
+        this.used = coupon.isUsed();
     }
 }
