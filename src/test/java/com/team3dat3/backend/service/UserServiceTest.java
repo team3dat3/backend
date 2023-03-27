@@ -23,6 +23,7 @@ public class UserServiceTest {
     @Autowired
     UserRepository userRepository;
 
+    AchievementService achievementService;
     UserService userService;
 
     private User user1;
@@ -30,7 +31,7 @@ public class UserServiceTest {
 
     @BeforeEach
     void beforeEach() {
-        userService = new UserService(userRepository);
+        userService = new UserService(userRepository, achievementService);
         user1 = userRepository.save(new User("user1", "email1", "phone1"));
         user2 = userRepository.save(new User("user2", "email2", "phone2"));
     }

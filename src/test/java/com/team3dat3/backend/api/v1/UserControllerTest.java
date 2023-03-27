@@ -8,6 +8,7 @@ import static org.hamcrest.Matchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team3dat3.backend.dto.user.UserRequest;
+import com.team3dat3.backend.service.AchievementService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ import javax.print.attribute.standard.Media;
 public class UserControllerTest {
     @Autowired
     UserRepository userRepository;
+    AchievementService achievementService;
     UserService userService;
     UserController userController;
 
@@ -42,7 +44,7 @@ public class UserControllerTest {
 
     @BeforeEach
     void beforeEach() {
-        userService = new UserService(userRepository);
+        userService = new UserService(userRepository, achievementService);
         userController = new UserController(userService);
         mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
         user1 = userRepository.save(new User("user1", "email1", "phone1"));
