@@ -20,21 +20,22 @@ public class UserRequest extends AuthenticatableRequest {
     @Id
     private int id;
     private String username;
+    private String password;
     */
 
     private String email;
     private String phoneNumber;
-    private List<Achievement> achievements;
-    private List<Reservation> reservations;
-    private List<Coupon> coupons;
+    //private List<Achievement> achievements;
+    //private List<Reservation> reservations;
+    //private List<Coupon> coupons;
 
     public UserRequest(User user){
         super(user);
         this.email = user.getEmail();
         this.phoneNumber = user.getPhoneNumber();
-        this.achievements = user.getAchievements();
-        this.reservations = user.getReservations();
-        this.coupons = user.getCoupons();
+        //this.achievements = user.getAchievements();
+        //this.reservations = user.getReservations();
+        //this.coupons = user.getCoupons();
     }
 
     public void copyTo(User user){
@@ -42,9 +43,9 @@ public class UserRequest extends AuthenticatableRequest {
         user.setUsername(username);
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
-        user.setAchievements(achievements);
-        user.setReservations(reservations);
-        user.setCoupons(coupons);
+        //user.setAchievements(achievements);
+        //user.setReservations(reservations);
+        //user.setCoupons(coupons);
     }
 
     public User toUser(){

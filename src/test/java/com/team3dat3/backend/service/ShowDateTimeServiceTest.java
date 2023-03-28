@@ -59,7 +59,7 @@ class ShowDateTimeServiceTest {
   @Test
   void find() {
     ShowDateTimeResponse findShowDate = showDateTimeService.find(showDate1.getDateId());
-    assertEquals(showDate1.getDateId(), findShowDate.getDateId());
+    assertEquals(showDate1.getDateId(), findShowDate.getId());
   }
 
   @Test

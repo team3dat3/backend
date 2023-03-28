@@ -102,7 +102,7 @@ class ShowDateTimeControllerTest {
     mockMvc.perform(get("/v1/anonymous/showdates/" + showDate1.getDateId()))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.dateId", is(Matchers.not(0))));
+        .andExpect(jsonPath("$.id", is(Matchers.not(0))));
   }
 
   @Test
@@ -114,7 +114,7 @@ class ShowDateTimeControllerTest {
             .content(new ObjectMapper().writeValueAsString(showDate3)))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.dateId", is(Matchers.not(0))));
+        .andExpect(jsonPath("$.id", is(Matchers.not(0))));
   }
 
   @Test

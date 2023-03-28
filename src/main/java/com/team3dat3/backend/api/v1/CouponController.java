@@ -3,6 +3,9 @@ package com.team3dat3.backend.api.v1;
 import com.team3dat3.backend.dto.Coupon.CouponRequest;
 import com.team3dat3.backend.dto.Coupon.CouponResponse;
 import com.team3dat3.backend.service.CouponService;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +17,18 @@ public class CouponController {
 
     public CouponController(CouponService couponService){
         this.couponService = couponService;
+    }
+
+    @GetMapping("/member/coupons")
+    public List<CouponResponse> findUserCoupons(@AuthenticationPrincipal Jwt jwt) {
+        String username = jwt.getSubject();
+        return couponService.findUserCoupons(username);
+    }
+
+    @GetMapping("/member/coupons/{id}")
+    public CouponResponse findUserCoupon(@AuthenticationPrincipal Jwt jwt, @PathVariable("id") int id) {
+        String username = jwt.getSubject();
+        return couponService.findUserCoupon(username, id);
     }
 
     @GetMapping("/admin/coupons")

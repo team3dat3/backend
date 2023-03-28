@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +43,14 @@ public class UserService {
     public UserResponse create(UserRequest userRequest){
         User user = userRequest.toUser();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user = userRepository.save(user);
+        return new UserResponse(user, true);
+    }
+
+    public UserResponse register(UserRequest userRequest){
+        User user = userRequest.toUser();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(Arrays.asList("MEMBER"));
         user = userRepository.save(user);
         return new UserResponse(user, true);
     }

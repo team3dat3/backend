@@ -16,18 +16,18 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/anonymous/users")
+    @GetMapping("/admin/users")
     public List<UserResponse> findAll() {
         return userService.findAll();
     }
 
-    @GetMapping("/anonymous/users/{username}")
+    @GetMapping("/admin/users/{username}")
     public UserResponse find(@PathVariable("username") String username) {
         return userService.find(username);
     }
 
-    @PostMapping("/anonymous/users")
-    public UserResponse create(@RequestBody UserRequest userRequest){
+    @PostMapping("/admin/users")
+    public UserResponse create(@RequestBody UserRequest userRequest) {
         return userService.create(userRequest);
     }
 
@@ -39,5 +39,10 @@ public class UserController {
     @DeleteMapping("/admin/users")
     public void delete(@RequestBody UserRequest userRequest){
         userService.delete(userRequest);
+    }
+
+    @PostMapping("/register")
+    public UserResponse register(@RequestBody UserRequest userRequest) {
+        return userService.register(userRequest);
     }
 }

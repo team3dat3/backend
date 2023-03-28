@@ -20,4 +20,9 @@ public class SeatRow {
 
     @ManyToOne
     private Theater theater;
+
+    public SeatRow(List<Seat> seats, Theater theater) {
+        this.seats = seats;
+        this.theater = theater;
+    }
 }

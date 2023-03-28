@@ -58,7 +58,7 @@ class TheaterControllerTest {
 
     @Test
     void testFindAll() throws Exception {
-        mockMvc.perform(get("/v1/anonymous/theaters"))
+        mockMvc.perform(get("/v1/admin/theaters"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$", hasSize(2)));
@@ -66,7 +66,7 @@ class TheaterControllerTest {
 
     @Test
     void testFind() throws Exception {
-        mockMvc.perform(get("/v1/anonymous/theaters/" + theater1.getId()))
+        mockMvc.perform(get("/v1/admin/theaters/" + theater1.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id", is(theater1.getId().intValue())));

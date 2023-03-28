@@ -1,16 +1,15 @@
 package com.team3dat3.backend.api.v1;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import static org.hamcrest.Matchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team3dat3.backend.dto.Coupon.CouponRequest;
-import com.team3dat3.backend.dto.user.UserRequest;
 import com.team3dat3.backend.entity.Coupon;
 import com.team3dat3.backend.repository.CouponRepository;
+import com.team3dat3.backend.repository.UserRepository;
 import com.team3dat3.backend.service.CouponService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,14 +19,15 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import javax.print.attribute.standard.Media;
-
 @DataJpaTest
 public class CouponControllerTest {
     @Autowired
     CouponRepository couponRepository;
     CouponService couponService;
     CouponController couponController;
+
+    @Autowired
+    UserRepository userRepository;
 
     private Coupon coupon1;
     private Coupon coupon2;
@@ -36,7 +36,7 @@ public class CouponControllerTest {
 
     @BeforeEach
     void beforeEach() {
-        couponService = new CouponService(couponRepository);
+        couponService = new CouponService(couponRepository, userRepository);
         couponController = new CouponController(couponService);
         mockMvc = MockMvcBuilders.standaloneSetup(couponController).build();
         coupon1 = couponRepository.save(new Coupon("coupon1", 1, 1));

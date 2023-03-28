@@ -3,7 +3,10 @@ package com.team3dat3.backend.service;
 import com.team3dat3.backend.dto.Coupon.CouponRequest;
 import com.team3dat3.backend.dto.Coupon.CouponResponse;
 import com.team3dat3.backend.entity.Coupon;
+import com.team3dat3.backend.entity.User;
 import com.team3dat3.backend.repository.CouponRepository;
+import com.team3dat3.backend.repository.UserRepository;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,9 +16,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class CouponService {
+
     private CouponRepository couponRepository;
-    public CouponService(CouponRepository couponRepository) {
+
+    private UserRepository userRepository;
+
+    public CouponService(CouponRepository couponRepository, UserRepository userRepository) {
         this.couponRepository = couponRepository;
+        this.userRepository = userRepository;
     }
 
     public List<CouponResponse> findAll(){
@@ -61,5 +69,20 @@ public class CouponService {
                 .findById(couponRequest.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         couponRepository.delete(coupon);
+    }
+
+    public List<CouponResponse> findUserCoupons(String username) {
+        return couponRepository
+            .findUserCoupons(username)
+            .stream()
+            .map(c->new CouponResponse(c))
+            .collect(Collectors.toList());
+    }
+
+    public CouponResponse findUserCoupon(String username, int id) {
+        Coupon coupon = couponRepository
+            .findUserCoupon(username, id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return new CouponResponse(coupon);
     }
 }

@@ -73,12 +73,13 @@ public class SecurityConfig {
                 .requestMatchers("/error").permitAll()
 
                 .requestMatchers(HttpMethod.POST, "/v1/authentication").permitAll()
+                .requestMatchers(HttpMethod.POST, "/v1/register").permitAll()
                 .requestMatchers(HttpMethod.GET, "/v1/anonymous/**").permitAll()
 
-                .requestMatchers(HttpMethod.GET, "/v1/members/**").hasRole("MEMBER")
-                .requestMatchers(HttpMethod.POST, "/v1/member/**").hasRole("MEMBER")
-                .requestMatchers(HttpMethod.PATCH, "/v1/member/**").hasRole("MEMBER")
-                .requestMatchers(HttpMethod.DELETE, "/v1/member/**").hasRole("MEMBER")
+                .requestMatchers(HttpMethod.GET, "/v1/members/**").hasAnyRole("MEMBER", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/v1/member/**").hasAnyRole("MEMBER", "ADMIN")
+                .requestMatchers(HttpMethod.PATCH, "/v1/member/**").hasAnyRole("MEMBER", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/v1/member/**").hasAnyRole("MEMBER", "ADMIN")
 
                 .requestMatchers(HttpMethod.GET, "/v1/admin/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/v1/admin/**").hasRole("ADMIN")

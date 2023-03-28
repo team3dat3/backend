@@ -1,5 +1,6 @@
 package com.team3dat3.backend.dto.authenticatable;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.team3dat3.backend.entity.Authenticatable;
@@ -24,35 +25,25 @@ public class AuthenticatableRequest {
     protected String username;
     protected String password;
 
-    protected boolean isAccountNonExpired = true;
-    protected boolean isAccountNonLocked = true;
-    protected boolean isCredentialsNonExpired = true;
-    protected boolean isEnabled = true;
-
     protected List<String> roles;
 
     public AuthenticatableRequest(Authenticatable authenticatable) {
         username = authenticatable.getUsername();
         password = authenticatable.getPassword();
-        isAccountNonExpired = authenticatable.isAccountNonExpired();
-        isAccountNonLocked = authenticatable.isAccountNonLocked();
-        isCredentialsNonExpired = authenticatable.isCredentialsNonExpired();
-        isEnabled = authenticatable.isEnabled();
         roles = authenticatable.getRoles();
     }
 
     public Authenticatable toAuthenticatable() {
-        return new Authenticatable(username, password, isAccountNonExpired, isAccountNonLocked, 
-            isCredentialsNonExpired, isEnabled, roles);
+        return new Authenticatable(username, password, true, true, true, true, roles);
     }
 
     public void copyTo(Authenticatable authenticatable) {
         authenticatable.setUsername(username);
         authenticatable.setPassword(password);
-        authenticatable.setAccountNonExpired(isAccountNonExpired);
-        authenticatable.setAccountNonLocked(isAccountNonLocked);
-        authenticatable.setCredentialsNonExpired(isCredentialsNonExpired);
-        authenticatable.setEnabled(isEnabled);
+        authenticatable.setAccountNonExpired(true);
+        authenticatable.setAccountNonLocked(true);
+        authenticatable.setCredentialsNonExpired(true);
+        authenticatable.setEnabled(true);
         authenticatable.setRoles(roles);
     }
 }

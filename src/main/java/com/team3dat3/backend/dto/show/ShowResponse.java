@@ -22,22 +22,22 @@ public class ShowResponse {
 
   private int id;
 
-  private Movie movie;
+  //private Movie movie;
 
-  private List<Reservation> reservations;
+  //private List<Reservation> reservations;
 
-  private List<ShowDateTime> showDates;
+  //private List<ShowDateTime> showDates;
 
   private double price;
 
-  private Theater theater;
+  //private Theater theater;
 
   public ShowResponse(Show show) {
     this.id = show.getId();
-    this.movie = show.getMovie();
-    this.reservations = show.getReservations();
-    this.showDates = show.getShowDates();
+    //this.movie = show.getMovie();
+    //this.reservations = show.getReservations();
+    //this.showDates = show.getShowDates();
     this.price = show.getPrice();
-    this.theater = show.getTheater();
+    //this.theater = show.getTheater();
   }
 }

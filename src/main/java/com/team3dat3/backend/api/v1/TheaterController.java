@@ -21,12 +21,12 @@ public class TheaterController {
         this.theaterService = theaterService;
     }
 
-    @GetMapping("/anonymous/theaters")
+    @GetMapping("/admin/theaters")
     public List<TheaterResponse> getAll() {
         return theaterService.getAll();
     }
 
-    @GetMapping("/anonymous/theaters/{id}")
+    @GetMapping("/admin/theaters/{id}")
     public TheaterResponse get(@PathVariable("id") Long id) {
         return theaterService.get(id);
     }

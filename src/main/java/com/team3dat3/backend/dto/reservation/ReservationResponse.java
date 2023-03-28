@@ -25,13 +25,8 @@ public class ReservationResponse {
 
     private boolean checkedIn;
 
-    private User user;
-    private Show show;
-
     public ReservationResponse(Reservation reservation) {
         id = reservation.getId();
         checkedIn = reservation.isCheckedIn();
-        show = reservation.getShow();
-        user = reservation.getUser();
     }
 }
