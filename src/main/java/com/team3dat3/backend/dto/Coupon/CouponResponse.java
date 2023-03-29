@@ -13,7 +13,7 @@ public class CouponResponse {
     private int id;
     private String name;
     private double discount;
-    private User user;
+    private String username;
     private double cost;
     private boolean used;
 
@@ -21,7 +21,7 @@ public class CouponResponse {
         this.id = coupon.getId();
         this.name = coupon.getName();
         this.discount = coupon.getDiscount();
-        this.user = coupon.getUser();
+        this.username = coupon.getUser() != null ? coupon.getUser().getUsername() : "";
         this.cost = coupon.getCost();
         this.used = coupon.isUsed();
     }

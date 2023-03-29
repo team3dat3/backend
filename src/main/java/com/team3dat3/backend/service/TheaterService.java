@@ -46,7 +46,7 @@ public class TheaterService {
         Theater theater = theaterRequest.toTheater();
         List<SeatRow> seatRows = seatRowRepository.findAllById(theaterRequest.getSeatRowIds());
         theater.setSeatRows(seatRows);
-        theater = theaterRepository.save(theaterRequest.toTheater());
+        theater = theaterRepository.save(theater);
         return new TheaterResponse(theater);
     }
 

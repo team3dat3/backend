@@ -19,6 +19,6 @@ public class SeatRowResponse {
     public SeatRowResponse(SeatRow seatRow) {
         this.id = seatRow.getId();
         this.seatIds = seatRow.getSeats().stream().map(Seat::getId).toList();
-        this.theaterId = seatRow.getTheater().getId();
+        this.theaterId = seatRow.getTheater() != null ? seatRow.getTheater().getId() : 0;
     }
 }

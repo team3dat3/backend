@@ -45,10 +45,10 @@ public class AchievementService {
     }
 
     public AchievementResponse create(AchievementRequest achievementRequest) {
-        Achievement achievement = achievementRepository.save(
-                achievementRequest.toAchievement()
-        );
-        return new AchievementResponse(achievementRepository.save(achievement));
+        Achievement achievement = achievementRequest.toAchievement();
+        achievement.setUser(findUser(achievementRequest.getUsername()));
+        achievement = achievementRepository.save(achievement);
+        return new AchievementResponse(achievement);
     }
 
     public AchievementResponse update(AchievementRequest achievementRequest) {
@@ -56,6 +56,7 @@ public class AchievementService {
                 .findById(achievementRequest.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         achievementRequest.copyTo(achievement);
+        achievement.setUser(findUser(achievementRequest.getUsername()));
         return new AchievementResponse(achievementRepository.save(achievement));
     }
 

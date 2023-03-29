@@ -146,10 +146,26 @@ public class DeveloperConfig implements ApplicationRunner {
         ));
 
         // Create seat rows
-        seatRowRepository.save(new SeatRow(seats1, theater1));
-        seatRowRepository.save(new SeatRow(seats2, theater2));
-        seatRowRepository.save(new SeatRow(seats3, theater3));
-        seatRowRepository.save(new SeatRow(seats4, theater4));
+        SeatRow seatRow1 = seatRowRepository.save(new SeatRow(seats1, theater1));
+        SeatRow seatRow2 = seatRowRepository.save(new SeatRow(seats2, theater2));
+        SeatRow seatRow3 = seatRowRepository.save(new SeatRow(seats3, theater3));
+        SeatRow seatRow4 = seatRowRepository.save(new SeatRow(seats4, theater4));
+
+        for (Seat seat : seats1)
+            seat.setSeatRow(seatRow1);
+        seatRepository.saveAll(seats1);
+
+        for (Seat seat : seats2)
+            seat.setSeatRow(seatRow2);
+        seatRepository.saveAll(seats2);
+
+        for (Seat seat : seats3)
+            seat.setSeatRow(seatRow3);
+        seatRepository.saveAll(seats3);
+
+        for (Seat seat : seats4)
+            seat.setSeatRow(seatRow4);
+        seatRepository.saveAll(seats4);
 
         // Create movies
         movieRepository.save(Movie.builder()
