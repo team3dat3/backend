@@ -3,7 +3,6 @@ package com.team3dat3.backend.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team3dat3.backend.dto.omdb.OmdbResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -27,12 +26,12 @@ public class OmdbService {
   private String apiKey;
 
 
-  public List<OmdbResponse> lookupAPI(String title, int prodYear) {
+  public List<OmdbResponse> lookupAPI(String title) {
 
     List<OmdbResponse> responses = new ArrayList<>();
     try {
 
-      URL url = new URL(String.format("%s/?apikey=%s&t=%s&y=%d", apiUrl, apiKey, title, prodYear));
+      URL url = new URL(String.format("%s/?apikey=%s&s=%s", apiUrl, apiKey, title));
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
       connection.setRequestProperty("Content-Type", "application/json");
@@ -48,5 +47,28 @@ public class OmdbService {
     }
 
     return responses;
+  }
+
+  public OmdbResponse lookupAPIId(String imdbId) {
+
+    OmdbResponse response = new OmdbResponse();
+    try {
+
+      URL url = new URL(String.format("%s/?apikey=%s&t=%s", apiUrl, apiKey, imdbId));
+      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+      connection.setRequestProperty("Content-Type", "application/json");
+      InputStream responseStream = connection.getInputStream();
+
+      TypeReference<OmdbResponse> typeRef = new TypeReference<OmdbResponse>() {};
+      response = new ObjectMapper().readValue(responseStream, typeRef);
+
+    } catch (MalformedURLException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    return response;
   }
 }

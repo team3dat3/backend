@@ -19,8 +19,13 @@ public class OmdbController {
     this.omdbService = omdbService;
   }
 
-  @GetMapping("/{title}/{year}")
- public List<OmdbResponse> getMovie(@PathVariable String title, @PathVariable int year){
-   return omdbService.lookupAPI(title, year);
+  @GetMapping("/search/{title}")
+ public List<OmdbResponse> getMovieList(@PathVariable String title){
+   return omdbService.lookupAPI(title);
  }
+
+  @GetMapping("/get/{imdbId}")
+  public OmdbResponse getMovie(@PathVariable String imdbId){
+    return omdbService.lookupAPIId(imdbId);
+  }
 }
