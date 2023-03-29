@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -23,17 +22,15 @@ import java.util.List;
 @Getter @Setter
 public class TheaterRequest {
     private Long id;
-    private List<SeatRow> seatRows;
-
-    private List<Show> shows;
+    private String name;
+    private List<Long> seatRowIds;
 
     public void copy(Theater theater) {
         theater.setId(id);
-        theater.setSeatRows(seatRows);
-        theater.setShows(shows);
+        theater.setName(name);
     }
 
     public Theater toTheater() {
-        return new Theater(id, seatRows, shows);
+        return new Theater(id, name);
     }
 }

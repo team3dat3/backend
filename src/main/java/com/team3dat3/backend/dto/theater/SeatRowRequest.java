@@ -13,18 +13,16 @@ import java.util.stream.Collectors;
 @Getter @Setter
 public class SeatRowRequest {
     private Long id;
-
-    private List<Seat> seats;
-
-    private Theater theater;
+    private List<Long> seatIds;
+    private Long theaterId;
 
     public void copy(SeatRow seatRow) {
         seatRow.setId(id);
-        seatRow.setSeats(seats);
-        seatRow.setTheater(theater);
     }
 
     public SeatRow toSeatRow() {
-        return new SeatRow(id, seats, theater);
+        SeatRow seatRow = new SeatRow();
+        copy(seatRow);
+        return seatRow;
     }
 }

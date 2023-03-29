@@ -24,6 +24,5 @@ public class Seat {
     private List<Reservation> reservations;
 
     @ManyToOne
-    //@JoinColumn(name = "seat_row_id")
     private SeatRow seatRow;
 }

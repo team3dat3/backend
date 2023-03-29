@@ -33,7 +33,7 @@ public class ShowDateTimeController {
   @PostMapping("/admin/showdates")
   ShowDateTimeResponse create(@RequestBody ShowDateTimeRequest body){return showDateTimeService.create(body);}
 
-  @PatchMapping("/admin/showdates")
+  @PutMapping("/admin/showdates")
   ShowDateTimeResponse update(@RequestBody ShowDateTimeRequest body){return showDateTimeService.update(body);}
 
   @DeleteMapping("/admin/showdates")

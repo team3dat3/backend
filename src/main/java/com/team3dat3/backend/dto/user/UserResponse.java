@@ -1,6 +1,6 @@
 package com.team3dat3.backend.dto.user;
 
-import com.team3dat3.backend.dto.authenticatable.AuthenticatableRequest;
+import com.team3dat3.backend.dto.authenticatable.AuthenticatableResponse;
 import com.team3dat3.backend.entity.Achievement;
 import com.team3dat3.backend.entity.Coupon;
 import com.team3dat3.backend.entity.Reservation;
@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse extends AuthenticatableRequest {
+public class UserResponse extends AuthenticatableResponse {
 
     /* Derived from AuthenticatableRequest
     @Id
@@ -30,6 +30,7 @@ public class UserResponse extends AuthenticatableRequest {
     private List<Coupon> coupons;
 
     public UserResponse(User user, boolean includeAll) {
+        super(user);
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.phoneNumber = user.getPhoneNumber();

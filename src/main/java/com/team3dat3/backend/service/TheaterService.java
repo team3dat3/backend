@@ -2,7 +2,9 @@ package com.team3dat3.backend.service;
 
 import com.team3dat3.backend.dto.theater.TheaterRequest;
 import com.team3dat3.backend.dto.theater.TheaterResponse;
+import com.team3dat3.backend.entity.SeatRow;
 import com.team3dat3.backend.entity.Theater;
+import com.team3dat3.backend.repository.SeatRowRepository;
 import com.team3dat3.backend.repository.TheaterRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,9 +20,11 @@ import java.util.stream.Collectors;
 @Service
 public class TheaterService {
     private final TheaterRepository theaterRepository;
+    private final SeatRowRepository seatRowRepository;
 
-    public TheaterService(TheaterRepository theaterRepository) {
+    public TheaterService(TheaterRepository theaterRepository, SeatRowRepository seatRowRepository) {
         this.theaterRepository = theaterRepository;
+        this.seatRowRepository = seatRowRepository;
     }
 
     public List<TheaterResponse> getAll() {
@@ -39,7 +43,10 @@ public class TheaterService {
     }
 
     public TheaterResponse create(TheaterRequest theaterRequest) {
-        Theater theater = theaterRepository.save(theaterRequest.toTheater());
+        Theater theater = theaterRequest.toTheater();
+        List<SeatRow> seatRows = seatRowRepository.findAllById(theaterRequest.getSeatRowIds());
+        theater.setSeatRows(seatRows);
+        theater = theaterRepository.save(theaterRequest.toTheater());
         return new TheaterResponse(theater);
     }
 
@@ -48,6 +55,8 @@ public class TheaterService {
                 .findById(theaterRequest.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         theaterRequest.copy(theater);
+        List<SeatRow> seatRows = seatRowRepository.findAllById(theaterRequest.getSeatRowIds());
+        theater.setSeatRows(seatRows);
         return new TheaterResponse(theaterRepository.save(theater));
     }
 

@@ -7,6 +7,7 @@ import com.team3dat3.backend.dto.theater.TheaterResponse;
 import com.team3dat3.backend.entity.Seat;
 import com.team3dat3.backend.entity.SeatRow;
 import com.team3dat3.backend.entity.Theater;
+import com.team3dat3.backend.repository.SeatRowRepository;
 import com.team3dat3.backend.repository.TheaterRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,12 +30,17 @@ class TheaterServiceTest {
 
     @Autowired
     private TheaterRepository theaterRepository;
+
+    @Autowired
+    private SeatRowRepository seatRowRepository;
+
     private TheaterService theaterService;
     private Theater theater1;
     private Theater theater2;
+    
     @BeforeEach
     void setUp() {
-        theaterService = new TheaterService(theaterRepository);
+        theaterService = new TheaterService(theaterRepository, seatRowRepository);
         theater1 = theaterRepository.save(new Theater());
         theater1.setSeatRows(new ArrayList<>());
         theater2 = theaterRepository.save(new Theater());
@@ -53,34 +59,37 @@ class TheaterServiceTest {
     @Test
     void get() {
         TheaterResponse theaterResponse = theaterService.get(theater1.getId());
-
         assertEquals(theater1.getId(), theaterResponse.getId());
     }
 
     @Test
     void create() {
-        TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(),
-                theater2.getSeatRows(), theater2.getShows());
+        List<Long> seatRowIds = theater2.getSeatRows().stream().map(seatRow -> seatRow.getId()).toList();
+        TheaterRequest theaterRequest = new TheaterRequest(0L,
+                "new name", seatRowIds);
 
         TheaterResponse theaterResponse = theaterService.create(theaterRequest);
 
         assertEquals(theaterRequest.getId(), theaterResponse.getId());
+        assertEquals(theaterRequest.getName(), theaterResponse.getName());
     }
 
     @Test
     void update() {
+        List<Long> seatRowIds = theater2.getSeatRows().stream().map(seatRow -> seatRow.getId()).toList();
         TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(),
-                theater2.getSeatRows(), theater2.getShows());
+                "updated name", seatRowIds);
 
         TheaterResponse theaterResponse = theaterService.update(theaterRequest);
 
         assertEquals(theaterRequest.getId(), theaterResponse.getId());
+        assertEquals(theaterRequest.getName(), theaterResponse.getName());
     }
 
     @Test
     void delete() {
-        TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(),
-                theater2.getSeatRows(), theater2.getShows());
+        List<Long> seatRowIds = theater2.getSeatRows().stream().map(seatRow -> seatRow.getId()).toList();
+        TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(), theater2.getName(), seatRowIds);
 
         theaterService.delete(theaterRequest);
 

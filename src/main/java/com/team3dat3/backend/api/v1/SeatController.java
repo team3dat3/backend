@@ -35,7 +35,7 @@ public class SeatController {
         return seatService.create(seatRequest);
     }
 
-    @PatchMapping("/admin/seats")
+    @PutMapping("/admin/seats")
     public SeatResponse update(@RequestBody SeatRequest seatRequest) {
         return seatService.update(seatRequest);
     }

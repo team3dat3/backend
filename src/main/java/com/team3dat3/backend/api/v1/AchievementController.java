@@ -46,7 +46,7 @@ public class AchievementController {
         return achievementService.create(achievementRequest);
     }
 
-    @PatchMapping("/admin/achievements")
+    @PutMapping("/admin/achievements")
     public AchievementResponse update(@RequestBody AchievementRequest achievementRequest){
         return achievementService.update(achievementRequest);
     }

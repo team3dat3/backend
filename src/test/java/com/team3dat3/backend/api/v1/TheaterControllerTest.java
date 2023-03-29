@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team3dat3.backend.api.v1.TheaterController;
 import com.team3dat3.backend.dto.theater.TheaterRequest;
 import com.team3dat3.backend.entity.Theater;
+import com.team3dat3.backend.repository.SeatRowRepository;
 import com.team3dat3.backend.repository.TheaterRepository;
 import com.team3dat3.backend.service.TheaterService;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,6 +37,9 @@ class TheaterControllerTest {
     @Autowired
     TheaterRepository theaterRepository;
 
+    @Autowired
+    SeatRowRepository seatRowRepository;
+
     TheaterService theaterService;
     TheaterController theaterController;
 
@@ -46,14 +50,13 @@ class TheaterControllerTest {
 
     @BeforeEach
     void beforeEach() {
-        theaterService = new TheaterService(theaterRepository);
+        theaterService = new TheaterService(theaterRepository, seatRowRepository);
         theaterController = new TheaterController(theaterService);
         mockMvc = MockMvcBuilders.standaloneSetup(theaterController).build();
         theater1 = theaterRepository.save(new Theater());
         theater1.setSeatRows(new ArrayList<>());
         theater2 = theaterRepository.save(new Theater());
         theater2.setSeatRows(new ArrayList<>());
-
     }
 
     @Test
@@ -74,7 +77,8 @@ class TheaterControllerTest {
 
     @Test
     void testCreate() throws Exception {
-        TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(), theater2.getSeatRows(), theater2.getShows());
+        List<Long> seatRowIds = theater2.getSeatRows().stream().map(seatRow -> seatRow.getId()).toList();
+        TheaterRequest theaterRequest = new TheaterRequest(0L, "new name", seatRowIds);
         mockMvc.perform(post("/v1/admin/theaters")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(theaterRequest)))
@@ -85,7 +89,8 @@ class TheaterControllerTest {
 
     @Test
     void testUpdate() throws Exception {
-        TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(), theater2.getSeatRows(), theater2.getShows());
+        List<Long> seatRowIds = theater2.getSeatRows().stream().map(seatRow -> seatRow.getId()).toList();
+        TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(), "random name", seatRowIds);
         mockMvc.perform(patch("/v1/admin/theaters")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(theaterRequest)))
@@ -96,7 +101,8 @@ class TheaterControllerTest {
 
     @Test
     void testDelete() throws Exception {
-        TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(), theater2.getSeatRows(), theater2.getShows());
+        List<Long> seatRowIds = theater2.getSeatRows().stream().map(seatRow -> seatRow.getId()).toList();
+        TheaterRequest theaterRequest = new TheaterRequest(theater2.getId(), "random name", seatRowIds);
         mockMvc.perform(delete("/v1/admin/theaters")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(theaterRequest)))

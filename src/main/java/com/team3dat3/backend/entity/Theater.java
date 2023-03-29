@@ -12,17 +12,24 @@ import java.util.List;
  */
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
-
+@Getter 
+@Setter
 @Entity
 public class Theater {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(name = "name", length = 50, nullable = false)
+    private String name;
+
     @OneToMany
     private List<SeatRow> seatRows;
 
-    @OneToMany
-    private List<Show> shows;
+    public Theater(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

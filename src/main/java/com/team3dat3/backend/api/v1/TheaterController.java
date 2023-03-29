@@ -36,7 +36,7 @@ public class TheaterController {
         return theaterService.create(theaterRequest);
     }
 
-    @PatchMapping("/admin/theaters")
+    @PutMapping("/admin/theaters")
     public TheaterResponse update(@RequestBody TheaterRequest theaterRequest) {
         return theaterService.update(theaterRequest);
     }

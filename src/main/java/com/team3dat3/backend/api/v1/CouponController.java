@@ -51,7 +51,7 @@ public class CouponController {
         return couponService.create(couponRequest);
     }
 
-    @PatchMapping("/admin/coupons")
+    @PutMapping("/admin/coupons")
     public CouponResponse update(@RequestBody CouponRequest couponRequest){
         return couponService.update(couponRequest);
     }

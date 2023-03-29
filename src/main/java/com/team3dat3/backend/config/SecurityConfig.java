@@ -79,12 +79,16 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/v1/members/**").hasAnyRole("MEMBER", "ADMIN")
                 .requestMatchers(HttpMethod.POST, "/v1/member/**").hasAnyRole("MEMBER", "ADMIN")
                 .requestMatchers(HttpMethod.PATCH, "/v1/member/**").hasAnyRole("MEMBER", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/v1/member/**").hasAnyRole("MEMBER", "ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/v1/member/**").hasAnyRole("MEMBER", "ADMIN")
+                .requestMatchers(HttpMethod.OPTIONS, "/v1/member/**").hasAnyRole("MEMBER", "ADMIN")
 
                 .requestMatchers(HttpMethod.GET, "/v1/admin/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/v1/admin/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PATCH, "/v1/admin/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/v1/admin/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/v1/admin/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.OPTIONS, "/v1/admin/**").hasRole("ADMIN")
                 
         .anyRequest().authenticated());
 

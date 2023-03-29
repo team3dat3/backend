@@ -1,6 +1,8 @@
 package com.team3dat3.backend.dto.movie;
 
 import com.team3dat3.backend.entity.Movie;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 public class MovieRequest {
 

@@ -9,6 +9,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
 
 import com.team3dat3.backend.dto.user.UserRequest;
+import com.team3dat3.backend.entity.Achievement;
+import com.team3dat3.backend.entity.Coupon;
 import com.team3dat3.backend.entity.Movie;
 import com.team3dat3.backend.entity.Reservation;
 import com.team3dat3.backend.entity.Seat;
@@ -17,6 +19,8 @@ import com.team3dat3.backend.entity.Show;
 import com.team3dat3.backend.entity.ShowDateTime;
 import com.team3dat3.backend.entity.Theater;
 import com.team3dat3.backend.entity.User;
+import com.team3dat3.backend.repository.AchievementRepository;
+import com.team3dat3.backend.repository.CouponRepository;
 import com.team3dat3.backend.repository.MovieRepository;
 import com.team3dat3.backend.repository.ReservationRepository;
 import com.team3dat3.backend.repository.SeatRepository;
@@ -25,7 +29,6 @@ import com.team3dat3.backend.repository.ShowDateTimeRepository;
 import com.team3dat3.backend.repository.ShowRepository;
 import com.team3dat3.backend.repository.TheaterRepository;
 import com.team3dat3.backend.repository.UserRepository;
-import com.team3dat3.backend.service.ShowService;
 import com.team3dat3.backend.service.UserService;
 
 
@@ -47,6 +50,8 @@ public class DeveloperConfig implements ApplicationRunner {
     private SeatRepository seatRepository;
     private MovieRepository movieRepository;
     private ShowDateTimeRepository showDateTimeRepository;
+    private CouponRepository couponRepository;
+    private AchievementRepository achievementRepository;
 
     public DeveloperConfig(
         UserService userService,
@@ -57,7 +62,9 @@ public class DeveloperConfig implements ApplicationRunner {
         SeatRowRepository seatRowRepository,
         SeatRepository seatRepository,
         MovieRepository movieRepository,
-        ShowDateTimeRepository showDateTimeRepository
+        ShowDateTimeRepository showDateTimeRepository,
+        CouponRepository couponRepository,
+        AchievementRepository achievementRepository
     ) {
         this.userService = userService;
         this.userRepository = userRepository;
@@ -68,6 +75,8 @@ public class DeveloperConfig implements ApplicationRunner {
         this.seatRepository = seatRepository;
         this.movieRepository = movieRepository;
         this.showDateTimeRepository = showDateTimeRepository;
+        this.couponRepository = couponRepository;
+        this.achievementRepository = achievementRepository;
     }
 
     @Override
@@ -98,10 +107,10 @@ public class DeveloperConfig implements ApplicationRunner {
         Show show4 = showRepository.save(Show.builder().price(60).build());
 
         // Create theaters
-        Theater theater1 = theaterRepository.save(new Theater());
-        Theater theater2 = theaterRepository.save(new Theater());
-        Theater theater3 = theaterRepository.save(new Theater());
-        Theater theater4 = theaterRepository.save(new Theater());
+        Theater theater1 = theaterRepository.save(new Theater(0L, "Copenhagen"));
+        Theater theater2 = theaterRepository.save(new Theater(0L, "Aarhus"));
+        Theater theater3 = theaterRepository.save(new Theater(0L, "Aalborg"));
+        Theater theater4 = theaterRepository.save(new Theater(0L, "Odense"));
 
         // Create reservations
         reservationRepository.save(new Reservation(user1, show1));
@@ -186,5 +195,15 @@ public class DeveloperConfig implements ApplicationRunner {
             .genre(Arrays.asList(new String[]{"Horror", "Thriller"}))
             .runtime("142 min")
             .build());
+
+        // Create coupons
+        couponRepository.save(new Coupon("123", 10, 10));
+        couponRepository.save(new Coupon("456", 20, 20));
+        couponRepository.save(new Coupon("789", 30, 30));
+
+        // Create achievements
+        achievementRepository.save(new Achievement());
+        achievementRepository.save(new Achievement());
+        achievementRepository.save(new Achievement());
     }
 }

@@ -59,7 +59,19 @@ public class UserService {
         User user = userRepository
                 .findById(userRequest.getUsername())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        String password = user.getPassword();
         userRequest.copyTo(user);
+        user.setPassword(password); // Don't update password
+        return new UserResponse(userRepository.save(user), true);
+    }
+ 
+    public UserResponse updateAuthenticatedUser(UserRequest userRequest){
+        User user = userRepository
+                .findById(userRequest.getUsername())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        List<String> roles = user.getRoles();
+        userRequest.copyTo(user);
+        user.setRoles(roles); // Don't update roles
         return new UserResponse(userRepository.save(user), true);
     }
 

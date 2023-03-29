@@ -21,13 +21,14 @@ import java.util.List;
 @Getter @Setter
 public class TheaterResponse {
     private Long id;
-    private List<SeatRow> seatRows;
+    private String name;
+    private List<Long> seatRowIds;
 
     @OneToMany
     private List<Show> shows;
     public TheaterResponse(Theater theater) {
         this.id = theater.getId();
-        this.seatRows = theater.getSeatRows();
-        this.shows = theater.getShows();
+        this.name = theater.getName();
+        this.seatRowIds = theater.getSeatRows().stream().map(SeatRow::getId).toList();
     }
 }

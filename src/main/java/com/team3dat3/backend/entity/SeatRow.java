@@ -11,10 +11,12 @@ import java.util.List;
 
 @Entity
 public class SeatRow {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
     @OneToMany
     private List<Seat> seats;
 
