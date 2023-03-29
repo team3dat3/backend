@@ -2,10 +2,12 @@ package com.team3dat3.backend.dto.omdb;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class OmdbResponse {
 
@@ -25,13 +27,12 @@ String genre;
 //becomes description
 String plot;
 
-String runTime;
+String runtime;
 
 String poster;
 
-public OmdbResponse(){
+String imdbId;
 
-}
 
 
 /*

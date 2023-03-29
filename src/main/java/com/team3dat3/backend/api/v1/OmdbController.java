@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/omdb")
+@RequestMapping("/v1")
 public class OmdbController {
 
   private OmdbService omdbService;
@@ -19,8 +19,14 @@ public class OmdbController {
     this.omdbService = omdbService;
   }
 
-  @GetMapping("/{title}/{year}")
- public List<OmdbResponse> getMovie(@PathVariable String title, @PathVariable int year){
-   return omdbService.lookupAPI(title, year);
+  @GetMapping("/admin/omdb/search/{title}")
+ public List<OmdbResponse> getMovieList(@PathVariable String title){
+    System.out.println("test1");
+   return omdbService.lookupAPI(title);
  }
+
+  @GetMapping("/admin/omdb/get/{imdbId}")
+  public OmdbResponse getMovie(@PathVariable String imdbId){
+    return omdbService.lookupAPIId(imdbId);
+  }
 }

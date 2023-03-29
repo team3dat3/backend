@@ -25,7 +25,7 @@ public class MovieRequest {
   private String director;
   private String actors;
   private int prodYear;
-  private int ageLimit;
+  private String rated;
   private String description;
   private List <String> genre;
   private String runtime;
@@ -35,7 +35,7 @@ return Movie.builder().title(m.getTitle())
     .director(m.getDirector())
     .actors(m.getActors())
     .prodYear(m.getProdYear())
-    .ageLimit(m.getAgeLimit())
+    .rated(m.getRated())
     .description(m.getDescription())
     .genre(m.getGenre())
     .runtime(m.getRuntime())
@@ -48,7 +48,7 @@ return Movie.builder().title(m.getTitle())
     movie.setDirector(director);
     movie.setActors(actors);
     movie.setProdYear(prodYear);
-    movie.setAgeLimit(ageLimit);
+    movie.setRated(rated);
     movie.setDescription(description);
     movie.setGenre(genre);
     movie.setRuntime(runtime);
@@ -59,7 +59,7 @@ return Movie.builder().title(m.getTitle())
     this.director = m.getDirector();
     this.actors = m.getActors();
     this.prodYear = m.getProdYear();
-    this.ageLimit = m.getAgeLimit();
+    this.rated = m.getRated();
     this.description = m.getDescription();
     this.genre = m.getGenre();
     this.runtime = m.getRuntime();

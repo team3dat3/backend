@@ -24,7 +24,7 @@ public class Movie {
   private String director;
   private String actors;
   private int prodYear;
-  private int ageLimit;
+  private String rated;
   private String description;
   @ElementCollection
   private List <String> genre;
