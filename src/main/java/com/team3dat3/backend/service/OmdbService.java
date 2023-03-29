@@ -1,6 +1,7 @@
 package com.team3dat3.backend.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team3dat3.backend.dto.omdb.OmdbResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,19 +27,25 @@ public class OmdbService {
   private String apiKey;
 
 
+
   public List<OmdbResponse> lookupAPI(String title) {
 
     List<OmdbResponse> responses = new ArrayList<>();
     try {
-
-      URL url = new URL(String.format("%s/?apikey=%s&s=%s", apiUrl, apiKey, title));
+      URL url = new URL(String.format("%s?apikey=%s&t=%s", apiUrl, apiKey, title));
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
       connection.setRequestProperty("Content-Type", "application/json");
       InputStream responseStream = connection.getInputStream();
 
-      TypeReference<List<OmdbResponse>> typeRef = new TypeReference<List<OmdbResponse>>() {};
-      responses = new ObjectMapper().readValue(responseStream, typeRef);
+      ObjectMapper objectMapper = new ObjectMapper();
+      JsonNode rootNode = objectMapper.readTree(responseStream);
+
+      if (rootNode.has("Error")) {
+        throw new IOException(rootNode.get("Error").asText());
+      }
+
+      OmdbResponse response = parseJsonResponse(rootNode.toString());
+      responses.add(response);
 
     } catch (MalformedURLException e) {
       e.printStackTrace();
@@ -49,19 +56,27 @@ public class OmdbService {
     return responses;
   }
 
+
   public OmdbResponse lookupAPIId(String imdbId) {
 
     OmdbResponse response = new OmdbResponse();
     try {
 
-      URL url = new URL(String.format("%s/?apikey=%s&t=%s", apiUrl, apiKey, imdbId));
+      URL url = new URL(String.format("%s/?apikey=%s&i=%s", apiUrl, apiKey, imdbId));
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
       connection.setRequestProperty("Content-Type", "application/json");
       InputStream responseStream = connection.getInputStream();
 
-      TypeReference<OmdbResponse> typeRef = new TypeReference<OmdbResponse>() {};
-      response = new ObjectMapper().readValue(responseStream, typeRef);
+      ObjectMapper objectMapper = new ObjectMapper();
+      JsonNode rootNode = objectMapper.readTree(responseStream);
+
+      if (rootNode.has("Error")) {
+        throw new IOException(rootNode.get("Error").asText());
+      }
+
+      response = parseJsonResponse(rootNode.toString());
+
 
     } catch (MalformedURLException e) {
       e.printStackTrace();
@@ -70,5 +85,24 @@ public class OmdbService {
     }
 
     return response;
+  }
+
+  public OmdbResponse parseJsonResponse(String json) throws IOException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    JsonNode rootNode = objectMapper.readTree(json);
+
+    String title = rootNode.get("Title").asText();
+    String director = rootNode.get("Director").asText();
+    String actors = rootNode.get("Actors").asText();
+    int year = rootNode.get("Year").asInt();
+    String rated = rootNode.get("Rated").asText();
+    String genre = rootNode.get("Genre").asText();
+    String plot = rootNode.get("Plot").asText();
+    String runtime = rootNode.get("Runtime").asText();
+    String poster = rootNode.get("Poster").asText();
+    String imdbId = rootNode.get("imdbID").asText();
+
+
+    return new OmdbResponse(title, director, actors, year, rated, genre, plot, runtime, poster, imdbId);
   }
 }
