@@ -37,8 +37,8 @@ public class CouponServiceTest {
     void beforeEach() {
         couponService = new CouponService(couponRepository, userRepository);
         user1 = userRepository.save(new User("user1", "pass1", "mail1@eg.com", "87654321", new String[] {"MEMBER"}));
-        coupon1 = couponRepository.save(new Coupon(user1, "coupon1", 1, 1));
-        coupon2 = couponRepository.save(new Coupon(user1, "coupon2", 2, 2));
+        coupon1 = couponRepository.save(new Coupon(0, "testCoupon1", 1, user1, 1, false));
+        coupon2 = couponRepository.save(new Coupon(1, "testCoupon2", 2, user1, 2, false));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class CouponServiceTest {
 
     @Test
     void testCreate() {
-        CouponRequest couponRequest = new CouponRequest("testCoupon", "user", 0, 0);
+        CouponRequest couponRequest = new CouponRequest("testCoupon", "user1", 0, 0);
         CouponResponse couponResponse = couponService.create(couponRequest);
         assertNotEquals(0, couponResponse.getId());
     }
