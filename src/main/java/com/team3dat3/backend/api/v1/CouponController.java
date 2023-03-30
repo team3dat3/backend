@@ -41,7 +41,7 @@ public class CouponController {
         return couponService.find(id);
     }
 
-    @GetMapping("/admin/coupons/{id}/use")
+    @GetMapping("/admin/coupons/{id}/scan")
     public CouponResponse scan(@PathVariable("id") int id) {
         return couponService.use(id);
     }

@@ -30,7 +30,7 @@ public class Show {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "show", fetch = FetchType.LAZY)
   private List<Reservation> reservations;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "show", fetch = FetchType.LAZY)
+  @OneToMany(fetch = FetchType.LAZY)
   private List<ShowDateTime> showDates;
 
   private double price;

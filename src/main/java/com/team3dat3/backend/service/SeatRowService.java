@@ -8,7 +8,6 @@ import com.team3dat3.backend.entity.Theater;
 import com.team3dat3.backend.repository.SeatRepository;
 import com.team3dat3.backend.repository.SeatRowRepository;
 import com.team3dat3.backend.repository.TheaterRepository;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
@@ -51,10 +50,9 @@ public class SeatRowService {
     SeatRow seatRow = seatRowRequest.toSeatRow();
     List<Seat> seats = findSeats(seatRowRequest);
     seatRow.setSeats(seats);
-    if (seatRowRequest.getTheaterId() == 0)
-        seatRow.setTheater(null);
-    else
-        seatRow.setTheater(findTheater(seatRowRequest));
+    if (seatRowRequest.getTheaterId() == 0) seatRow.setTheater(
+      null
+    ); else seatRow.setTheater(findTheater(seatRowRequest));
     seatRow = seatRowRepository.save(seatRow);
     setupSeats(seats, seatRow);
     return new SeatRowResponse(seatRow);
@@ -65,13 +63,16 @@ public class SeatRowService {
       .findById(seatRowRequest.getId())
       .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     seatRowRequest.copy(seatRow);
+    
+    clearSeats(seatRow);
     List<Seat> seats = findSeats(seatRowRequest);
+    updateSeats(seatRow, seats);
     seatRow.setSeats(seats);
-    if (seatRowRequest.getTheaterId() == 0)
-        seatRow.setTheater(null);
-    else
-        seatRow.setTheater(findTheater(seatRowRequest));
-    setupSeats(seats, seatRow);
+
+    if (seatRowRequest.getTheaterId() == 0) seatRow.setTheater(
+      null
+    ); else seatRow.setTheater(findTheater(seatRowRequest));
+    
     return new SeatRowResponse(seatRowRepository.save(seatRow));
   }
 
@@ -89,12 +90,24 @@ public class SeatRowService {
   }
 
   private void setupSeats(List<Seat> seats, SeatRow seatRow) {
-    for (Seat seat : seats)
-        seat.setSeatRow(seatRow);
+    for (Seat seat : seats) seat.setSeatRow(seatRow);
     seatRepository.saveAll(seats);
   }
 
   private List<Seat> findSeats(SeatRowRequest request) {
     return seatRepository.findAllById(request.getSeatIds());
+  }
+
+  private void clearSeats(SeatRow seatRow) {
+    List<Seat> seats = seatRow.getSeats();
+    for (Seat seat : seats) {
+      seat.setSeatRow(null);
+    }
+  }
+
+  private void updateSeats(SeatRow seatRow, List<Seat> seats) {
+    for (Seat seat : seats) {
+      seat.setSeatRow(seatRow);
+    }
   }
 }

@@ -17,10 +17,11 @@ public class SeatRow {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToMany
+    @OneToMany(mappedBy = "seatRow")
     private List<Seat> seats;
 
     @ManyToOne
+    @JoinColumn(name = "theater_id")
     private Theater theater;
 
     public SeatRow(List<Seat> seats, Theater theater) {

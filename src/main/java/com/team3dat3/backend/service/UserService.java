@@ -50,7 +50,11 @@ public class UserService {
     public UserResponse register(UserRequest userRequest){
         User user = userRequest.toUser();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Arrays.asList("MEMBER"));
+        user.setRoles(Arrays.asList("MEMBER")); // Default
+        user.setAccountNonExpired(true); // Default
+        user.setAccountNonLocked(true); // Default
+        user.setCredentialsNonExpired(true); // Default
+        user.setEnabled(true); // Default
         user = userRepository.save(user);
         return new UserResponse(user, true);
     }
@@ -70,8 +74,16 @@ public class UserService {
                 .findById(userRequest.getUsername())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         List<String> roles = user.getRoles();
+        boolean isAccountNonExpired = user.isAccountNonExpired();
+        boolean isAccountNonLocked = user.isAccountNonLocked();
+        boolean isCredentialsNonExpired = user.isCredentialsNonExpired();
+        boolean isEnabled = user.isEnabled();
         userRequest.copyTo(user);
         user.setRoles(roles); // Don't update roles
+        user.setAccountNonExpired(isAccountNonExpired); // Don't update accountNonExpired
+        user.setAccountNonLocked(isAccountNonLocked); // Don't update accountNonLocked
+        user.setCredentialsNonExpired(isCredentialsNonExpired); // Don't update credentialsNonExpired
+        user.setEnabled(isEnabled); // Don't update enabled
         return new UserResponse(userRepository.save(user), true);
     }
 

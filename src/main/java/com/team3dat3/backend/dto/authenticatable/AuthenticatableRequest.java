@@ -27,6 +27,11 @@ public class AuthenticatableRequest {
 
     protected List<String> roles;
 
+    private boolean isAccountNonExpired = true;
+    private boolean isAccountNonLocked = true;
+    private boolean isCredentialsNonExpired = true;
+    private boolean isEnabled = true;
+
     public AuthenticatableRequest(Authenticatable authenticatable) {
         username = authenticatable.getUsername();
         password = authenticatable.getPassword();
@@ -34,16 +39,18 @@ public class AuthenticatableRequest {
     }
 
     public Authenticatable toAuthenticatable() {
-        return new Authenticatable(username, password, true, true, true, true, roles);
+        Authenticatable authenticatable = new Authenticatable();
+        copyTo(authenticatable);
+        return authenticatable;
     }
 
     public void copyTo(Authenticatable authenticatable) {
         authenticatable.setUsername(username);
         authenticatable.setPassword(password);
-        authenticatable.setAccountNonExpired(true);
-        authenticatable.setAccountNonLocked(true);
-        authenticatable.setCredentialsNonExpired(true);
-        authenticatable.setEnabled(true);
+        authenticatable.setAccountNonExpired(isAccountNonExpired);
+        authenticatable.setAccountNonLocked(isAccountNonLocked);
+        authenticatable.setCredentialsNonExpired(isCredentialsNonExpired);
+        authenticatable.setEnabled(isEnabled);
         authenticatable.setRoles(roles);
     }
 }

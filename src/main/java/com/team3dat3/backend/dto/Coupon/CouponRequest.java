@@ -32,6 +32,7 @@ public class CouponRequest {
         coupon.setName(name);
         coupon.setDiscount(discount);
         coupon.setCost(cost);
+        coupon.setUsed(used);
     }
 
     public Coupon toCoupon() {

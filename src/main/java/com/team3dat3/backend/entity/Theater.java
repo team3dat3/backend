@@ -25,7 +25,7 @@ public class Theater {
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "theater")
     private List<SeatRow> seatRows;
 
     public Theater(Long id, String name) {

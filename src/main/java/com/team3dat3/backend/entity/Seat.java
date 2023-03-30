@@ -22,9 +22,7 @@ public class Seat {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToMany
-    private List<Reservation> reservations;
-
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "seat_row_id")
     private SeatRow seatRow;
 }
