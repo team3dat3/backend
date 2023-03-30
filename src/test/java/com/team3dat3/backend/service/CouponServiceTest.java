@@ -55,7 +55,7 @@ public class CouponServiceTest {
 
     @Test
     void testCreate() {
-        CouponRequest couponRequest = new CouponRequest("testCoupon", "user", 0, 0);
+        CouponRequest couponRequest = new CouponRequest("testCoupon", "user1", 0, 0);
         CouponResponse couponResponse = couponService.create(couponRequest);
         assertNotEquals(0, couponResponse.getId());
     }
