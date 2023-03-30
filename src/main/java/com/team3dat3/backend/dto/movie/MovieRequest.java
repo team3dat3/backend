@@ -29,6 +29,7 @@ public class MovieRequest {
   private String description;
   private List <String> genre;
   private String runtime;
+  private String poster;
 
 public static Movie getMovieEntity(MovieRequest m){
 return Movie.builder().title(m.getTitle())
@@ -39,6 +40,7 @@ return Movie.builder().title(m.getTitle())
     .description(m.getDescription())
     .genre(m.getGenre())
     .runtime(m.getRuntime())
+    .poster(m.getPoster())
     .build();
 
 }
@@ -52,6 +54,7 @@ return Movie.builder().title(m.getTitle())
     movie.setDescription(description);
     movie.setGenre(genre);
     movie.setRuntime(runtime);
+    movie.setPoster(poster);
   }
 
   public MovieRequest(Movie m) {
@@ -63,7 +66,7 @@ return Movie.builder().title(m.getTitle())
     this.description = m.getDescription();
     this.genre = m.getGenre();
     this.runtime = m.getRuntime();
-
+    this.poster = m.getPoster();
   }
 
 }

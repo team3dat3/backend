@@ -29,6 +29,7 @@ public class Movie {
   @ElementCollection
   private List <String> genre;
   private String runtime;
+  private String poster;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", fetch = FetchType.LAZY)
   private List<Show> shows;

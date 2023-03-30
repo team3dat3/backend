@@ -47,7 +47,7 @@ public class UserController {
     @PostMapping("/register")
     public UserResponse register(@RequestBody UserRequest userRequest) {
         return userService.register(userRequest);
-    }
+    } 
 
     @GetMapping("/member/users")
     public UserResponse findAuthenticatedUser(@AuthenticationPrincipal Jwt jwt) {

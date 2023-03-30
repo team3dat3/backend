@@ -36,6 +36,7 @@ public class ReservationResponse {
   private LocalDateTime showDateTime;
 
   private String theaterName;
+  private String poster;
 
   public ReservationResponse(Reservation reservation) {
     id = reservation.getId();
@@ -43,6 +44,7 @@ public class ReservationResponse {
     username =
       reservation.getUser() != null ? reservation.getUser().getUsername() : "";
     showId = reservation.getShow() != null ? reservation.getShow().getId() : 0;
+    poster = reservation.getShow() != null && reservation.getShow().getMovie() != null ? reservation.getShow().getMovie().getPoster() : "";
     showMovieTitle =
       (
           reservation.getShow() != null &&

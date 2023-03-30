@@ -37,6 +37,7 @@ public class ShowResponse {
 
   private Long theaterId;
   private String theaterName;
+  private String poster;
 
   public ShowResponse(Show show) {
     this.id = show.getId();
@@ -46,5 +47,6 @@ public class ShowResponse {
     this.price = show.getPrice();
     this.showDateTimesIds = show.getShowDates() != null ? show.getShowDates().stream().map(d->d.getDateId()).collect(Collectors.toList()) : new ArrayList<>();
     this.showDateTimes = show.getShowDates() != null ? show.getShowDates().stream().map(d->d.getShowDate()).collect(Collectors.toList()) : new ArrayList<>();
+    this.poster = show.getMovie() != null ? show.getMovie().getPoster() : null;
   }
 }
