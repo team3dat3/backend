@@ -53,10 +53,14 @@ class TheaterControllerTest {
         theaterService = new TheaterService(theaterRepository, seatRowRepository);
         theaterController = new TheaterController(theaterService);
         mockMvc = MockMvcBuilders.standaloneSetup(theaterController).build();
-        theater1 = theaterRepository.save(new Theater());
+        Theater theater1 = new Theater();
+        theater1.setName("Theater1");
         theater1.setSeatRows(new ArrayList<>());
-        theater2 = theaterRepository.save(new Theater());
+        theaterRepository.save(theater1);
+        Theater theater2 = new Theater();
+        theater2.setName("Theater2");
         theater2.setSeatRows(new ArrayList<>());
+        theaterRepository.save(new Theater());
     }
 
     @Test

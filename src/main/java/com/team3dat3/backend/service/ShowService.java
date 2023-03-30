@@ -53,6 +53,7 @@ public class ShowService {
   }
 
   public ShowResponse create(ShowRequest request) {
+    /*
     Show show = ShowRequest.getShowEntity(request);
     show.setMovie(findMovie(request));
     show.setTheater(findTheater(request));
@@ -60,9 +61,14 @@ public class ShowService {
     show.setShowDates(createShowDateTimesFrom(request, show));
     showRepository.save(show);
     return new ShowResponse(show);
+     */
+    Show show = request.toShow();
+    show = showRepository.save(show);
+    return new ShowResponse(show);
   }
 
   public ShowResponse update(ShowRequest request) {
+    /*
     Show foundShow = showRepository.findById(request.getId())
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Show with this id unknown"));
     request.copyTo(foundShow);
@@ -76,6 +82,13 @@ public class ShowService {
       foundShow.setShowDates(oldShowDateTimes);
     }
     return new ShowResponse(showRepository.save(foundShow));
+     */
+
+    Show show = showRepository
+            .findById(request.getId())
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    request.copyTo(show);
+    return new ShowResponse(showRepository.save(show));
   }
 
   public void delete(ShowRequest request) {

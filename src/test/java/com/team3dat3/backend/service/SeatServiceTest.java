@@ -6,10 +6,7 @@ import com.team3dat3.backend.dto.theater.SeatRequest;
 import com.team3dat3.backend.dto.theater.SeatResponse;
 import com.team3dat3.backend.dto.theater.SeatRowRequest;
 import com.team3dat3.backend.dto.theater.SeatRowResponse;
-import com.team3dat3.backend.entity.Seat;
-import com.team3dat3.backend.entity.SeatRow;
-import com.team3dat3.backend.entity.Show;
-import com.team3dat3.backend.entity.User;
+import com.team3dat3.backend.entity.*;
 import com.team3dat3.backend.repository.ReservationRepository;
 import com.team3dat3.backend.repository.SeatRepository;
 import com.team3dat3.backend.repository.SeatRowRepository;
@@ -68,7 +65,7 @@ class SeatServiceTest {
 
     @BeforeEach
     void setUp() {
-        seatService = new SeatService(seatRepository);
+        seatService = new SeatService(seatRepository, seatRowRepository);
         seatRowService = new SeatRowService(seatRowRepository, seatRepository, theaterRepository);
         reservationService = new ReservationService(reservationRepository, userRepository, showRepository);
         seatRow1 = new SeatRow();
@@ -89,13 +86,25 @@ class SeatServiceTest {
         seatRow1.setSeats(Arrays.asList(new Seat(), new Seat()));
         seatRow2.setSeats(Collections.singletonList(new Seat()));
 
+        // Add test theater
+        Theater theater = new Theater(0L, "testTheater", new ArrayList<SeatRow>());
+        theater.getSeatRows().add(seatRow1);
+        theater.getSeatRows().add(seatRow2);
+
+        // Add test theater to seat-rows
+        seatRow1.setTheater(theater);
+        seatRow2.setTheater(theater);
+
+        //Save theater to database
+        theaterRepository.save(theater);
+
         // Save the SeatRow objects to the database
         seatRowResponse1 = seatRowService.create(new SeatRowRequest(seatRow1.getId(), seatRow1.getSeats().stream().map(sr->sr.getId()).toList(), seatRow1.getTheater().getId()));
         seatRowResponse2 = seatRowService.create(new SeatRowRequest(seatRow2.getId(), seatRow2.getSeats().stream().map(sr->sr.getId()).toList(), seatRow1.getTheater().getId()));
 
         // Create Seat objects and save them to the database
-        Seat seat1 = new Seat(0L, null, seatRow1);
-        Seat seat2 = new Seat(1L, null, seatRow2);
+        Seat seat1 = new Seat(0L, seatRow1);
+        Seat seat2 = new Seat(1L, seatRow2);
         seatRepository.save(seat1);
         seatRepository.save(seat2);
     }
@@ -110,7 +119,7 @@ class SeatServiceTest {
     @Test
     void get() {
         SeatRow seatRow1 = new SeatRow();
-        Seat seat = new Seat(0L, null, seatRow1);
+        Seat seat = new Seat(0L, seatRow1);
         Seat savedSeat = seatRepository.save(seat);
 
         SeatResponse response = seatService.get(savedSeat.getId());
@@ -137,7 +146,7 @@ class SeatServiceTest {
     @Test
     void update() {
         SeatRow seatRow1 = new SeatRow();
-        Seat seat = new Seat(4L, null, seatRow1);
+        Seat seat = new Seat(4L, seatRow1);
         Seat savedSeat = seatRepository.save(seat);
 
         //SeatRequest request = new SeatRequest(savedSeat.getId(), savedSeat.getReservations(), savedSeat.getSeatRow());
@@ -157,7 +166,7 @@ class SeatServiceTest {
     @Test
     void delete() {
         SeatRow seatRow1 = new SeatRow();
-        Seat seat = new Seat(6L, null, seatRow1);
+        Seat seat = new Seat(6L, seatRow1);
         Seat savedSeat = seatRepository.save(seat);
 
         //SeatRequest request = new SeatRequest(savedSeat.getId(), null, null);

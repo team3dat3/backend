@@ -4,7 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.team3dat3.backend.api.v1.ShowController;
 import com.team3dat3.backend.dto.show.ShowRequest;
 import com.team3dat3.backend.entity.Show;
+import com.team3dat3.backend.repository.MovieRepository;
+import com.team3dat3.backend.repository.ShowDateTimeRepository;
 import com.team3dat3.backend.repository.ShowRepository;
+import com.team3dat3.backend.repository.TheaterRepository;
 import com.team3dat3.backend.service.ShowService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,6 +35,9 @@ class ShowControllerTest {
 
   @Autowired
   ShowRepository showRepository;
+  MovieRepository movieRepository;
+  TheaterRepository theaterRepository;
+  ShowDateTimeRepository showDateTimeRepository;
 
   ShowService showService;
   ShowController showController;
@@ -43,7 +49,7 @@ class ShowControllerTest {
 
   @BeforeEach
   void beforeEach() {
-    showService = new ShowService(showRepository);
+    showService = new ShowService(showRepository, movieRepository, theaterRepository, showDateTimeRepository);
     showController = new ShowController(showService);
     mockMvc = MockMvcBuilders.standaloneSetup(showController).build();
 

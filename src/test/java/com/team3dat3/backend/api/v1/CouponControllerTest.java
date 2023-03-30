@@ -79,7 +79,7 @@ public class CouponControllerTest {
         CouponRequest couponRequest = new CouponRequest();
         couponRequest.setId(coupon2.getId());
         couponRequest.setName("testName");
-        mockMvc.perform(patch("/v1/admin/coupons")
+        mockMvc.perform(put("/v1/admin/coupons")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(couponRequest)))
                 .andExpect(status().isOk())
@@ -90,7 +90,7 @@ public class CouponControllerTest {
 
     @Test
     void testUse() throws Exception {
-        mockMvc.perform(get("/v1/admin/coupons/" + coupon1.getId() + "/use"))
+        mockMvc.perform(get("/v1/admin/coupons/" + coupon1.getId() + "/scan"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id", is(coupon1.getId())))

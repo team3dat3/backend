@@ -41,9 +41,9 @@ class TheaterServiceTest {
     @BeforeEach
     void setUp() {
         theaterService = new TheaterService(theaterRepository, seatRowRepository);
-        theater1 = theaterRepository.save(new Theater());
+        theater1 = theaterRepository.save(new Theater(0L, "test1"));
         theater1.setSeatRows(new ArrayList<>());
-        theater2 = theaterRepository.save(new Theater());
+        theater2 = theaterRepository.save(new Theater(1L, "test2"));
         theater2.setSeatRows(new ArrayList<>());
     }
 
@@ -65,7 +65,7 @@ class TheaterServiceTest {
     @Test
     void create() {
         List<Long> seatRowIds = theater2.getSeatRows().stream().map(seatRow -> seatRow.getId()).toList();
-        TheaterRequest theaterRequest = new TheaterRequest(0L,
+        TheaterRequest theaterRequest = new TheaterRequest(2L,
                 "new name", seatRowIds);
 
         TheaterResponse theaterResponse = theaterService.create(theaterRequest);

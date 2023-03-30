@@ -83,7 +83,7 @@ public class UserControllerTest {
         UserRequest userRequest = new UserRequest();
         userRequest.setUsername(user1.getUsername());
         userRequest.setEmail("update@Email.com");
-        mockMvc.perform(patch("/v1/admin/users")
+        mockMvc.perform(put("/v1/admin/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(userRequest)))
                 .andExpect(status().isOk())

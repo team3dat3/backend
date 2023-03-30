@@ -42,4 +42,10 @@ public class ShowRequest {
         .price(request.getPrice())
         .build();
   }
+
+  public Show toShow() {
+    Show show = new Show();
+    copyTo(show);
+    return show;
+  }
 }
