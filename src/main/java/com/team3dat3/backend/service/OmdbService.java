@@ -19,7 +19,6 @@ import java.util.List;
 public class OmdbService {
 
 
-
   @Value("${omdb.api.url}")
   private String apiUrl;
 
@@ -27,25 +26,23 @@ public class OmdbService {
   private String apiKey;
 
 
-
   public List<OmdbResponse> lookupAPI(String title) {
 
     List<OmdbResponse> responses = new ArrayList<>();
     try {
-      URL url = new URL(String.format("%s?apikey=%s&t=%s", apiUrl, apiKey, title));
+      URL url = new URL(String.format("%s?apikey=%s&s=%s", apiUrl, apiKey, title));
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
       connection.setRequestProperty("Content-Type", "application/json");
       InputStream responseStream = connection.getInputStream();
 
       ObjectMapper objectMapper = new ObjectMapper();
       JsonNode rootNode = objectMapper.readTree(responseStream);
-
-      if (rootNode.has("Error")) {
+      if (rootNode.get("Error") != null) { // check for the 'Error' field directly
         throw new IOException(rootNode.get("Error").asText());
       }
 
-      OmdbResponse response = parseJsonResponse(rootNode.toString());
-      responses.add(response);
+      responses = parseJsonResponseSearch(rootNode.toString());
+
 
     } catch (MalformedURLException e) {
       e.printStackTrace();
@@ -91,18 +88,44 @@ public class OmdbService {
     ObjectMapper objectMapper = new ObjectMapper();
     JsonNode rootNode = objectMapper.readTree(json);
 
+
     String title = rootNode.get("Title").asText();
     String director = rootNode.get("Director").asText();
     String actors = rootNode.get("Actors").asText();
     int year = rootNode.get("Year").asInt();
     String rated = rootNode.get("Rated").asText();
     String genre = rootNode.get("Genre").asText();
-    String plot = rootNode.get("Plot").asText();
+    String description = rootNode.get("Plot").asText();
     String runtime = rootNode.get("Runtime").asText();
     String poster = rootNode.get("Poster").asText();
     String imdbId = rootNode.get("imdbID").asText();
-
-
-    return new OmdbResponse(title, director, actors, year, rated, genre, plot, runtime, poster, imdbId);
+    return new OmdbResponse(title, director, actors, year, rated, genre, description, runtime, poster, imdbId);
   }
-}
+
+  public List<OmdbResponse> parseJsonResponseSearch(String json) throws IOException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    JsonNode rootNode = objectMapper.readTree(json);
+    List<OmdbResponse> omdbResponseList = new ArrayList<>();
+
+    JsonNode searchResultsNode = rootNode.get("Search");
+    if (searchResultsNode.isArray()) {
+      for (JsonNode resultNode : searchResultsNode) {
+        String title = resultNode.get("Title").asText();
+        String director = resultNode.get("Director") != null ? resultNode.get("Director").asText() : "";
+        String actors = resultNode.get("Actors") != null ? resultNode.get("Actors").asText() : "";
+        int year = resultNode.get("Year").asInt();
+        String rated = resultNode.get("Rated") != null ? resultNode.get("Rated").asText() : "";
+        String genre = resultNode.get("Genre") != null ? resultNode.get("Genre").asText() : "";
+        String description = resultNode.get("Plot") != null ? resultNode.get("Plot").asText() : "";
+        String runtime = resultNode.get("Runtime") != null ? resultNode.get("Runtime").asText() : "";
+        String poster = resultNode.get("Poster").asText();
+        String imdbId = resultNode.get("imdbID").asText();
+        OmdbResponse omdbResponse = new OmdbResponse(title, director, actors, year, rated, genre, description, runtime, poster, imdbId);
+        omdbResponseList.add(omdbResponse);
+      }
+    }
+    return omdbResponseList;
+  }
+
+  }
+
