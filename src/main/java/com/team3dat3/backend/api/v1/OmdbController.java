@@ -19,7 +19,6 @@ public class OmdbController {
 
   @GetMapping("/admin/omdb/search/{title}")
  public List<OmdbResponse> getMovieList(@PathVariable String title){
-    System.out.println("test1");
    return omdbService.lookupAPI(title);
  }
 

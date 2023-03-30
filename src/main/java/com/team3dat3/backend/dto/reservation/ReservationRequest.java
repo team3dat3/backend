@@ -26,6 +26,10 @@ public class ReservationRequest {
     private int showId;
     private String username;
 
+    private List<Long> seatIds;
+
+    private Long showDateId;
+
     public void copyTo(Reservation reservation) {
         reservation.setId(id);
         reservation.setCheckedIn(checkedIn);

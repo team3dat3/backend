@@ -4,13 +4,16 @@ import com.team3dat3.backend.dto.theater.SeatRequest;
 import com.team3dat3.backend.dto.theater.SeatResponse;
 import com.team3dat3.backend.entity.Seat;
 import com.team3dat3.backend.entity.SeatRow;
+import com.team3dat3.backend.entity.Theater;
 import com.team3dat3.backend.repository.SeatRepository;
 import com.team3dat3.backend.repository.SeatRowRepository;
 
+import com.team3dat3.backend.repository.TheaterRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,10 +27,13 @@ public class SeatService {
 
     private final SeatRepository seatRepository;
     private final SeatRowRepository seatRowRepository;
+    private final TheaterRepository theaterRepository;
 
-    public SeatService(SeatRepository seatRepository, SeatRowRepository seatRowRepository) {
+    public SeatService(SeatRepository seatRepository, SeatRowRepository seatRowRepository,
+                       TheaterRepository theaterRepository) {
         this.seatRepository = seatRepository;
         this.seatRowRepository = seatRowRepository;
+        this.theaterRepository = theaterRepository;
     }
 
     public List<SeatResponse> getAll() {
@@ -76,5 +82,19 @@ public class SeatService {
 
     private SeatRow findSeatRow(Long id) {
         return seatRowRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    public List<SeatResponse> findByTheaterId(Long theaterId){
+
+        List<SeatRow> seatRows = seatRowRepository.findByTheaterId(theaterId);
+        List<Seat> seats = new ArrayList<>();
+
+        for (SeatRow seatRow: seatRows) {
+            List<Seat> seats1 = seatRepository.findSeatsBySeatRowId(seatRow.getId());
+            seats.addAll(seats1);
+        }
+        return seats.stream()
+            .map(SeatResponse::new)
+            .collect(Collectors.toList());
     }
 }

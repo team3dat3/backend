@@ -53,4 +53,11 @@ public class ShowDateTimeService {
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     showDateTimeRepository.delete(showDateTime);
   }
+
+  public List<ShowDateTimeResponse> findShowDatesShow(int id) {
+    List<ShowDateTime> allShowDates = showDateTimeRepository.findShowDatesShow(id);
+    List<ShowDateTimeResponse> showDateTimeResponses = allShowDates.stream().map(s->new ShowDateTimeResponse(s)).collect(Collectors.toList());
+    return showDateTimeResponses;
+  }
+
 }
