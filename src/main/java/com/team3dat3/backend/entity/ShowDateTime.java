@@ -26,4 +26,9 @@ public class ShowDateTime {
 
   @ManyToOne
   private Show show;
+
+  public ShowDateTime(LocalDateTime showDate, Show show) {
+    this.showDate = showDate;
+    this.show = show;
+  }
 }

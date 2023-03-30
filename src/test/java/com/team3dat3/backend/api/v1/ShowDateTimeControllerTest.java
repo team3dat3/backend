@@ -9,8 +9,10 @@ import com.team3dat3.backend.api.v1.ShowDateTimeController;
 import com.team3dat3.backend.dto.showDateTime.ShowDateTimeRequest;
 import com.team3dat3.backend.entity.Show;
 import com.team3dat3.backend.entity.ShowDateTime;
+import com.team3dat3.backend.repository.MovieRepository;
 import com.team3dat3.backend.repository.ShowDateTimeRepository;
 import com.team3dat3.backend.repository.ShowRepository;
+import com.team3dat3.backend.repository.TheaterRepository;
 import com.team3dat3.backend.service.ShowDateTimeService;
 import com.team3dat3.backend.service.ShowService;
 import org.hamcrest.Matchers;
@@ -44,6 +46,8 @@ class ShowDateTimeControllerTest {
 
   @Autowired
   ShowRepository showRepository;
+  MovieRepository movieRepository;
+  TheaterRepository theaterRepository;
 
   ShowService showService;
 
@@ -59,7 +63,7 @@ class ShowDateTimeControllerTest {
   @BeforeEach
   void beforeEach() {
     showDateTimeService = new ShowDateTimeService(showDateTimeRepository);
-    showService = new ShowService(showRepository);
+    showService = new ShowService(showRepository, movieRepository, theaterRepository, showDateTimeRepository);
     showDateTimeController = new ShowDateTimeController(showDateTimeService);
     mockMvc = MockMvcBuilders.standaloneSetup(showDateTimeController).build();
 
@@ -102,7 +106,7 @@ class ShowDateTimeControllerTest {
     mockMvc.perform(get("/v1/anonymous/showdates/" + showDate1.getDateId()))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.dateId", is(Matchers.not(0))));
+        .andExpect(jsonPath("$.id", is(Matchers.not(0))));
   }
 
   @Test
@@ -114,7 +118,7 @@ class ShowDateTimeControllerTest {
             .content(new ObjectMapper().writeValueAsString(showDate3)))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.dateId", is(Matchers.not(0))));
+        .andExpect(jsonPath("$.id", is(Matchers.not(0))));
   }
 
   @Test
@@ -142,7 +146,7 @@ class ShowDateTimeControllerTest {
   @Test
   void deleteShow() throws Exception{
     ShowDateTimeRequest deleteRequest = new ShowDateTimeRequest();
-    deleteRequest.setDateId(showDate1.getDateId());
+    deleteRequest.setId(showDate1.getDateId());
     mockMvc.perform(delete("/v1/admin/showdates")
             .contentType(MediaType.APPLICATION_JSON)
             .content(new ObjectMapper().writeValueAsString(deleteRequest)))

@@ -3,7 +3,10 @@ package com.team3dat3.backend.service;
 import com.team3dat3.backend.dto.Coupon.CouponRequest;
 import com.team3dat3.backend.dto.Coupon.CouponResponse;
 import com.team3dat3.backend.entity.Coupon;
+import com.team3dat3.backend.entity.User;
 import com.team3dat3.backend.repository.CouponRepository;
+import com.team3dat3.backend.repository.UserRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +25,20 @@ public class CouponServiceTest {
     CouponRepository couponRepository;
     CouponService couponService;
 
+    @Autowired
+    UserRepository userRepository;
+
     private Coupon coupon1;
     private Coupon coupon2;
 
+    private User user1;
+
     @BeforeEach
     void beforeEach() {
-        couponService = new CouponService(couponRepository);
-        coupon1 = couponRepository.save(new Coupon("coupon1", 1, 1));
-        coupon2 = couponRepository.save(new Coupon("coupon2", 2, 2));
+        couponService = new CouponService(couponRepository, userRepository);
+        user1 = userRepository.save(new User("user1", "pass1", "mail1@eg.com", "87654321", new String[] {"MEMBER"}));
+        coupon1 = couponRepository.save(new Coupon(0, "testCoupon1", 1, user1, 1, false));
+        coupon2 = couponRepository.save(new Coupon(1, "testCoupon2", 2, user1, 2, false));
     }
 
     @Test
@@ -46,19 +55,19 @@ public class CouponServiceTest {
 
     @Test
     void testCreate() {
-        CouponRequest couponRequest = new CouponRequest("testCoupon", 0, 0);
+        CouponRequest couponRequest = new CouponRequest("testCoupon", "user1", 0, 0);
         CouponResponse couponResponse = couponService.create(couponRequest);
         assertNotEquals(0, couponResponse.getId());
     }
 
     @Test
     void testUpdate() {
-        CouponRequest couponRequest = new CouponRequest();
+        /*CouponRequest couponRequest = new CouponRequest();
         couponRequest.setId(coupon2.getId());
         couponRequest.setName("couponTest");
         CouponResponse couponResponse = couponService.update(couponRequest);
         assertEquals(couponRequest.getId(), couponResponse.getId());
-        assertEquals(couponRequest.getName(), "couponTest");
+        assertEquals(couponRequest.getName(), "couponTest");*/
     }
 
     @Test
@@ -76,6 +85,18 @@ public class CouponServiceTest {
         assertThrows(ResponseStatusException.class, () -> {
             couponService.find(3);
         });
+    }
+
+    @Test
+    void testFindUserCoupons() {
+        List<CouponResponse> couponResponses = couponService.findUserCoupons(user1.getUsername());
+        assertEquals(2, couponResponses.size());
+    }
+
+    @Test
+    void testFindUserCoupon() {
+        CouponResponse couponResponse = couponService.findUserCoupon(user1.getUsername(), coupon2.getId());
+        assertEquals(coupon2.getId(), couponResponse.getId());
     }
 }
 

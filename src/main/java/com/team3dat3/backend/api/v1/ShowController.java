@@ -32,7 +32,7 @@ public class ShowController {
   @PostMapping("/admin/shows")
   ShowResponse create(@RequestBody ShowRequest body){return showService.create(body);}
 
-  @PatchMapping("/admin/shows")
+  @PutMapping("/admin/shows")
   ShowResponse update(@RequestBody ShowRequest body){return showService.update(body);}
 
   @DeleteMapping("/admin/shows")

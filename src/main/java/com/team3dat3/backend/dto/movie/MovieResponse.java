@@ -23,21 +23,21 @@ public class MovieResponse {
   private String director;
   private String actors;
   private int prodYear;
-  private int ageLimit;
+  private String rated;
   private String description;
   private List <String> genre;
   private String runtime;
-  private List<Show> shows;
+  private String poster;
 
   public MovieResponse(Movie m) {
     this.title = m.getTitle();
     this.director = m.getDirector();
     this.actors = m.getActors();
     this.prodYear = m.getProdYear();
-    this.ageLimit = m.getAgeLimit();
+    this.rated = m.getRated();
     this.description = m.getDescription();
     this.genre = m.getGenre();
     this.runtime = m.getRuntime();
-    this.shows = m.getShows();
+    this.poster = m.getPoster();
   }
 }

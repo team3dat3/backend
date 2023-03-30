@@ -30,10 +30,14 @@ public class ShowDateTimeController {
   @GetMapping("/anonymous/showdates/{id}")
   ShowDateTimeResponse getShowDatesById(@PathVariable int id){return showDateTimeService.find(id);}
 
+  @GetMapping("/anonymous/showdates/{id}/show")
+  List<ShowDateTimeResponse> findShowDatesShow(@PathVariable int id){return showDateTimeService.findShowDatesShow(id);}
+
+
   @PostMapping("/admin/showdates")
   ShowDateTimeResponse create(@RequestBody ShowDateTimeRequest body){return showDateTimeService.create(body);}
 
-  @PatchMapping("/admin/showdates")
+  @PutMapping("/admin/showdates")
   ShowDateTimeResponse update(@RequestBody ShowDateTimeRequest body){return showDateTimeService.update(body);}
 
   @DeleteMapping("/admin/showdates")

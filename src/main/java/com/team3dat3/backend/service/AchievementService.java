@@ -45,10 +45,10 @@ public class AchievementService {
     }
 
     public AchievementResponse create(AchievementRequest achievementRequest) {
-        Achievement achievement = achievementRepository.save(
-                achievementRequest.toAchievement()
-        );
-        return new AchievementResponse(achievementRepository.save(achievement));
+        Achievement achievement = achievementRequest.toAchievement();
+        achievement.setUser(findUser(achievementRequest.getUsername()));
+        achievement = achievementRepository.save(achievement);
+        return new AchievementResponse(achievement);
     }
 
     public AchievementResponse update(AchievementRequest achievementRequest) {
@@ -56,6 +56,7 @@ public class AchievementService {
                 .findById(achievementRequest.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         achievementRequest.copyTo(achievement);
+        achievement.setUser(findUser(achievementRequest.getUsername()));
         return new AchievementResponse(achievementRepository.save(achievement));
     }
 
@@ -68,7 +69,7 @@ public class AchievementService {
 
     public UserResponse initiateAchievements(String username) {
         //User user = Optional.ofNullable(userRepository.findById(id)).orElse(new User());
-        User user = userRepository.findById(username).get();
+        User user = findUser(username);
         System.out.println("initiating achievements on user with username: " + user.getUsername());
         if (user.getAchievements() == null) {
             user.setAchievements(new ArrayList<>());
@@ -97,5 +98,26 @@ public class AchievementService {
         } else if (user.getReservations().size() >= 100) {
             user.getAchievements().get(5).setUnlocked(true);
         }
+    }
+
+    public List<AchievementResponse> findUserAchievements(String username) {
+        return achievementRepository
+            .findUserAchievements(username)
+            .stream()
+            .map(a->new AchievementResponse(a))
+            .collect(Collectors.toList());
+    }
+
+    public AchievementResponse findUserAchievement(String username, int id) {
+        Achievement achievement = achievementRepository
+            .findUserAchievement(username, id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return new AchievementResponse(achievement);
+    }
+
+    private User findUser(String username) {
+        return userRepository
+            .findById(username)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 }

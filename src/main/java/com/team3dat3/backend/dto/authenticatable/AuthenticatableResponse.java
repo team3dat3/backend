@@ -21,19 +21,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AuthenticatableResponse {
 
-    private String username;
-    private String password;
+    protected String username;
 
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isCredentialsNonExpired = true;
     private boolean isEnabled = true;
 
-    private List<String> roles;
+    protected List<String> roles;
 
     public AuthenticatableResponse(Authenticatable authenticatableser) {
         username = authenticatableser.getUsername();
-        password = authenticatableser.getPassword();
         isAccountNonExpired = authenticatableser.isAccountNonExpired();
         isAccountNonLocked = authenticatableser.isAccountNonLocked();
         isCredentialsNonExpired = authenticatableser.isCredentialsNonExpired();

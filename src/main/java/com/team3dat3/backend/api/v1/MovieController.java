@@ -35,8 +35,10 @@ public class MovieController {
   @PostMapping("/admin/movies")
   MovieResponse addMovie(@RequestBody MovieRequest body){return movieService.addMovie(body);}
 
-  @PatchMapping("/admin/movies")
-  MovieResponse editMovie(@RequestBody MovieRequest body){return movieService.update(body);}
+  @PutMapping("/admin/movies")
+  MovieResponse editMovie(@RequestBody MovieRequest body) {
+    return movieService.update(body);
+  }
 
   @DeleteMapping("/admin/movies")
   void delete(@RequestBody MovieRequest body) {

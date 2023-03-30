@@ -11,14 +11,14 @@ import lombok.*;
 @AllArgsConstructor
 public class AchievementResponse {
     private int id;
-    private User user;
+    private String username;
     private String name;
     private String description;
     private boolean unlocked;
 
     public AchievementResponse(Achievement achievement){
         this.id = achievement.getId();
-        this.user = achievement.getUser();
+        this.username = achievement.getUser() != null ? achievement.getUser().getUsername() : "";
         this.name = achievement.getName();
         this.description = achievement.getDescription();
         this.unlocked = achievement.isUnlocked();

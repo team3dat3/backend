@@ -16,14 +16,13 @@ import java.util.List;
 
 @Entity
 public class Seat {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @ManyToMany
-    private List<Reservation> reservations;
 
-    @ManyToOne
-    //@JoinColumn(name = "seat_row_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "seat_row_id")
     private SeatRow seatRow;
 }

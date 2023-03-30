@@ -47,7 +47,7 @@ public class UserControllerTest {
 
     @Test
     void testFindAll() throws Exception {
-        mockMvc.perform(get("/v1/anonymous/users"))
+        mockMvc.perform(get("/v1/admin/users"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(2)));
@@ -56,11 +56,11 @@ public class UserControllerTest {
 
     @Test
     void testFind() throws Exception {
-        mockMvc.perform(get("/v1/anonymous/users/" + user1.getUsername()))
+        mockMvc.perform(get("/v1/admin/users/" + user1.getUsername()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.username", is(user1.getUsername())));
-    }
+    } 
 
     @Test
     void testCreate() throws Exception {
@@ -70,7 +70,7 @@ public class UserControllerTest {
         userRequest.setPassword("testPassword");
         userRequest.setPhoneNumber("testPhoneNumber");
         userRequest.setRoles(Arrays.asList("MEMBER"));
-        mockMvc.perform(post("/v1/anonymous/users")
+        mockMvc.perform(post("/v1/admin/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(userRequest)))
                 .andExpect(status().isOk())
@@ -83,7 +83,7 @@ public class UserControllerTest {
         UserRequest userRequest = new UserRequest();
         userRequest.setUsername(user1.getUsername());
         userRequest.setEmail("update@Email.com");
-        mockMvc.perform(patch("/v1/admin/users")
+        mockMvc.perform(put("/v1/admin/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper().writeValueAsString(userRequest)))
                 .andExpect(status().isOk())

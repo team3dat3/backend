@@ -65,7 +65,7 @@ public class ReservationController {
         return reservationService.create(reservationRequest);
     }
 
-    @PatchMapping("/admin/reservations")
+    @PutMapping("/admin/reservations")
     public ReservationResponse update(@RequestBody ReservationRequest reservationRequest) {
         return reservationService.update(reservationRequest);
     }

@@ -30,12 +30,18 @@ public class SeatController {
         return seatService.get(id);
     }
 
+    @GetMapping("/anonymous/seats/{id}/theater")
+    public List<SeatResponse> findByTheaterId(@PathVariable("id") Long id) {
+        return seatService.findByTheaterId(id);
+    }
+
+
     @PostMapping("/admin/seats")
     public SeatResponse create(@RequestBody SeatRequest seatRequest) {
         return seatService.create(seatRequest);
     }
 
-    @PatchMapping("/admin/seats")
+    @PutMapping("/admin/seats")
     public SeatResponse update(@RequestBody SeatRequest seatRequest) {
         return seatService.update(seatRequest);
     }

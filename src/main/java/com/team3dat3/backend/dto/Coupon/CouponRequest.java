@@ -10,38 +10,41 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CouponRequest {
+
     private int id;
     private String name;
     private double discount;
-    private User user;
+    private String username;
     private double cost;
     private boolean used;
 
-    public static Coupon getFromCouponRequest(CouponRequest cr){
-        return Coupon.builder()
-                .name(cr.name)
-                .discount(cr.discount)
-                .user(cr.user)
-                .cost(cr.cost)
-                .build();
+    public static Coupon getFromCouponRequest(CouponRequest cr) {
+        return Coupon
+        .builder()
+        .name(cr.name)
+        .discount(cr.discount)
+        .cost(cr.cost)
+        .build();
     }
 
-    public void copyTo(Coupon coupon){
+    public void copyTo(Coupon coupon) {
         coupon.setId(id);
         coupon.setName(name);
         coupon.setDiscount(discount);
-        coupon.setUser(user);
         coupon.setCost(cost);
+        coupon.setUsed(used);
     }
 
-    public Coupon toCoupon(){
-        return new Coupon(id, name, discount, user, cost, used);
+    public Coupon toCoupon() {
+        Coupon coupon = new Coupon();
+        copyTo(coupon);
+        return coupon;
     }
 
-    public CouponRequest(String name, double discount, double cost){
+    public CouponRequest(String name, String username, double discount, double cost) {
         this.name = name;
         this.discount = discount;
-        this.user = user;
+        this.username = username;
         this.cost = cost;
     }
 }

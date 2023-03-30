@@ -5,10 +5,7 @@ import com.team3dat3.backend.entity.Achievement;
 import com.team3dat3.backend.entity.Coupon;
 import com.team3dat3.backend.entity.Reservation;
 import com.team3dat3.backend.entity.User;
-
 import lombok.*;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -17,37 +14,37 @@ import java.util.List;
 public class UserRequest extends AuthenticatableRequest {
 
     /* Derived from AuthenticatableRequest
-    @Id
-    private int id;
-    private String username;
+        private int id;
+        private String username;
+        private String password;
     */
 
     private String email;
     private String phoneNumber;
-    private List<Achievement> achievements;
-    private List<Reservation> reservations;
-    private List<Coupon> coupons;
 
-    public UserRequest(User user){
+    //private List<Achievement> achievements;
+    //private List<Reservation> reservations;
+    //private List<Coupon> coupons;
+
+    public UserRequest(User user) {
         super(user);
         this.email = user.getEmail();
         this.phoneNumber = user.getPhoneNumber();
-        this.achievements = user.getAchievements();
-        this.reservations = user.getReservations();
-        this.coupons = user.getCoupons();
+        //this.achievements = user.getAchievements();
+        //this.reservations = user.getReservations();
+        //this.coupons = user.getCoupons();
     }
 
-    public void copyTo(User user){
+    public void copyTo(User user) {
         super.copyTo(user);
-        user.setUsername(username);
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
-        user.setAchievements(achievements);
-        user.setReservations(reservations);
-        user.setCoupons(coupons);
+        //user.setAchievements(achievements);
+        //user.setReservations(reservations);
+        //user.setCoupons(coupons);
     }
 
-    public User toUser(){
+    public User toUser() {
         User user = new User();
         copyTo(user);
         return user;

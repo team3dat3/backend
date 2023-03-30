@@ -15,10 +15,16 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.team3dat3.backend.dto.reservation.*;
 import com.team3dat3.backend.entity.Reservation;
+import com.team3dat3.backend.entity.Seat;
 import com.team3dat3.backend.entity.Show;
+import com.team3dat3.backend.entity.ShowDateTime;
+import com.team3dat3.backend.entity.Theater;
 import com.team3dat3.backend.entity.User;
 import com.team3dat3.backend.repository.ReservationRepository;
+import com.team3dat3.backend.repository.SeatRepository;
+import com.team3dat3.backend.repository.ShowDateTimeRepository;
 import com.team3dat3.backend.repository.ShowRepository;
+import com.team3dat3.backend.repository.TheaterRepository;
 import com.team3dat3.backend.repository.UserRepository;
 
 @Service
@@ -27,14 +33,23 @@ public class ReservationService {
     private ReservationRepository reservationRepository;
     private UserRepository userRepository;
     private ShowRepository showRepository;
+    private SeatRepository seatRepository;
+    private TheaterRepository theaterRepository;
+    private ShowDateTimeRepository showDateTimeRepository;
 
     public ReservationService(
         ReservationRepository reservationRepository,
         UserRepository userRepository,
-        ShowRepository showRepository) {
+        ShowRepository showRepository,
+        TheaterRepository theaterRepository,
+        SeatRepository seatRepository,
+        ShowDateTimeRepository showDateTimeRepository) {
         this.reservationRepository = reservationRepository;
         this.userRepository = userRepository;
         this.showRepository = showRepository;
+        this.theaterRepository = theaterRepository;
+        this.seatRepository = seatRepository;
+        this.showDateTimeRepository = showDateTimeRepository;
     }
 
     public List<ReservationResponse> findAll() {
@@ -67,6 +82,8 @@ public class ReservationService {
         Reservation reservation = reservationRequest.toReservation();
         reservation.setUser(user);
         reservation.setShow(show);
+        reservation.setSeats(findSeats(reservationRequest.getSeatIds()));
+        reservation.setShowDateTime(findShowDateTime(reservationRequest.getShowDateId()));
         reservation = reservationRepository.save(reservation);
         return new ReservationResponse(reservation);
     }
@@ -110,6 +127,16 @@ public class ReservationService {
     private Show findShow(int id) {
         return showRepository
             .findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    private List<Seat> findSeats(List<Long> seatIds) {
+        return seatRepository.findAllById(seatIds);
+    }
+
+    private ShowDateTime findShowDateTime(int showDateTimeId) {
+        return showDateTimeRepository
+            .findById(showDateTimeId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 }

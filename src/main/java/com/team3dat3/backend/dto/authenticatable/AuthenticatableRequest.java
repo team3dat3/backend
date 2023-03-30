@@ -1,5 +1,6 @@
 package com.team3dat3.backend.dto.authenticatable;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.team3dat3.backend.entity.Authenticatable;
@@ -24,26 +25,23 @@ public class AuthenticatableRequest {
     protected String username;
     protected String password;
 
-    protected boolean isAccountNonExpired = true;
-    protected boolean isAccountNonLocked = true;
-    protected boolean isCredentialsNonExpired = true;
-    protected boolean isEnabled = true;
-
     protected List<String> roles;
+
+    private boolean isAccountNonExpired = true;
+    private boolean isAccountNonLocked = true;
+    private boolean isCredentialsNonExpired = true;
+    private boolean isEnabled = true;
 
     public AuthenticatableRequest(Authenticatable authenticatable) {
         username = authenticatable.getUsername();
         password = authenticatable.getPassword();
-        isAccountNonExpired = authenticatable.isAccountNonExpired();
-        isAccountNonLocked = authenticatable.isAccountNonLocked();
-        isCredentialsNonExpired = authenticatable.isCredentialsNonExpired();
-        isEnabled = authenticatable.isEnabled();
         roles = authenticatable.getRoles();
     }
 
     public Authenticatable toAuthenticatable() {
-        return new Authenticatable(username, password, isAccountNonExpired, isAccountNonLocked, 
-            isCredentialsNonExpired, isEnabled, roles);
+        Authenticatable authenticatable = new Authenticatable();
+        copyTo(authenticatable);
+        return authenticatable;
     }
 
     public void copyTo(Authenticatable authenticatable) {

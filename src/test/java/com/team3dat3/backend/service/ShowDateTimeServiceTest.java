@@ -59,7 +59,7 @@ class ShowDateTimeServiceTest {
   @Test
   void find() {
     ShowDateTimeResponse findShowDate = showDateTimeService.find(showDate1.getDateId());
-    assertEquals(showDate1.getDateId(), findShowDate.getDateId());
+    assertEquals(showDate1.getDateId(), findShowDate.getId());
   }
 
   @Test
@@ -80,7 +80,7 @@ class ShowDateTimeServiceTest {
 
     showDateTimeRepository.save(showDate4);
     ShowDateTimeRequest show4 = ShowDateTimeRequest.builder()
-        .dateId(showDate4.getDateId())
+        .id(showDate4.getDateId())
         .showDate(LocalDateTime.now())
         .build();
     showDateTimeService.update(show4);
@@ -95,7 +95,7 @@ class ShowDateTimeServiceTest {
         .build();
     showDateTimeRepository.save(showDateTime5);
     ShowDateTimeRequest showDateDelete = ShowDateTimeRequest.builder()
-        .dateId(showDateTime5.getDateId())
+        .id(showDateTime5.getDateId())
         .build();
     showDateTimeService.delete(showDateDelete);
     assertThrows(ResponseStatusException.class, () -> {

@@ -24,11 +24,12 @@ public class Movie {
   private String director;
   private String actors;
   private int prodYear;
-  private int ageLimit;
+  private String rated;
   private String description;
   @ElementCollection
   private List <String> genre;
   private String runtime;
+  private String poster;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie", fetch = FetchType.LAZY)
   private List<Show> shows;

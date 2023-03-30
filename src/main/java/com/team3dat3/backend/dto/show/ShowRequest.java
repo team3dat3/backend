@@ -3,6 +3,7 @@ package com.team3dat3.backend.dto.show;
 import com.team3dat3.backend.entity.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /*
@@ -20,33 +21,31 @@ public class ShowRequest {
 
   private int id;
 
-  private Movie movie;
+  private String movieTitle;
 
-  private List<Reservation> reservations;
+  private List<Integer> showDateTimesIds;
 
-  private List<ShowDateTime> showDates;
+  private List<LocalDateTime> showDateTimes;
 
   private double price;
 
-  private Theater theater;
+  private Long theaterId;
 
   public void copyTo(Show show) {
     show.setId(id);
-    show.setMovie(movie);
-    show.setReservations(reservations);
-    show.setShowDates(showDates);
     show.setPrice(price);
-    show.setTheater(theater);
   }
 
   public static Show getShowEntity(ShowRequest request) {
     return Show.builder()
         .id(request.getId())
-        .movie(request.getMovie())
-        .reservations(request.getReservations())
-        .showDates(request.getShowDates())
         .price(request.getPrice())
-        .theater(request.getTheater())
         .build();
+  }
+
+  public Show toShow() {
+    Show show = new Show();
+    copyTo(show);
+    return show;
   }
 }
