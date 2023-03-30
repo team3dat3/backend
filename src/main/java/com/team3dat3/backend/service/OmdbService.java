@@ -95,12 +95,11 @@ public class OmdbService {
     int year = rootNode.get("Year").asInt();
     String rated = rootNode.get("Rated").asText();
     String genre = rootNode.get("Genre").asText();
-    String plot = rootNode.get("Plot").asText();
+    String description = rootNode.get("Plot").asText();
     String runtime = rootNode.get("Runtime").asText();
     String poster = rootNode.get("Poster").asText();
     String imdbId = rootNode.get("imdbID").asText();
-
-    return new OmdbResponse(title, director, actors, year, rated, genre, plot, runtime, poster, imdbId);
+    return new OmdbResponse(title, director, actors, year, rated, genre, description, runtime, poster, imdbId);
   }
 
   public List<OmdbResponse> parseJsonResponseSearch(String json) throws IOException {
@@ -117,12 +116,11 @@ public class OmdbService {
         int year = resultNode.get("Year").asInt();
         String rated = resultNode.get("Rated") != null ? resultNode.get("Rated").asText() : "";
         String genre = resultNode.get("Genre") != null ? resultNode.get("Genre").asText() : "";
-        String plot = resultNode.get("Plot") != null ? resultNode.get("Plot").asText() : "";
+        String description = resultNode.get("Plot") != null ? resultNode.get("Plot").asText() : "";
         String runtime = resultNode.get("Runtime") != null ? resultNode.get("Runtime").asText() : "";
         String poster = resultNode.get("Poster").asText();
         String imdbId = resultNode.get("imdbID").asText();
-
-        OmdbResponse omdbResponse = new OmdbResponse(title, director, actors, year, rated, genre, plot, runtime, poster, imdbId);
+        OmdbResponse omdbResponse = new OmdbResponse(title, director, actors, year, rated, genre, description, runtime, poster, imdbId);
         omdbResponseList.add(omdbResponse);
       }
     }

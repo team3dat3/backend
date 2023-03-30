@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,7 +27,7 @@ String rated;
 String genre;
 
 //becomes description
-String plot;
+String description;
 
 String runtime;
 
