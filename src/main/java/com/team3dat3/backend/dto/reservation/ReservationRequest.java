@@ -28,7 +28,7 @@ public class ReservationRequest {
 
     private List<Long> seatIds;
 
-    private Long showDateId;
+    private int showDateId;
 
     public void copyTo(Reservation reservation) {
         reservation.setId(id);
