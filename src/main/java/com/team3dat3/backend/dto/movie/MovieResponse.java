@@ -27,7 +27,6 @@ public class MovieResponse {
   private String description;
   private List <String> genre;
   private String runtime;
-  private List<Show> shows;
 
   public MovieResponse(Movie m) {
     this.title = m.getTitle();
@@ -38,6 +37,5 @@ public class MovieResponse {
     this.description = m.getDescription();
     this.genre = m.getGenre();
     this.runtime = m.getRuntime();
-    this.shows = m.getShows();
   }
 }

@@ -26,16 +26,15 @@ import java.time.LocalDateTime;
 public class ShowDateTimeResponse {
 
   private int id;
-  
-  @JsonFormat(pattern = "dd-mm-yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
+
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
   private LocalDateTime showDate;
 
-  //private Show show;
+  private int showId;
 
   public ShowDateTimeResponse(ShowDateTime showDateTime) {
     this.id = showDateTime.getDateId();
     this.showDate = showDateTime.getShowDate();
-    //this.show = showDateTime.getShow();
-
+    this.showId = showDateTime.getShow() != null ? showDateTime.getShow().getId() : 0;
   }
 }

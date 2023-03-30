@@ -23,24 +23,21 @@ import java.util.List;
 @Builder
 public class ShowDateTimeRequest {
 
-  private int dateId;
+  private int id;
 
-  @JsonFormat(pattern = "dd-mm-yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
   private LocalDateTime showDate;
 
-  private Show show;
+  private int showId;
 
   public void copyTo(ShowDateTime showDateTime) {
-    showDateTime.setDateId(dateId);
+    showDateTime.setDateId(id);
     showDateTime.setShowDate(showDate);
-    showDateTime.setShow(show);
   }
 
   public static ShowDateTime getShowDateTimeEntity(ShowDateTimeRequest request) {
     return ShowDateTime.builder()
-        .dateId(request.getDateId())
+        .dateId(request.getId())
         .showDate(request.getShowDate())
-        .show(request.getShow())
         .build();
   }
 }

@@ -9,28 +9,33 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AchievementRequest {
+
     private int id;
-    private User user;
+    private String username;
     private String name;
     private String description;
     private boolean unlocked;
 
-    public void copyTo(Achievement achievement){
+    public void copyTo(Achievement achievement) {
         achievement.setId(id);
-        achievement.setUser(user);
         achievement.setName(name);
         achievement.setDescription(description);
         achievement.setUnlocked(unlocked);
-
     }
 
-    public Achievement toAchievement()
-    {
-        return new Achievement(id, user, name,description, unlocked);
+    public Achievement toAchievement() {
+        Achievement achievement = new Achievement();
+        copyTo(achievement);
+        return achievement;
     }
 
-    public AchievementRequest(User user, String name, String description, boolean unlocked){
-        this.user = user;
+    public AchievementRequest(
+        User user,
+        String name,
+        String description,
+        boolean unlocked
+    ) {
+        this.username = user != null ? user.getUsername() : "";
         this.name = name;
         this.description = description;
         this.unlocked = unlocked;

@@ -18,16 +18,15 @@ import java.util.stream.Collectors;
 @Getter @Setter
 public class SeatRequest {
     private Long id;
-    private List<Reservation> reservations;
-    private SeatRow seatRows;
+    private Long seatRowId;
 
     public void copy(Seat seat) {
         seat.setId(id);
-        seat.setReservations(reservations);
-        seat.setSeatRow(seatRows);
     }
 
     public Seat toSeat() {
-        return new Seat(id, reservations, seatRows);
+        Seat seat = new Seat();
+        copy(seat);
+        return seat;
     }
 }

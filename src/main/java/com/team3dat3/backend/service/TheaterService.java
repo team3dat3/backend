@@ -45,8 +45,9 @@ public class TheaterService {
     public TheaterResponse create(TheaterRequest theaterRequest) {
         Theater theater = theaterRequest.toTheater();
         List<SeatRow> seatRows = seatRowRepository.findAllById(theaterRequest.getSeatRowIds());
+        updateSeatRows(theater, seatRows);
         theater.setSeatRows(seatRows);
-        theater = theaterRepository.save(theaterRequest.toTheater());
+        theater = theaterRepository.save(theater);
         return new TheaterResponse(theater);
     }
 
@@ -55,7 +56,9 @@ public class TheaterService {
                 .findById(theaterRequest.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         theaterRequest.copy(theater);
+        clearSeatRows(theater); 
         List<SeatRow> seatRows = seatRowRepository.findAllById(theaterRequest.getSeatRowIds());
+        updateSeatRows(theater, seatRows);
         theater.setSeatRows(seatRows);
         return new TheaterResponse(theaterRepository.save(theater));
     }
@@ -65,5 +68,18 @@ public class TheaterService {
                 .findById(theaterRequest.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         theaterRepository.delete(theater);
+    }
+
+    private void clearSeatRows(Theater theater) {
+        List<SeatRow> seatRows = theater.getSeatRows();
+        for (SeatRow seatRow : seatRows) {
+            seatRow.setTheater(null);
+        }
+    }
+
+    private void updateSeatRows(Theater theater, List<SeatRow> seatRows) {
+        for (SeatRow seatRow : seatRows) {
+            seatRow.setTheater(theater);
+        }
     }
 }

@@ -5,8 +5,11 @@ import com.team3dat3.backend.service.AchievementService;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Getter
 @Setter
@@ -40,6 +43,10 @@ public class User extends Authenticatable {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Coupon> coupons;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     public User(String username, String password, String email, String phoneNumber, String[] roles) {
         super(username, password, roles);

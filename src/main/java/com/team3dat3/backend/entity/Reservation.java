@@ -33,6 +33,9 @@ public class Reservation {
     @ManyToOne
     private Show show;
 
+    @OneToOne
+    private ShowDateTime showDateTime;
+
     public Reservation(int id, boolean checkedIn, Show show) {
         this.id = id;
         this.checkedIn = checkedIn;
@@ -42,5 +45,12 @@ public class Reservation {
     public Reservation(User user, Show show) {
         this.user = user;
         this.show = show;
+    }
+
+    public Reservation(User user, Show show, List<Seat> seats, ShowDateTime showDateTime) {
+        this.user = user;
+        this.show = show;
+        this.seats = seats;
+        this.showDateTime = showDateTime;
     }
 }

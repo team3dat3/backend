@@ -18,12 +18,10 @@ import java.util.stream.Collectors;
 @Getter @Setter
 public class SeatResponse {
     private Long id;
-    private List<Reservation> reservations;
-    private SeatRow seatRows;
+    private Long seatRowId;
 
     public SeatResponse(Seat seat) {
         id = seat.getId();
-        reservations = seat.getReservations();
-        seatRows = seat.getSeatRow();
+        seatRowId = seat.getSeatRow() != null ? seat.getSeatRow().getId() : 0;
     }
 }
